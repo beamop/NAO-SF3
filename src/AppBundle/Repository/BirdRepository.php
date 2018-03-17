@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class BirdRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function count(){
+
+        $nb = $this
+            ->createQueryBuilder('b')
+            ->select('count(b) as nb')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $nb;
+
+    }
+
 }
