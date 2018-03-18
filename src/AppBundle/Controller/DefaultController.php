@@ -2,16 +2,18 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Observation;
+use AppBundle\Form\ObservationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Service\ImportTaxRef;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Service\ImportTaxRef;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="nao_accueil")
      */
     public function indexAction(Request $request)
     {
@@ -28,5 +30,30 @@ class DefaultController extends Controller
         $datas = $taxRef->import();
 
         return new Response($datas);
+    }
+
+    /**
+     * @Route("/observation/ajouter", name="nao_observation")
+     */
+    public function ObservationAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $observation = new Observation();
+
+        $form = $this->createForm(ObservationType::class, $observation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($observation);
+            $em->flush();
+
+            return new Response('Données d\'observation envoyées');
+        }
+
+        return $this->render('nao/observation/ajouter.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }
