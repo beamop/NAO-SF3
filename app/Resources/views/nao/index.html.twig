@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Bienvenue sur le site de Nos Amis les Oiseaux !</h1>
+    {% if app.user %}
+        <h2>Bon retour parmis nous {{ app.user.username }}</h2>
+    {% else %}
+        <h2>Non connecté</h2>
+    {% endif %}
+{% endblock %}
