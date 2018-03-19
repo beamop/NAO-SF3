@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Service\ImportTaxRef;
 
-class DefaultController extends Controller
+class NaoController extends Controller
 {
     /**
      * @Route("/", name="nao_accueil")
@@ -33,9 +33,9 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/observation/ajouter", name="nao_observation")
+     * @Route("/observation/ajouter", name="nao_ajouter_observation")
      */
-    public function ObservationAction(Request $request)
+    public function AjouterObservationAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -56,4 +56,14 @@ class DefaultController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Route("/observation", name="nao_observation")
+     */
+    public function Observation()
+    {
+        return $this->render('nao/observation/observation.html.twig');
+    }
+
 }
+
