@@ -17,8 +17,47 @@
     </head>
 <body>
 
-<div class="container">
-{% block content %}{% endblock %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">NAO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/observation">Observer<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/observation/ajouter">Ajouter une observation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/observation/liste">Liste des observations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tableau-de-bord/profile">Tableau de bord</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+          {% if app.user %}
+              <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+              {% else %}
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Vous n'êtes pas connecté
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/register">S'inscrire</a>
+                        <a class="dropdown-item" href="/login">Se connecter</a>
+                    </div>
+                </div>
+          {% endif %}
+        </span>
+    </div>
+</nav>
+
+<div class="container" style="padding: 3rem 1.5rem;text-align: center;">
+    {% block content %}{% endblock %}
 </div>
 
 <!-- Bootstrap core JavaScript -->
