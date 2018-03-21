@@ -73,9 +73,26 @@ class NaoController extends Controller
     /**
      * @Route("/observation", name="nao_observation")
      */
-    public function Observation()
+    public function ObservationAction()
     {
         return $this->render('nao/observation/observation.html.twig');
+    }
+
+
+    /**
+     * @Route("/observation/carte", name="nao_carte_observation")
+     */
+    public function CarteObservationAction()
+    {
+        return $this->render('nao/observation/carte.html.twig');
+    }
+
+    /**
+     * @Route("/observation/json", name="nao_json_observation")
+     */
+    public function JsonObservationAction()
+    {
+        return $this->render('nao/observation/carte.geojson');
     }
 
 }
