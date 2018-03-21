@@ -17,7 +17,6 @@ class NaoController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
         return $this->render('nao/index.html.twig');
     }
 
@@ -54,6 +53,20 @@ class NaoController extends Controller
 
         return $this->render('nao/observation/ajouter.html.twig', array(
             'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/observation/liste", name="nao_liste_observation")
+     */
+    public function ListeObservationAction()
+    {
+        $observations = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAll();
+
+        return $this->render('nao/observation/liste.html.twig', array(
+            'observations' => $observations
         ));
     }
 
