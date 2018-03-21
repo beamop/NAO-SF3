@@ -25,7 +25,7 @@
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/observation">Observer<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -35,6 +35,13 @@
                 <a class="nav-link" href="/observation/liste">Liste des observations</a>
             </li>
         </ul>
+        <span class="navbar-text">
+          {% if app.user %}
+              <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+              {% else %}
+              <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+          {% endif %}
+        </span>
     </div>
 </nav>
 
