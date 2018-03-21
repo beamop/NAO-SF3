@@ -34,12 +34,23 @@
             <li class="nav-item">
                 <a class="nav-link" href="/observation/liste">Liste des observations</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tableau-de-bord/profile">Tableau de bord</a>
+            </li>
         </ul>
         <span class="navbar-text">
           {% if app.user %}
               <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
               {% else %}
-              <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Vous n'êtes pas connecté
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/register">S'inscrire</a>
+                        <a class="dropdown-item" href="/login">Se connecter</a>
+                    </div>
+                </div>
           {% endif %}
         </span>
     </div>

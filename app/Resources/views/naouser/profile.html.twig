@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Votre tableau de bord</h1>
+    <p>Profil
+    {% if is_granted('ROLE_ADMIN') %}
+        administrateur
+        {% elseif is_granted('ROLE_NATURALISTE') %}
+        naturaliste
+        {% elseif is_granted('ROLE_USER') %}
+        particulier
+    {% endif %}
+    </p>
+{% endblock %}
