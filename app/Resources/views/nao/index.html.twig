@@ -3,8 +3,8 @@
 {% block content %}
     <h1>Bienvenue sur le site de Nos Amis les Oiseaux !</h1>
     {% if app.user %}
-        <h2>Bon retour parmis nous {{ app.user.username }}</h2>
+        <h2>Bon retour parmis nous {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></h2>
     {% else %}
-        <h2>Non connecté</h2>
+        <h2>Non connecté - <a href="{{ path('fos_user_security_login') }}">Se connecter</a></h2>
     {% endif %}
 {% endblock %}
