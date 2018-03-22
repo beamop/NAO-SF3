@@ -75,7 +75,13 @@ class NaoController extends Controller
      */
     public function ObservationAction()
     {
-        return $this->render('nao/observation/observation.html.twig');
+        $observations = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAll();
+
+        return $this->render('nao/observation/observation.html.twig', array(
+            'observations' => $observations
+        ));
     }
 
 
