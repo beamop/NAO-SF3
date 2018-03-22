@@ -1,9 +1,69 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="https://unpkg.com/js-datepicker/datepicker.css">
+{% endblock %}
+
 {% block content %}
-    <div class="form-control">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
+    <script src="https://unpkg.com/js-datepicker"></script>
+    {{ form_start(form) }}
+    <h3 class="front-green">Ajouter une observation</h3>
+    <div class="form-group" style="display: flex;flex-wrap: wrap;">
+        <label for="lieu">Lieu</label>
+        {{ form_widget(form.lieu, { 'attr': {'class': 'form-control'} }) }}
+        {% for errorItem in form.lieu.vars.errors %}
+            <span class="help-inline">{{ errorItem.message }}</span>
+        {% endfor %}
     </div>
+
+    <div class="form-group" style="display: flex;flex-wrap: wrap;">
+        <label for="date">Date</label>
+        {{ form_widget(form.date, { 'attr': {'class': 'form-control'} }) }}
+        {% for errorItem in form.date.vars.errors %}
+            <span class="help-inline">{{ errorItem.message }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group" style="display: flex;flex-wrap: wrap;">
+        <label for="espece">Espèce</label>
+        {{ form_widget(form.espece, { 'attr': {'class': 'form-control'} }) }}
+        {% for errorItem in form.espece.vars.errors %}
+            <span class="help-inline">{{ errorItem.message }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group" style="display: flex;flex-wrap: wrap;">
+        <label for="individuals">Nombre d'individus observés</label>
+        {{ form_widget(form.individuals, { 'attr': {'class': 'form-control'} }) }}
+        {% for errorItem in form.individuals.vars.errors %}
+            <span class="help-inline">{{ errorItem.message }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group" style="display: flex;flex-wrap: wrap;">
+        <label for="commentaire">Commentaire</label>
+        {{ form_widget(form.commentaire, { 'attr': {'class': 'form-control'} }) }}
+        {% for errorItem in form.commentaire.vars.errors %}
+            <span class="help-inline">{{ errorItem.message }}</span>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <div class="form-actions">
+        <a class="btn btn-default" href="/observation">Retour à la carte</a>
+        <button type="submit" id="observation_save" class="btn btn-primary">Ajouter l'observation</button>
+    </div>
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    const picker = datepicker(document.querySelector('#observation_date'), {
+        customMonths: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+        customDays: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
+        overlayPlaceholder: 'Année'
+    });
+</script>
 {% endblock %}

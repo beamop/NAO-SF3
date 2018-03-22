@@ -48,7 +48,7 @@ class NaoController extends Controller
             $em->persist($observation);
             $em->flush();
 
-            return new Response('Données d\'observation envoyées');
+            return $this->redirectToRoute('nao_observation');
         }
 
         return $this->render('nao/observation/ajouter.html.twig', array(
