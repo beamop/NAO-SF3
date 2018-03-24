@@ -23,4 +23,21 @@ class BirdRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    /**
+     * Get birds by name
+     *
+     * @param $name
+     * @return array
+     */
+    public function byNomCourant($name)
+    {
+        return $this->createQueryBuilder('b')
+            ->select('b.nomCourant', 'b.nomScientif', 'b.id')
+            //->where('b.nomCourant LIKE :name')->setParameter('name', '%'.$name.'%')
+            ->andWhere('b.nomCourant LIKE :name', 'b.id = b.ref')
+            ->setParameter('name', '%'.$name.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

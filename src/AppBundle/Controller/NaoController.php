@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Service\ImportTaxRef;
+
 
 class NaoController extends Controller
 {
@@ -18,17 +18,6 @@ class NaoController extends Controller
     public function indexAction(Request $request)
     {
         return $this->render('nao/index.html.twig');
-    }
-
-    /**
-     * @Route("/importTaxref", name="importTaxref")
-     */
-    public function importTaxrefAction(Request $request, ImportTaxRef $taxRef)
-    {
-
-        $datas = $taxRef->import();
-
-        return new Response($datas);
     }
 
     /**

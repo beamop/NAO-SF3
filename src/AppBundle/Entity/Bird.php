@@ -17,7 +17,6 @@ class Bird
      *
      * @ORM\Column(name="b_id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
