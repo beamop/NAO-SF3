@@ -21,7 +21,7 @@
 <script>
     var birds = [
         {% for observation in observations %}
-        ["{{ observation.espece }}", {{ observation.lieu }}],
+        ["{{ observation.espece }}", {{ observation.latitude }},{{ observation.longitude }}],
         {% endfor %}
         []
     ];
