@@ -14,9 +14,6 @@ class ObservationType extends AbstractType
     {
         $builder
             ->add('adresse')
-            ->add('zipcode')
-            ->add('ville')
-            ->add('pays')
             ->add('date', Type\DateType::class)
             ->add('espece', Type\TextType::class)
             ->add('individuals', Type\IntegerType::class)
@@ -31,12 +28,8 @@ class ObservationType extends AbstractType
                 $data = $event->getForm()->getData();
 
                 $adresse = $data->getAdresse();
-                $zipcode = $data->getZipcode();
-                $ville = $data->getVille();
-                $pays = $data->getPays();
-                $adresseTot = urlencode($adresse)."+".$zipcode."+".$ville."+".$pays;
                 $apikey = 'AIzaSyB9aZefiyGfTLfqolpIOMny-2Qa3ssDQFE';
-                $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$adresseTot.'&key='.$apikey);
+                $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($adresse).'&key='.$apikey);
                 $output = json_decode($geocode);
                 $latitude = $output->results[0]->geometry->location->lat;
                 $longitude = $output->results[0]->geometry->location->lng;
