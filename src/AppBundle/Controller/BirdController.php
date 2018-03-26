@@ -30,12 +30,12 @@ class BirdController extends Controller
     }
 
     /**
-     * @Route("/bird/search", name="bird.search", methods="GET")
+     * @Route("/bird/search", name="bird.search", methods="POST")
      */
     public function searchBirdByNameAction(Request $request)
     {
         $em             = $this->getDoctrine()->getManager();
-        $name           = $request->query->get('name');
+        $name           = $request->request->get('term');
         $result         = array();
 
         $names   = $em->getRepository('AppBundle:Bird')->byNomCourant($name);
@@ -43,7 +43,8 @@ class BirdController extends Controller
         foreach ($names as $value){
             $result[] = array(
                 'id'    => $value['id'],
-                'name'  => $value['nomCourant'] .' ('.$value['nomScientif'].')',
+                'label'  => $value['nomCourant'] .' ('.$value['nomScientif'].')',
+                'value'    => $value['nomCourant'] .' ('.$value['nomScientif'].')',
             );
         }
 
