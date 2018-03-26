@@ -31,11 +31,16 @@ class ObservationType extends AbstractType
                 $apikey = 'AIzaSyB9aZefiyGfTLfqolpIOMny-2Qa3ssDQFE';
                 $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($adresse).'&key='.$apikey);
                 $output = json_decode($geocode);
-                $latitude = $output->results[0]->geometry->location->lat;
-                $longitude = $output->results[0]->geometry->location->lng;
 
-                $data->setLatitude($latitude);
-                $data->setLongitude($longitude);
+                try {
+                    $latitude = $output->results[0]->geometry->location->lat;
+                    $longitude = $output->results[0]->geometry->location->lng;
+
+                    $data->setLatitude($latitude);
+                    $data->setLongitude($longitude);
+                } catch(\Throwable $e) {
+                    die('Il y a une erreur dans l\'adresse de votre observation, veuillez réessayer.');
+                }
             }
         );
     }
