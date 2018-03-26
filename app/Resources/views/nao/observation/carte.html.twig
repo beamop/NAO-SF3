@@ -19,105 +19,105 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ4SPQ2WYKa4UfnSDzq2XUHkO04KYQQOc"></script>
-<script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobox/src/infobox.js"></script>
-<script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerclustererplus/src/markerclusterer.js"></script>
-<!-- Google Maps -->
-<script>
-    var map = null;
-    //var bounds = new google.maps.LatLngBounds();
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ4SPQ2WYKa4UfnSDzq2XUHkO04KYQQOc"></script>
+    <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobox/src/infobox.js"></script>
+    <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerclustererplus/src/markerclusterer.js"></script>
+    <!-- Google Maps -->
+    <script>
+        var map = null;
+        //var bounds = new google.maps.LatLngBounds();
 
-    var boxText = document.createElement("div");
-    boxText.style.cssText = "border: 1px solid black; margin-left: 25px; margin-top: -50px; background: white; padding: 5px;";
+        var boxText = document.createElement("div");
+        boxText.style.cssText = "border: 1px solid black; margin-left: 25px; margin-top: -50px; background: white; padding: 5px;";
 
-    var infobox = new InfoBox({
-        content: boxText,
-        disableAutoPan: false,
-        maxWidth: 0,
-        pixelOffset: new google.maps.Size(-140, 0),
-        zIndex: null,
-        boxStyle: {
-            //background: "url('tipbox.gif') no-repeat",
-            opacity: 0.75,
-            width: "280px"
-        },
-        //closeBoxMargin: "10px 2px 2px 2px",
-        //closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-        infoBoxClearance: new google.maps.Size(1, 1),
-        isHidden: false,
-        pane: "floatPane",
-        enableEventPropagation: false
-    });
-
-    var markerClusterer = new MarkerClusterer(null,null,{imagePath: "https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m"});
-
-    function initMap() {
-        var mapOptions = {
-            center: new google.maps.LatLng(46.7596, 2.4521),
-            zoom: 6
-        };
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-        markerClusterer.setMap(map);
-
-        google.maps.event.addListener(map.data, 'addfeature', function (e) {
-            if (e.feature.getGeometry().getType() === 'Point') {
-                var marker = new google.maps.Marker({
-                    position: e.feature.getGeometry().get(),
-                    title: e.feature.getProperty('nom'),
-                    map: map
-                });
-                google.maps.event.addListener(marker, 'click', function (marker, e) {
-                    return function () {
-
-                        var myHTML = e.feature.getProperty('nom');
-                        boxText.innerHTML = "<div style='text-align: center;'><b>" + myHTML + "</b></div>";
-                        var myAdresse = e.feature.getProperty('adresse');
-                        boxText.innerHTML += "<div><b>" + myAdresse + "</b></div>";
-                        infobox.setPosition(e.feature.getGeometry().get());
-                        infobox.setOptions({
-                            pixelOffset: new google.maps.Size(0, 0)
-                        });
-                        infobox.open(map);
-                    };
-                }(marker, e));
-                markerClusterer.addMarker(marker);
-                //bounds.extend(e.feature.getGeometry().get());
-                //map.fitBounds(bounds);
-                //map.setCenter(e.feature.getGeometry().get());
-            }
-        });
-        layer = map.data.loadGeoJson('https://www.ldh-france.org/data/carte.geojson');
-        map.data.setMap(null);
-        google.maps.event.addListener(map, "click", function () {
-            infobox.close();
+        var infobox = new InfoBox({
+            content: boxText,
+            disableAutoPan: false,
+            maxWidth: 0,
+            pixelOffset: new google.maps.Size(-140, 0),
+            zIndex: null,
+            boxStyle: {
+                //background: "url('tipbox.gif') no-repeat",
+                opacity: 0.75,
+                width: "280px"
+            },
+            //closeBoxMargin: "10px 2px 2px 2px",
+            //closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+            infoBoxClearance: new google.maps.Size(1, 1),
+            isHidden: false,
+            pane: "floatPane",
+            enableEventPropagation: false
         });
 
-        //tab = markerClusterer.getMarkers();
-        //console.log(typeof tab);
-        map.removeMarkers();
-    }
+        var markerClusterer = new MarkerClusterer(null,null,{imagePath: "https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m"});
+
+        function initMap() {
+            var mapOptions = {
+                center: new google.maps.LatLng(46.7596, 2.4521),
+                zoom: 6
+            };
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            markerClusterer.setMap(map);
+
+            google.maps.event.addListener(map.data, 'addfeature', function (e) {
+                if (e.feature.getGeometry().getType() === 'Point') {
+                    var marker = new google.maps.Marker({
+                        position: e.feature.getGeometry().get(),
+                        title: e.feature.getProperty('nom'),
+                        map: map
+                    });
+                    google.maps.event.addListener(marker, 'click', function (marker, e) {
+                        return function () {
+
+                            var myHTML = e.feature.getProperty('nom');
+                            boxText.innerHTML = "<div style='text-align: center;'><b>" + myHTML + "</b></div>";
+                            var myAdresse = e.feature.getProperty('adresse');
+                            boxText.innerHTML += "<div><b>" + myAdresse + "</b></div>";
+                            infobox.setPosition(e.feature.getGeometry().get());
+                            infobox.setOptions({
+                                pixelOffset: new google.maps.Size(0, 0)
+                            });
+                            infobox.open(map);
+                        };
+                    }(marker, e));
+                    markerClusterer.addMarker(marker);
+                    //bounds.extend(e.feature.getGeometry().get());
+                    //map.fitBounds(bounds);
+                    //map.setCenter(e.feature.getGeometry().get());
+                }
+            });
+            layer = map.data.loadGeoJson('https://www.ldh-france.org/data/carte.geojson');
+            map.data.setMap(null);
+            google.maps.event.addListener(map, "click", function () {
+                infobox.close();
+            });
+
+            //tab = markerClusterer.getMarkers();
+            //console.log(typeof tab);
+            map.removeMarkers();
+        }
 
 
 
-    /**
-     * Function to filter markers by category
-     */
+        /**
+         * Function to filter markers by category
+         */
 
-    filterMarkers = function (category) {
-        for (i = 0; i < markers1.length; i++) {
-            marker = gmarkers1[i];
-            // If is same category or category not picked
-            if (marker.category == category || category.length === 0) {
-                marker.setVisible(true);
-            }
-            // Categories don't match
-            else {
-                marker.setVisible(false);
+        filterMarkers = function (category) {
+            for (i = 0; i < markers1.length; i++) {
+                marker = gmarkers1[i];
+                // If is same category or category not picked
+                if (marker.category == category || category.length === 0) {
+                    marker.setVisible(true);
+                }
+                // Categories don't match
+                else {
+                    marker.setVisible(false);
+                }
             }
         }
-    }
 
-    google.maps.event.addDomListener(window, 'load', initMap);
-</script>
+        google.maps.event.addDomListener(window, 'load', initMap);
+    </script>
 {% endblock %}
