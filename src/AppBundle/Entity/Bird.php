@@ -15,7 +15,7 @@ class Bird
     /**
      * @var int
      *
-     * @ORM\Column(name="b_id", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      */
     private $id;

@@ -44,11 +44,27 @@ class BirdController extends Controller
             $result[] = array(
                 'id'    => $value['id'],
                 'label'  => $value['nomCourant'] .' ('.$value['nomScientif'].')',
-                'value'    => $value['nomCourant'] .' ('.$value['nomScientif'].')',
+                'value'    => $value['id'],
             );
         }
 
         return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/bird/search/{id}", name="bird.search.id", requirements={"id": "\d+"})
+     */
+    public function searchBirdByIdAction($id = null)
+    {
+        $bird   = $this->getDoctrine()->getRepository('AppBundle:Bird')->find($id);
+
+        if ($bird) {
+            $name = $bird->getNomCourant() .' ('.$bird->getNomScientif().')';
+            return new Response($name);
+
+        }
+
+        return new Response('');
     }
 
 }

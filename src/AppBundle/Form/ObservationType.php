@@ -7,15 +7,23 @@ use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 
 class ObservationType extends AbstractType
 {
+    private $apikey;
+
+    public function __construct($apikey)
+    {
+        $this->apikey = $apikey;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('adresse')
             ->add('date', Type\DateType::class)
-            ->add('espece', Type\TextType::class)
+            ->add('bird', AutocompleteType::class, ['class' => 'AppBundle:Bird'])
             ->add('individuals', Type\IntegerType::class)
             ->add('commentaire', Type\TextareaType::class)
         ;
@@ -28,8 +36,8 @@ class ObservationType extends AbstractType
                 $data = $event->getForm()->getData();
 
                 $adresse = $data->getAdresse();
-                $apikey = 'AIzaSyB9aZefiyGfTLfqolpIOMny-2Qa3ssDQFE';
-                $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($adresse).'&key='.$apikey);
+                //$apikey = 'AIzaSyB9aZefiyGfTLfqolpIOMny-2Qa3ssDQFE';
+                $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($adresse).'&key='.$this->apikey);
                 $output = json_decode($geocode);
 
                 try {

@@ -27,8 +27,8 @@
 
         <div class="form-group" style="display: flex;flex-wrap: wrap;">
             <label for="espece">Espèce</label>
-            {{ form_widget(form.espece, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.espece.vars.errors %}
+            {{ form_widget(form.bird, { 'attr': {'class': 'form-control'} }) }}
+            {% for errorItem in form.bird.vars.errors %}
                 <span class="help-inline">{{ errorItem.message }}</span>
             {% endfor %}
         </div>
@@ -61,7 +61,8 @@
 
 {% block javascripts %}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyB9aZefiyGfTLfqolpIOMny-2Qa3ssDQFE"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key={{ google_maps_api_key }}"></script>
+    <script src="{{ asset('js/vendor/pugxautocompleter/autocompleter-jqueryui.js') }}"></script>
 
     <script>
         function initialize() {
@@ -71,16 +72,12 @@
 
         google.maps.event.addDomListener(window, 'load', initialize);
 
+
         $(document).ready(function() {
-            $("#observation_espece").autocomplete({
-                source: function (request, response) {
-                    $.post("{{ path('bird.search') }}", request, response);
-                },
-                minLength: 2,
-                select: function (event, ui) {
-                    $("#observation_espece").val($(this).val());
-                }
-            })
+            $('#observation_bird').autocompleter({
+                url_list: '{{ path('bird.search') }}',
+                url_get: '{{ path('bird.search.id') }}'
+            });
         });
     </script>
 {% endblock %}

@@ -49,12 +49,12 @@ class Observation
      */
     protected $longitude;
 
+
     /**
-     * @var string
-     *
-     * @ORM\Column(name="espece", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bird")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $espece;
+    private $bird;
 
     /**
      * @var int
@@ -129,29 +129,6 @@ class Observation
         return $this->lieu;
     }
 
-    /**
-     * Set espece
-     *
-     * @param string $espece
-     *
-     * @return Observation
-     */
-    public function setEspece($espece)
-    {
-        $this->espece = $espece;
-
-        return $this;
-    }
-
-    /**
-     * Get espece
-     *
-     * @return string
-     */
-    public function getEspece()
-    {
-        return $this->espece;
-    }
 
     /**
      * Set individuals
@@ -271,5 +248,29 @@ class Observation
     public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * Set bird
+     *
+     * @param \AppBundle\Entity\Bird $bird
+     *
+     * @return Observation
+     */
+    public function setBird(\AppBundle\Entity\Bird $bird)
+    {
+        $this->bird = $bird;
+
+        return $this;
+    }
+
+    /**
+     * Get bird
+     *
+     * @return \AppBundle\Entity\Bird
+     */
+    public function getBird()
+    {
+        return $this->bird;
     }
 }

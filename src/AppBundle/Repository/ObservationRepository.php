@@ -10,4 +10,19 @@ namespace AppBundle\Repository;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Get observations by bird name
+     *
+     * @param $name
+     * @return array
+     */
+    public function byNomCourant($espece)
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o.id', 'o.date', 'o.latitude', 'o.longitude', 'o.espece' )
+            ->where('o.espece LIKE :name')
+            ->setParameter('name', '%'.$espece.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

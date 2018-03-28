@@ -61,23 +61,9 @@ class NaoController extends Controller
         ));
     }
 
+
     /**
      * @Route("/observation", name="nao_observation")
-     */
-    public function ObservationAction()
-    {
-        $observations = $this->getDoctrine()
-            ->getRepository(Observation::class)
-            ->findAll();
-
-        return $this->render('nao/observation/observation.html.twig', array(
-            'observations' => $observations
-        ));
-    }
-
-
-    /**
-     * @Route("/observation/carte", name="nao_carte_observation")
      */
     public function carteObservationAction()
     {
@@ -91,97 +77,34 @@ class NaoController extends Controller
      */
     public function observationSearchBirdAction(Request $request)
     {
-        /*
-        $em             = $this->getDoctrine()->getManager();
-        $bird           = $request->request->get('bird');
-        $result         = array();
-
-        $names   = $em->getRepository('AppBundle:Observation')->byNomCourant($name);
-
-        foreach ($names as $value){
-            $result[] = array(
-                'id'    => $value['id'],
-                'name'  => $value['nomCourant'] .' ('.$value['nomScientif'].')',
-            );
-        }
-        */
 
         $bird = $request->request->get('bird');
-        if ($bird == 441665)
-        {
-            $result = array(
-                array(
-                    'id' => 1,
-                    'birdName' => 'Colibri à gorge rubis',
-                    'birdId' => 441665,
-                    'userName' => 'Bertrand92',
-                    'dateObservation' => '2018-03-02',
-                    'latitude' => 48.879676,
-                    'longitude' => 2.381688,
-                ),
-                array(
-                    'id' => 1,
-                    'birdName' => 'Colibri à gorge rubis',
-                    'birdId' => 441665,
-                    'userName' => 'Lucie',
-                    'dateObservation' => '2018-01-02',
-                    'latitude' => 48.679676,
-                    'longitude' => 2.981688,
-                ),
-                'info' => '2 résultats',
-            );
+        $result = array();
+        $nb = 0;
 
-        } elseif ($bird == 534742) {
-            $result = array(
-                array(
-                    'id' => 1,
-                    'birdName' => 'Mésange',
-                    'birdId' => 534742,
-                    'userName' => 'Pierre',
-                    'dateObservation' => '2018-02-02',
-                    'latitude' => 48.979676,
-                    'longitude' => 2.281688,
-                ),
-
-                'info' => '1 résultats',
-            );
-        } elseif (!empty($bird)) {
-            $result = array(
-                'info' => 'Aucun résultat',
-            );
+        if (!empty($bird)) {
+            $observations   = $this->getDoctrine()
+                ->getRepository(Observation::class)
+                ->byNomCourant($bird);
         } else {
-            $result = array(
-                array(
-                    'id' => 1,
-                    'birdName' => 'Colibri à gorge rubis',
-                    'birdId' => 441665,
-                    'userName' => 'Bertrand92',
-                    'dateObservation' => '2018-03-02',
-                    'latitude' => 48.879676,
-                    'longitude' => 2.381688,
-                ),
-                array(
-                    'id' => 1,
-                    'birdName' => 'Mésange',
-                    'birdId' => 534742,
-                    'userName' => 'Pierre',
-                    'dateObservation' => '2018-02-02',
-                    'latitude' => 48.979676,
-                    'longitude' => 2.281688,
-                ),
-                array(
-                    'id' => 1,
-                    'birdName' => 'Colibri à gorge rubis',
-                    'birdId' => 441665,
-                    'userName' => 'Lucie',
-                    'dateObservation' => '2018-01-02',
-                    'latitude' => 48.679676,
-                    'longitude' => 2.981688,
-                ),
-                'info' => '3 résultats',
-            );
+            $observations   = $this->getDoctrine()
+                ->getRepository(Observation::class)
+                ->findAll();
         }
 
+        foreach ($observations as $obs){
+            dump($obs);
+            $result[] = array(
+                'id'    => $obs->getId(),
+                'birdName'  => $obs->getBird()->getNomCourant(),
+                'dateObservation' => $obs->getDate()->format('d/m/Y'),
+                'latitude' => $obs->getLatitude(),
+                'longitude' => $obs->getLongitude(),
+            );
+            $nb++;
+        }
+
+        $result['info'] = $nb . ' observations trouvées.';
 
         return new JsonResponse($result);
     }
