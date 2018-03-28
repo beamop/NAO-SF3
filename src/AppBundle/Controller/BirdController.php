@@ -44,7 +44,7 @@ class BirdController extends Controller
             $result[] = array(
                 'id'    => $value['id'],
                 'label'  => $value['nomCourant'] .' ('.$value['nomScientif'].')',
-                'value'    => $value['id'],
+                'value'    => $value['nomCourant'] .' ('.$value['nomScientif'].')',
             );
         }
 

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use AppBundle\Entity\Bird;
 
 
 class NaoController extends Controller
@@ -78,14 +79,16 @@ class NaoController extends Controller
     public function observationSearchBirdAction(Request $request)
     {
 
-        $bird = $request->request->get('bird');
+        $birdId = (int) $request->request->get('bird');
         $result = array();
         $nb = 0;
 
-        if (!empty($bird)) {
+        if (!empty($birdId)) {
+
             $observations   = $this->getDoctrine()
                 ->getRepository(Observation::class)
-                ->byNomCourant($bird);
+                ->byBirdId($birdId);
+
         } else {
             $observations   = $this->getDoctrine()
                 ->getRepository(Observation::class)
@@ -93,7 +96,6 @@ class NaoController extends Controller
         }
 
         foreach ($observations as $obs){
-            dump($obs);
             $result[] = array(
                 'id'    => $obs->getId(),
                 'birdName'  => $obs->getBird()->getNomCourant(),

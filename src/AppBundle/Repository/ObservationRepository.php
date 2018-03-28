@@ -19,9 +19,24 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     public function byNomCourant($espece)
     {
         return $this->createQueryBuilder('o')
-            ->select('o.id', 'o.date', 'o.latitude', 'o.longitude', 'o.espece' )
+            ->select('o.id', 'o.date', 'o.latitude', 'o.longitude', 'o.bird' )
             ->where('o.espece LIKE :name')
             ->setParameter('name', '%'.$espece.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Get observations by bird id
+     *
+     * @param $birdId
+     * @return array
+     */
+    public function byBirdId($birdId)
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.bird = :id')
+            ->setParameter('id', $birdId)
             ->getQuery()
             ->getResult();
     }

@@ -5,7 +5,7 @@
         <ul class="list-group">
             <li class="list-group-item">Date : {{ observation.date|date('d/m/Y') }}</li>
             <li class="list-group-item">Lieu : {{ observation.adresse }}</li>
-            <li class="list-group-item">Espèce : {{ observation.espece }}</li>
+            <li class="list-group-item">Espèce : {{ observation.bird.nomCourant }}</li>
             <li class="list-group-item">Individus observés : {{ observation.individuals }}</li>
             <li class="list-group-item">Commentaire : {{ observation.commentaire }}</li>
         </ul>

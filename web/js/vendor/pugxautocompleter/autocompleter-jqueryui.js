@@ -22,7 +22,7 @@
                 },
                 select: function (event, ui) {
                     event.preventDefault();
-                    $this.val(ui.item.value);
+                    $this.val(ui.item.id);
                     $(this).val(ui.item.label);
                     if (settings.on_select_callback) {
                         settings.on_select_callback($this);
@@ -30,7 +30,6 @@
                 },
                 minLength: settings.min_length
             });
-            console.log('val: '+$this.val());
             if ($this.val() !== '') {
                 $.ajax({
                     url: (settings.url_get.substring(-1) === '/' ? settings.url_get : settings.url_get + '/') + $this.attr('value'),
