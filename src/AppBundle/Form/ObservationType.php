@@ -36,7 +36,6 @@ class ObservationType extends AbstractType
                 $data = $event->getForm()->getData();
 
                 $adresse = $data->getAdresse();
-                //$apikey = 'AIzaSyB9aZefiyGfTLfqolpIOMny-2Qa3ssDQFE';
                 $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($adresse).'&key='.$this->apikey);
                 $output = json_decode($geocode);
 

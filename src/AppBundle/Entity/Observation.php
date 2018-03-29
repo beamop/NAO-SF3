@@ -70,6 +70,13 @@ class Observation
      */
     private $commentaire;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="utilisateur", type="string")
+     */
+    private $utilisateur;
+
 
     /**
      * Get id
@@ -272,5 +279,29 @@ class Observation
     public function getBird()
     {
         return $this->bird;
+    }
+
+    /**
+     * Set utilisateur
+     *
+     * @param string $utilisateur
+     *
+     * @return Observation
+     */
+    public function setUtilisateur($utilisateur)
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return string
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
     }
 }

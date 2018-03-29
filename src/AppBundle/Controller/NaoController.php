@@ -36,6 +36,9 @@ class NaoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $utilisateur = $this->get('security.token_storage')->getToken()->getUser();
+            $observation->setUtilisateur($utilisateur);
+
             $em->persist($observation);
             $em->flush();
 
@@ -97,6 +100,7 @@ class NaoController extends Controller
         foreach ($observations as $obs){
             $result[] = array(
                 'id'    => $obs->getId(),
+                'userName' => $obs->getUtilisateur(),
                 'birdName'  => $obs->getBird()->getNomCourant(),
                 'dateObservation' => $obs->getDate()->format('d/m/Y'),
                 'latitude' => $obs->getLatitude(),
