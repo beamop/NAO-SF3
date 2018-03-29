@@ -18,7 +18,7 @@ class RegistrationListener implements EventSubscriberInterface
     public function onRegistrationSuccess(FormEvent $event)
     {
         $roles = array(
-            'ROLE_TEST'
+            'ROLE_PARTICULIER'
         );
 
         $user = $event->getForm()->getData();
