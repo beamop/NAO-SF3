@@ -40,7 +40,7 @@ class MailerType extends AbstractType
             ->add('message', Type\TextareaType::class, array(
                 'constraints' => array(
                     new Constraints\NotBlank(array(
-                        'message' => 'Merci d\'ajouter un  message'
+                        'message' => 'Merci d\'ajouter un message'
                     )),
                 )
             ))
