@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Observation;
+use AppBundle\Form\MailerType;
 use AppBundle\Form\ObservationType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Bird;
+use AppBundle\Service\Mailer;
 
 
 class NaoController extends Controller
@@ -112,6 +114,31 @@ class NaoController extends Controller
         $result['info'] = $nb . ' observations trouvées.';
 
         return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/contact", name="nao_contact")
+     */
+    public function contactAction(Request $request, Mailer $mailer)
+    {
+        $form = $this->createForm(MailerType::class,null,array(
+            'action' => '/contact',
+            'method' => 'POST'
+        ));
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            if($mailer->sendEmail($form->getData())) {
+                //return $this->redirectToRoute('redirect_to_somewhere_now');
+                return new Response('OK!');
+            } else {
+                var_dump("Errooooor :(");
+            }
+        }
+
+        return $this->render('nao/contact/contact.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
 }

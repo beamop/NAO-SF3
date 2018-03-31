@@ -37,6 +37,11 @@ services:
             - {name: kernel.event_subscriber}
 
     AppBundle\Form\ObservationType:
-            arguments:
-                $apikey: '%GoogleMapsApiKey%'
+        arguments:
+            $apikey: '%GoogleMapsApiKey%'
+
+    AppBundle\Service\Mailer:
+        arguments:
+            $mailer_user: '%mailer_user%'
+            $mailer_password: '%mailer_password%'
 

@@ -39,6 +39,8 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         google_maps_api_key: '%GoogleMapsApiKey%'
+        mailer_user: '%mailer_user%'
+        mailer_password: '%mailer_password%'
 
 # Doctrine Configuration
 doctrine:
