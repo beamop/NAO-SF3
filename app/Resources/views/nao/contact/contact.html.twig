@@ -1,9 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    {% for flash_message in app.session.flashBag.get('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
     {{ form_start(form) }}
 
-        <h3 class="front-green">Ajouter une observation</h3>
+        <h3 class="front-green">Contact</h3>
         <div class="form-group" style="display: flex;flex-wrap: wrap;">
             <label for="sujet">Sujet</label>
             {{ form_widget(form.sujet, { 'attr': {'class': 'form-control'} }) }}

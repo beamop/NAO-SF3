@@ -129,10 +129,9 @@ class NaoController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
             if($mailer->sendEmail($form->getData())) {
-                //return $this->redirectToRoute('redirect_to_somewhere_now');
-                return new Response('OK!');
+                $this->addFlash("success", "Votre message a été envoyé avec succès.");
             } else {
-                var_dump("Errooooor :(");
+                $this->addFlash("error", "Il y a une erreur dans votre formulaire, merci de réessayer.");
             }
         }
 
