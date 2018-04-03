@@ -39,12 +39,12 @@ class NaoController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $utilisateur = $this->get('security.token_storage')->getToken()->getUser();
-            $observation->setUtilisateur($utilisateur);
+            $observation->setUser($utilisateur);
 
             $em->persist($observation);
             $em->flush();
 
-            return $this->redirectToRoute('nao_observation');
+            return $this->redirectToRoute('nao_observation_carte');
         }
 
         return $this->render('nao/observation/ajouter.html.twig', array(
@@ -68,7 +68,7 @@ class NaoController extends Controller
 
 
     /**
-     * @Route("/observation", name="nao_observation")
+     * @Route("/observation", name="nao_observation_carte")
      */
     public function carteObservationAction()
     {
@@ -102,7 +102,7 @@ class NaoController extends Controller
         foreach ($observations as $obs){
             $result[] = array(
                 'id'    => $obs->getId(),
-                'userName' => $obs->getUtilisateur(),
+                'userName' => $obs->getUser()->getUsername(),
                 'birdName'  => $obs->getBird()->getNomCourant(),
                 'dateObservation' => $obs->getDate()->format('d/m/Y'),
                 'latitude' => $obs->getLatitude(),

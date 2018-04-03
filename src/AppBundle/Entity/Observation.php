@@ -71,11 +71,11 @@ class Observation
     private $commentaire;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="utilisateur", type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", fetch="EAGER")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $utilisateur;
+    private $user;
 
 
     /**
@@ -284,24 +284,24 @@ class Observation
     /**
      * Set utilisateur
      *
-     * @param string $utilisateur
+     * @param \AppBundle\Entity\User $user
      *
      * @return Observation
      */
-    public function setUtilisateur($utilisateur)
+    public function setUser(\AppBundle\Entity\User $user)
     {
-        $this->utilisateur = $utilisateur;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get utilisateur
+     * Get user
      *
-     * @return string
+     * @return \AppBundle\Entity\User
      */
-    public function getUtilisateur()
+    public function getUser()
     {
-        return $this->utilisateur;
+        return $this->user;
     }
 }

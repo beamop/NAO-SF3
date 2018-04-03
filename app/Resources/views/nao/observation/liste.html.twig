@@ -8,7 +8,7 @@
             <li class="list-group-item">Espèce : {{ observation.bird.nomCourant }}</li>
             <li class="list-group-item">Individus observés : {{ observation.individuals }}</li>
             <li class="list-group-item">Commentaire : {{ observation.commentaire }}</li>
-            <li class="list-group-item">De : {{ observation.utilisateur }}</li>
+            <li class="list-group-item">De : {{ observation.user.username }}</li>
         </ul>
         <hr>
     {% endfor %}
