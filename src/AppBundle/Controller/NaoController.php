@@ -121,10 +121,7 @@ class NaoController extends Controller
      */
     public function contactAction(Request $request, Mailer $mailer)
     {
-        $form = $this->createForm(MailerType::class,null,array(
-            'action' => '/contact',
-            'method' => 'POST'
-        ));
+        $form = $this->createForm(MailerType::class,null);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {

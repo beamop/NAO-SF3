@@ -42,6 +42,10 @@ services:
 
     AppBundle\Service\Mailer:
         arguments:
+            $mailer_host: '%mailer_host%'
+            $mailer_port: '%mailer_port%'
             $mailer_user: '%mailer_user%'
             $mailer_password: '%mailer_password%'
+            $mailer_from: '%mailer_from%'
+            $mailer_to: '%mailer_to%'
 
