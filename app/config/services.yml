@@ -49,3 +49,7 @@ services:
             $mailer_from: '%mailer_from%'
             $mailer_to: '%mailer_to%'
 
+    AppBundle\Service\UploadImage:
+            class: Service\UploadImage
+            arguments: ['%images_directory%']
+

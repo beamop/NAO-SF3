@@ -4,10 +4,11 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use PUGX\AutocompleterBundle\Form\Type\AutocompleteType;
 
 class ObservationType extends AbstractType
 {
@@ -25,6 +26,9 @@ class ObservationType extends AbstractType
             ->add('date', Type\DateType::class)
             ->add('bird', AutocompleteType::class, ['class' => 'AppBundle:Bird'])
             ->add('individuals', Type\IntegerType::class)
+            ->add('image', FileType::class, array(
+                'required' => false
+            ))
             ->add('commentaire', Type\TextareaType::class)
         ;
 
