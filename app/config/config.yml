@@ -56,8 +56,8 @@ doctrine:
         password: '%database_password%'
         charset: utf8mb4
         default_table_options:
-            charset: utf8mb4
-            collate: utf8mb4_unicode_ci
+            charset: utf8
+            collate: utf8_general_ci
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
@@ -116,3 +116,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [660, 380], mode: inset }
             quality: 80
+
+# app/config/config.yml
+
+# Stof\DoctrineExtensionsBundle configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
