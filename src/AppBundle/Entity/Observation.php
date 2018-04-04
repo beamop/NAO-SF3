@@ -81,7 +81,7 @@ class Observation
     /**
      * @ORM\Column(type="string", nullable=true)
      *
-     * @Assert\File(mimeTypes={"image/jpeg", "image/png"}, mimeTypesMessage="Merci d'envoyer une image valide")
+     * @Assert\File(mimeTypes={"image/jpeg", "image/png"}, mimeTypesMessage="Merci de choisir une image valide (jpg ou png)")
      */
     private $image;
 

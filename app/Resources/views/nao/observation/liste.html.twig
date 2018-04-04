@@ -23,7 +23,7 @@
                 De : {{ observation.user.username }}
             </li>
             <li class="list-group-item">
-                <img src="{{ asset('uploads/images/' ~ observation.image) }}" style="height:100px;width:100px;">
+                <img src="{{ asset('uploads/images/' ~ observation.image) | imagine_filter('thumb_md') }}">
             </li>
         </ul>
         <hr>
