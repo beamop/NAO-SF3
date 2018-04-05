@@ -72,7 +72,6 @@ class Observation
     private $commentaire;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -84,6 +83,13 @@ class Observation
      * @Assert\File(mimeTypes={"image/jpeg", "image/png"}, mimeTypesMessage="Merci de choisir une image valide (jpg ou png)")
      */
     private $image;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="validation", type="integer")
+     */
+    private $validation;
 
 
     /**
@@ -335,5 +341,29 @@ class Observation
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set validation
+     *
+     * @param integer $validation
+     *
+     * @return Observation
+     */
+    public function setValidation($validation)
+    {
+        $this->validation = $validation;
+
+        return $this;
+    }
+
+    /**
+     * Get validation
+     *
+     * @return integer
+     */
+    public function getValidation()
+    {
+        return $this->validation;
     }
 }

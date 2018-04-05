@@ -94,6 +94,59 @@ class NaoController extends Controller
         ));
     }
 
+    /**
+     * @Route("/observation/validation", name="nao_validation_observation")
+     */
+    public function ValidationObservationAction()
+    {
+        $observations = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAll();
+
+        return $this->render('nao/observation/validation.html.twig', array(
+            'observations' => $observations
+        ));
+    }
+
+    /**
+     * @Route("/observation/validation/valider/{id}", name="nao_validation_observation_valider")
+     * Method({"GET", "POST"})
+     */
+    public function validerAction(Request $request, $id)
+    {
+        $observation = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->find($id);
+
+       $observation->setValidation(1);
+
+       $entityManager = $this->getDoctrine()->getManager();
+
+       $entityManager->flush($observation);
+
+        return $this->redirectToRoute('nao_validation_observation');
+    }
+
+    /**
+     * @Route("/observation/validation/supprimer/{id}", name="nao_validation_observation_supprimer")
+     * Method({"GET", "POST"})
+     */
+    public function supprimerAction(Request $request, $id)
+    {
+        $observation = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($observation);
+        $entityManager->flush();
+
+        $response = new Response();
+        $response->send();
+
+        return $this->redirectToRoute('nao_validation_observation');
+    }
+
 
     /**
      * @Route("/observation", name="nao_observation_carte")

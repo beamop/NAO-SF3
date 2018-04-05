@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h3>Observations en cours de validation</h3>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Lieu</th>
+            <th scope="col">Espèce</th>
+            <th scope="col">Individus</th>
+            <th scope="col">Commentaire</th>
+            <th scope="col">De</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for observation in observations %}
+            {% if observation.validation == 1 %}
+                <tr>
+                    <th scope="row">{{ observation.id }}</th>
+                    <td>{{ observation.date | date('d/m/Y') }}</td>
+                    <td>{{ observation.adresse }}</td>
+                    <td>{{ observation.bird.nomCourant }}</td>
+                    <td>{{ observation.individuals }}</td>
+                    <td>{{ observation.commentaire }}</td>
+                    <td>{{ observation.user.username }}</td>
+                    <td><a href="/observation/validation/supprimer/{{ observation.id }}" class="btn btn-danger">❌</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row">{{ observation.id }}</th>
+                    <td>{{ observation.date | date('d/m/Y') }}</td>
+                    <td>{{ observation.adresse }}</td>
+                    <td>{{ observation.bird.nomCourant }}</td>
+                    <td>{{ observation.individuals }}</td>
+                    <td>{{ observation.commentaire }}</td>
+                    <td>{{ observation.user.username }}</td>
+                    <td><a href="/observation/validation/valider/{{ observation.id }}" class="btn btn-success">✅</a><a href="/observation/validation/supprimer/{{ observation.id }}" class="btn btn-danger">❌</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

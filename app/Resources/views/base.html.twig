@@ -34,6 +34,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('nao_liste_observation') }}">Liste des observations</a>
             </li>
+            {% if is_granted(['ROLE_NATURALISTE', 'ROLE_ADMIN']) %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('nao_validation_observation') }}">Observations en attente de validation</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('nao_contact') }}">Contact</a>
             </li>

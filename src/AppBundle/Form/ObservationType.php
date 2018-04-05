@@ -49,6 +49,8 @@ class ObservationType extends AbstractType
 
                     $data->setLatitude($latitude);
                     $data->setLongitude($longitude);
+
+                    $data->setValidation(0);
                 } catch(\Throwable $e) {
                     die('Il y a une erreur dans l\'adresse de votre observation, veuillez réessayer.');
                 }
