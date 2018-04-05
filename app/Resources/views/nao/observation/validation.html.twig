@@ -27,7 +27,7 @@
                     <td>{{ observation.individuals }}</td>
                     <td>{{ observation.commentaire }}</td>
                     <td>{{ observation.user.username }}</td>
-                    <td><a href="/observation/validation/supprimer/{{ observation.id }}" class="btn btn-danger">❌</a></td>
+                    <td><a href="{{ path('nao_validation_observation_supprimer', {'id':observation.id}) }}" class="btn btn-danger">❌</a></td>
                 </tr>
                 {% else %}
                 <tr>
@@ -38,7 +38,7 @@
                     <td>{{ observation.individuals }}</td>
                     <td>{{ observation.commentaire }}</td>
                     <td>{{ observation.user.username }}</td>
-                    <td><a href="/observation/validation/valider/{{ observation.id }}" class="btn btn-success">✅</a><a href="/observation/validation/supprimer/{{ observation.id }}" class="btn btn-danger">❌</a></td>
+                    <td><a href="{{ path('nao_validation_observation_valider', {'id':observation.id}) }}" class="btn btn-success">✅</a><a href="{{ path('nao_validation_observation_supprimer', {'id':observation.id}) }}" class="btn btn-danger">❌</a></td>
                 </tr>
             {% endif %}
         {% endfor %}

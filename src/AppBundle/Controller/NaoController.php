@@ -27,7 +27,7 @@ class NaoController extends Controller
     /**
      * @Route("/observation/ajouter", name="nao_ajouter_observation")
      */
-    public function AjouterObservationAction(Request $request)
+    public function ajouterObservationAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -59,6 +59,12 @@ class NaoController extends Controller
             $utilisateur = $this->get('security.token_storage')->getToken()->getUser();
             $observation->setUser($utilisateur);
 
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE')) {
+                $observation->setValidation(Observation::VALIDATED);
+            } else {
+                $observation->setValidation(Observation::WAITING);
+            }
+
             $em->persist($observation);
             $em->flush();
 
@@ -83,7 +89,7 @@ class NaoController extends Controller
     /**
      * @Route("/observation/liste", name="nao_liste_observation")
      */
-    public function ListeObservationAction()
+    public function listeObservationAction()
     {
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)
@@ -109,7 +115,7 @@ class NaoController extends Controller
     }
 
     /**
-     * @Route("/observation/validation/valider/{id}", name="nao_validation_observation_valider")
+     * @Route("/observation/validation/valider/{id}", name="nao_validation_observation_valider", requirements={"id": "\d+"})
      * Method({"GET", "POST"})
      */
     public function validerAction(Request $request, $id)
@@ -118,7 +124,7 @@ class NaoController extends Controller
             ->getRepository(Observation::class)
             ->find($id);
 
-       $observation->setValidation(1);
+       $observation->setValidation(Observation::VALIDATED);
 
        $entityManager = $this->getDoctrine()->getManager();
 
@@ -128,7 +134,7 @@ class NaoController extends Controller
     }
 
     /**
-     * @Route("/observation/validation/supprimer/{id}", name="nao_validation_observation_supprimer")
+     * @Route("/observation/validation/supprimer/{id}", name="nao_validation_observation_supprimer", requirements={"id": "\d+"})
      * Method({"GET", "POST"})
      */
     public function supprimerAction(Request $request, $id)

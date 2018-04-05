@@ -14,6 +14,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Observation
 {
     /**
+     *
+     */
+    const WAITING = 0;
+    const VALIDATED = 1;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")

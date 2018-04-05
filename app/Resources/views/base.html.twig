@@ -34,7 +34,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('nao_liste_observation') }}">Liste des observations</a>
             </li>
-            {% if is_granted(['ROLE_NATURALISTE', 'ROLE_ADMIN']) %}
+            {% if is_granted(['ROLE_NATURALISTE']) %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('nao_validation_observation') }}">Observations en attente de validation</a>
                 </li>
@@ -47,7 +47,7 @@
             </li>
         </ul>
         <span class="navbar-text">
-          {% if is_granted(['ROLE_PARTICULIER', 'ROLE_NATURALISTE', 'ROLE_ADMIN']) %}
+          {% if is_granted(['ROLE_PARTICULIER']) %}
               <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
               {% else %}
                 <div class="dropdown">
@@ -55,8 +55,8 @@
                     Vous n'êtes pas connecté
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/register">S'inscrire</a>
-                        <a class="dropdown-item" href="/login">Se connecter</a>
+                        <a class="dropdown-item" href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
+                        <a class="dropdown-item" href="{{ path('fos_user_security_login') }}">Se connecter</a>
                     </div>
                 </div>
           {% endif %}
