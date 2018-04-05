@@ -46,9 +46,11 @@ class ObservationType extends AbstractType
                 try {
                     $latitude = $output->results[0]->geometry->location->lat;
                     $longitude = $output->results[0]->geometry->location->lng;
+                    $adresse = $output->results[0]->formatted_address;
 
                     $data->setLatitude($latitude);
                     $data->setLongitude($longitude);
+                    $data->setAdresse($adresse);
                 } catch(\Throwable $e) {
                     die('Il y a une erreur dans l\'adresse de votre observation, veuillez réessayer.');
                 }
