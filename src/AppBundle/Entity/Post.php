@@ -79,6 +79,7 @@ class Post
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/jpeg", "image/png"}, mimeTypesMessage="Merci de choisir une image valide (jpg ou png)")
      */
     private $image;
 

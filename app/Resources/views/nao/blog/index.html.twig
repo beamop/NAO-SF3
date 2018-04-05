@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h3 class="front-green">Liste des articles</h3>
+    {% for article in articles %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                Date : {{ article.publishedAt|date('d/m/Y') }}
+            </li>
+            <li class="list-group-item">
+                Titre : {{ article.title }}
+            </li>
+            <li class="list-group-item">
+                {{ article.content }}
+            </li>
+            {% if article.image %}
+            <li class="list-group-item">
+                <img src="{{ asset('uploads/blog/images/' ~ article.image) | imagine_filter('thumb_md') }}">
+            </li>
+            {% endif %}
+        </ul>
+        <hr>
+    {% endfor %}
+{% endblock %}

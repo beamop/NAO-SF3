@@ -22,9 +22,11 @@
             <li class="list-group-item">
                 De : {{ observation.user.username }}
             </li>
+            {% if observation.image %}
             <li class="list-group-item">
                 <img src="{{ asset('uploads/images/' ~ observation.image) | imagine_filter('thumb_md') }}">
             </li>
+            {% endif %}
         </ul>
         <hr>
     {% endfor %}

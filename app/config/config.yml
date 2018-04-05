@@ -10,6 +10,7 @@ parameters:
     mailer_from: noreply@nao.com
     mailer_to: noreply@nao.com
     images_directory: '%kernel.project_dir%/web/uploads/images'
+    upload_blog_directory: '%kernel.project_dir%/web/uploads/blog/images'
 
 framework:
     #esi: ~
@@ -44,6 +45,8 @@ twig:
         google_maps_api_key: '%GoogleMapsApiKey%'
         mailer_user: '%mailer_user%'
         mailer_password: '%mailer_password%'
+        upload_blog_directory: '%upload_blog_directory%'
+
 
 # Doctrine Configuration
 doctrine:
