@@ -10,8 +10,6 @@ use AppBundle\Entity\Post;
 use AppBundle\Form\PostType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-
-
 /**
  * Class BlogController
  *

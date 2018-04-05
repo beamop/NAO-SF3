@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: julien
- * Date: 24/03/2018
- * Time: 17:32
- */
 
 namespace AppBundle\Controller;
 
