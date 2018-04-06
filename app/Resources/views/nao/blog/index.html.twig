@@ -18,6 +18,11 @@
                     <img src="{{ asset('uploads/blog/images/' ~ article.image) | imagine_filter('thumb_md') }}">
                 </li>
             {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="list-group-item">
+                    <a href="{{ path('nao_blog_post_supprimer', {'id': article.id}) }}" class="btn btn-danger">Supprimer le post</a>
+                </li>
+            {% endif %}
         </ul>
         <hr>
     {% endfor %}

@@ -27,6 +27,11 @@
                     <img src="{{ asset('uploads/images/' ~ observation.image) | imagine_filter('thumb_md') }}">
                 </li>
             {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="list-group-item">
+                    <a href="{{ path('nao_validation_observation_supprimer', {'id': observation.id}) }}" class="btn btn-danger">Supprimer le post</a>
+                </li>
+            {% endif %}
         </ul>
         <hr>
     {% endfor %}

@@ -130,7 +130,7 @@ class NaoController extends Controller
 
        $entityManager->flush($observation);
 
-        return $this->redirectToRoute('nao_validation_observation');
+       return $this->redirectToRoute('nao_validation_observation');
     }
 
     /**
@@ -150,7 +150,7 @@ class NaoController extends Controller
         $response = new Response();
         $response->send();
 
-        return $this->redirectToRoute('nao_validation_observation');
+        return $this->redirectToRoute('nao_liste_observation');
     }
 
 

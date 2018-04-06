@@ -36,4 +36,24 @@ class BlogController extends Controller
         ));
     }
 
+    /**
+     * @Route("/supprimer/{id}", name="nao_blog_post_supprimer")
+     * Method({"GET", "POST"})
+     */
+    public function supprimerAction(Request $request, $id)
+    {
+        $post = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        $response = new Response();
+        $response->send();
+
+        return $this->redirectToRoute('nao_blog');
+    }
+
 }
