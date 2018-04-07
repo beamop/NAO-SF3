@@ -19,7 +19,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     public function byNomCourant($espece)
     {
         return $this->createQueryBuilder('o')
-            ->select('o.id', 'o.date', 'o.latitude', 'o.longitude', 'o.bird' )
+            ->select('o.id', 'o.date', 'o.latitude', 'o.longitude', 'o.bird')
             ->where('o.espece LIKE :name')
             ->setParameter('name', '%'.$espece.'%')
             ->getQuery()

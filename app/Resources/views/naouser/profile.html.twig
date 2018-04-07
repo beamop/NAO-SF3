@@ -1,14 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Votre tableau de bord</h1>
+    <h3>Votre tableau de bord</h3>
     <p>Profil
     {% if is_granted('ROLE_ADMIN') %}
         administrateur
         {% elseif is_granted('ROLE_NATURALISTE') %}
         naturaliste
-        {% elseif is_granted('ROLE_USER') %}
+        {% elseif is_granted('ROLE_PARTICULIER') %}
         particulier
     {% endif %}
     </p>
+
+    <hr>
+
+    <h4>Mes observations</h4>
+    {% for observation in observations %}
+        {% if observation.user == app.user %}
+            <ul class="list-group">
+                <li class="list-group-item">
+                    Date : {{ observation.date|date('d/m/Y') }}
+                </li>
+                <li class="list-group-item">
+                    Lieu : {{ observation.adresse }}
+                </li>
+                <li class="list-group-item">
+                    Espèce : {{ observation.bird.nomCourant }}
+                </li>
+                <li class="list-group-item">
+                    Individus observés : {{ observation.individuals }}
+                </li>
+                <li class="list-group-item">
+                    Votre commentaire : {{ observation.commentaire }}
+                </li>
+            </ul>
+            <hr>
+            {% else %}
+            <p>Vous n'avez pas d'observation(s) en ligne.</p>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

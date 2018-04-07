@@ -169,7 +169,6 @@ class NaoController extends Controller
      */
     public function observationSearchBirdAction(Request $request)
     {
-
         $birdId = (int) $request->request->get('bird');
         $result = array();
         $nb = 0;

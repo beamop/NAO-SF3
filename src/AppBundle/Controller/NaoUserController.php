@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Observation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,13 @@ class NaoUserController extends Controller
      */
     public function profileAction()
     {
-        return $this->render('naouser/profile.html.twig');
+        $observations = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAll();
+
+        return $this->render('naouser/profile.html.twig', array(
+            'observations' => $observations
+        ));
     }
 
     /**
