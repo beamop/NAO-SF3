@@ -27,7 +27,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Get observations by bird id
+     * Get validated observations by bird id
      *
      * @param $birdId
      * @return array
@@ -35,8 +35,22 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     public function byBirdId($birdId)
     {
         return $this->createQueryBuilder('o')
-            ->where('o.bird = :id')
+            ->where('o.bird = :id', 'o.validation = 1')
             ->setParameter('id', $birdId)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    /**
+     * Get only validated observations
+     *
+     * @return array
+     */
+    public function findAllValidatedBirds()
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.validation = 1')
             ->getQuery()
             ->getResult();
     }

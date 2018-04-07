@@ -93,7 +93,7 @@ class NaoController extends Controller
     {
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)
-            ->findAll();
+            ->findAllValidatedBirds();
 
         return $this->render('nao/observation/liste.html.twig', array(
             'observations' => $observations
@@ -159,7 +159,13 @@ class NaoController extends Controller
      */
     public function carteObservationAction()
     {
-        return $this->render('nao/observation/carte.html.twig');
+        $observations = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAll();
+
+        return $this->render('nao/observation/carte.html.twig', array(
+            'observations' => $observations
+        ));
     }
 
 
@@ -175,14 +181,14 @@ class NaoController extends Controller
 
         if (!empty($birdId)) {
 
-            $observations   = $this->getDoctrine()
+            $observations = $this->getDoctrine()
                 ->getRepository(Observation::class)
                 ->byBirdId($birdId);
 
         } else {
-            $observations   = $this->getDoctrine()
+            $observations = $this->getDoctrine()
                 ->getRepository(Observation::class)
-                ->findAll();
+                ->findAllValidatedBirds();
         }
 
         foreach ($observations as $obs){
