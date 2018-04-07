@@ -159,13 +159,7 @@ class NaoController extends Controller
      */
     public function carteObservationAction()
     {
-        $observations = $this->getDoctrine()
-            ->getRepository(Observation::class)
-            ->findAll();
-
-        return $this->render('nao/observation/carte.html.twig', array(
-            'observations' => $observations
-        ));
+        return $this->render('nao/observation/carte.html.twig');
     }
 
 
