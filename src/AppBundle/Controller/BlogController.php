@@ -37,6 +37,30 @@ class BlogController extends Controller
     }
 
     /**
+     * @Route("/details/{id}", name="nao_blog_details")
+     */
+    public function blogDetailsAction(Request $request, $id)
+    {
+        $article = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->find($id);
+
+        $prevArticle = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->find($id-1);
+
+        $nextArticle = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->find($id+1);
+
+        return $this->render('nao/blog/details.html.twig', array(
+            'article' => $article,
+            'prevArticle' => $prevArticle,
+            'nextArticle' => $nextArticle
+        ));
+    }
+
+    /**
      * @Route("/supprimer/{id}", name="nao_blog_post_supprimer")
      * Method({"GET", "POST"})
      */

@@ -26,12 +26,17 @@ class NaoUserController extends Controller
      */
     public function profileAction()
     {
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager
+            ->findUsers();
+
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)
             ->findAll();
 
         return $this->render('naouser/profile.html.twig', array(
-            'observations' => $observations
+            'observations' => $observations,
+            'user' => $user
         ));
     }
 

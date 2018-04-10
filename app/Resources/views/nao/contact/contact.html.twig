@@ -2,62 +2,356 @@
 
 {% block content %}
 
-    {% for flash_message in app.session.flashBag.get('success') %}
-        <div class="alert alert-success" role="alert">
-            {{ flash_message }}
-        </div>
-    {% endfor %}
+    <!-- Content
+    ================================================== -->
 
-    {% for flash_message in app.session.flashBag.get('error') %}
-        <div class="alert alert-danger" role="alert">
-            {{ flash_message }}
+    <!-- Map Container -->
+    <div class="contact-map margin-bottom-60">
+
+        <!-- Google Maps -->
+        <div id="singleListingMap-container">
+            <div id="map"></div>
+            <a href="#" id="streetView">Street View</a>
         </div>
-    {% endfor %}
+        <!-- Google Maps / End -->
+
+        <!-- Office -->
+        <div class="address-box-container">
+            <div class="address-container" data-background-image="images/our-office.jpg">
+                <div class="office-address">
+                    <h3>Nous contacter</h3>
+                    <ul>
+                        <li>NAO (Nos Amis les Oiseaux)</li>
+                        <li>84, rue du Président Roosevelt</li>
+                        <li>78 500 Sartrouville</li>
+                        <li>Tél : +33(0) 144 452 132</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Office / End -->
+
+    </div>
+    <div class="clearfix"></div>
+    <!-- Map Container / End -->
 
     {{ form_start(form) }}
 
-        <h3 class="front-green">Nous contacter</h3>
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="sujet">Sujet</label>
-            {{ form_widget(form.sujet, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.sujet.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
+    <!-- Container / Start -->
+    <div class="container">
+
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="notification success closeable">
+                <p><span>Super!</span> {{ flash_message }}</p>
+                <a class="close" href="#"></a>
+            </div>
+
+            <br>
+        {% endfor %}
+
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="notification error closeable">
+                <p><span>Erreur!</span> {{ flash_message }}</p>
+                <a class="close" href="#"></a>
+            </div>
+
+            <br>
+        {% endfor %}
+
+        <div class="row">
+
+            <!-- Contact Details -->
+            <div class="col-md-4">
+
+                <h4 class="headline margin-bottom-30">NAO (Nos Amis les Oiseaux)</h4>
+
+                <!-- Contact Details -->
+                <div class="sidebar-textbox">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dictum turpis non purus efficitur, non ultrices libero sollicitudin.</p>
+
+                    <ul class="contact-details">
+                        <li>
+                            <i class="im im-icon-Phone-2"></i> <strong>Tél:</strong><span> +33(0) 144 452 132</span>
+                        </li>
+                        <li>
+                            <i class="im im-icon-Globe"></i> <strong>Web:</strong><span><a href="#"> www.nao.fr</a></span>
+                        </li>
+                        <li>
+                            <i class="im im-icon-Envelope"></i> <strong>E-mail:</strong><span><a href="#"> hello@nao.fr</a></span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-md-8">
+
+                <section id="contact">
+                    <h4 class="headline margin-bottom-35">Formulaire de contact</h4>
+
+                    <div id="contact-message"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>
+                                {{ form_widget(form.sujet) }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div>
+                                {{ form_widget(form.nom) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        {{ form_widget(form.email) }}
+                    </div>
+
+                    <div>
+                        {{ form_widget(form.message) }}
+                    </div>
+
+                    <input type="submit" class="submit button" id="observation_save" value="Envoyer le message" />
+
+                </section>
+            </div>
+            <!-- Contact Form / End -->
+
         </div>
 
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="nom">Nom</label>
-            {{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.nom.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
-        </div>
+    </div>
+    <!-- Container / End -->
 
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="email">Email</label>
-            {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.email.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
-        </div>
-
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="message">Message</label>
-            {{ form_widget(form.message, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.message.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
-        </div>
-
-        <div style="display:none">
-            {{ form_rest(form) }}
-        </div>
-
-        <hr>
-
-        <div class="form-actions">
-            <button type="submit" id="observation_save" class="btn btn-primary">Envoyer</button>
-        </div>
+    <div style="display:none">
+        {{ form_rest(form) }}
+    </div>
 
     {{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=geometry"></script>
+    <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobox/src/infobox.js"></script>
+    <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerclustererplus/src/markerclusterer.js"></script>
+    <script src="{{ asset('scripts/vendor/gmaps/gmaps.min.js') }}"></script>
+
+    <!-- Gmaps -->
+    <script>
+        $(document).ready(function() {
+            var mapOverlay = $('.map-overlay');
+            var map;
+            var markers = [];
+
+
+            mapOverlay.click(function () {
+                    mapOverlay.hide(500);
+                }
+            );
+
+            map = new GMaps({
+                div: '#map',
+                lat: 48.866667,
+                lng: 2.333333,
+                zoom: 6,
+                fullscreenControl: false,
+                streetViewControl: false,
+                mapTypeControl: false,
+                zoomControl: false,
+                zoom_changed: function (e) {
+                    var zoom = map.getZoom();
+                    for (i = 0; i < map.markers.length; i++) {
+                        if (zoom > 10) {
+                            map.markers[i].setVisible(false);
+                        } else {
+                            map.markers[i].setVisible(true);
+                        }
+                    }
+                },
+                styles: [
+                    {
+                        "featureType": "water",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "color": "#e9e9e9"
+                            },
+                            {
+                                "lightness": 17
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "color": "#f5f5f5"
+                            },
+                            {
+                                "lightness": 20
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "geometry.fill",
+                        "stylers": [
+                            {
+                                "color": "#ffffff"
+                            },
+                            {
+                                "lightness": 17
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "geometry.stroke",
+                        "stylers": [
+                            {
+                                "color": "#ffffff"
+                            },
+                            {
+                                "lightness": 29
+                            },
+                            {
+                                "weight": 0.2
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "color": "#ffffff"
+                            },
+                            {
+                                "lightness": 18
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.local",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "color": "#ffffff"
+                            },
+                            {
+                                "lightness": 16
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "color": "#f5f5f5"
+                            },
+                            {
+                                "lightness": 21
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "poi.park",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "color": "#dedede"
+                            },
+                            {
+                                "lightness": 21
+                            }
+                        ]
+                    },
+                    {
+                        "elementType": "labels.text.stroke",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#ffffff"
+                            },
+                            {
+                                "lightness": 16
+                            }
+                        ]
+                    },
+                    {
+                        "elementType": "labels.text.fill",
+                        "stylers": [
+                            {
+                                "saturation": 36
+                            },
+                            {
+                                "color": "#333333"
+                            },
+                            {
+                                "lightness": 40
+                            }
+                        ]
+                    },
+                    {
+                        "elementType": "labels.icon",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "transit",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "color": "#f2f2f2"
+                            },
+                            {
+                                "lightness": 19
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "administrative",
+                        "elementType": "geometry.fill",
+                        "stylers": [
+                            {
+                                "color": "#fefefe"
+                            },
+                            {
+                                "lightness": 20
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "administrative",
+                        "elementType": "geometry.stroke",
+                        "stylers": [
+                            {
+                                "color": "#fefefe"
+                            },
+                            {
+                                "lightness": 17
+                            },
+                            {
+                                "weight": 1.2
+                            }
+                        ]
+                    }
+                ]
+            });
+
+        });
+    </script>
 {% endblock %}

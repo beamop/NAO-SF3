@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar" class="gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>Blog</h2><span>{{ article.title }}</span>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="#">Blog</a></li>
+                            <li>{{ article.title }}</li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content
+    ================================================== -->
+    <div class="container">
+
+        <!-- Blog Posts -->
+        <div class="blog-page">
+            <div class="row">
+
+
+                <!-- Post Content -->
+                <div class="col-lg-9 col-md-8 padding-right-30">
+
+
+                    <!-- Blog Post -->
+                    <div class="blog-post single-post">
+
+                        <!-- Content -->
+                        <div class="post-content">
+
+                            <h3>{{ article.title }}</h3>
+
+                            <ul class="post-meta">
+                                <li>{{ article.publishedAt|date('d/m/Y') }}</li>
+                            </ul>
+
+                            <p>{{ article.content }}</p>
+
+                            <!-- Share Buttons -->
+                            <ul class="share-buttons margin-top-40 margin-bottom-0">
+                                <li><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=Super article de l'association NAO,+à+lire+{{ app.request.uri }}"><i class="fa fa-facebook"></i> Partager sur Facebook</a></li>
+                                <li><a class="twitter-share" href="https://twitter.com/home?status=Super article de l'association NAO,+à+lire+{{ app.request.uri }}"><i class="fa fa-twitter"></i> Tweeter</a></li>
+                                <li><a class="gplus-share" href="https://plus.google.com/share?url=Super article de l'association NAO,+à+lire+{{ app.request.uri }}"><i class="fa fa-google-plus"></i> Partager sur Google+</a></li>
+                                <li><a class="pinterest-share" href="https://pinterest.com/pin/create/button/?url={{ app.request.uri }}&media={{ asset('uploads/blog/' ~ article.image) | imagine_filter('thumb_lg') }}"><i class="fa fa-pinterest-p"></i> Partager sur Pinterest</a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+                    <!-- Blog Post / End -->
+
+
+                    <!-- Post Navigation -->
+                    <ul id="posts-nav" class="margin-top-0 margin-bottom-45">
+                        <li class="next-post">
+                            <a href="{{ path('nao_blog_details', {'id': nextArticle.id|default('1')}) }}"><span>Article suivant</span>
+                                {{ nextArticle.title|default('Aucun article trouvé') }}</a>
+                        </li>
+                        <li class="prev-post">
+                            <a href="{{ path('nao_blog_details', {'id': prevArticle.id|default('1')}) }}"><span>Article précédent</span>
+                                {{ prevArticle.title|default('Aucun article trouvé') }}
+                            </a>
+                        </li>
+                    </ul>
+
+                    <hr>
+
+                </div>
+                <!-- Content / End -->
+{% endblock %}

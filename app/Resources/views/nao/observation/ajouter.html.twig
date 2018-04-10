@@ -1,69 +1,213 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/datepicker.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- Gmaps -->
+    <style>
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            float: left;
+            display: none;
+            min-width: 160px;
+            max-width: 475px;
+            padding: 4px 0;
+            margin: 0 0 5px 10px;
+            list-style: none;
+            background-color: #fff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 0.5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+        }
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
-    <script src="https://unpkg.com/js-datepicker"></script>
-    {{ form_start(form) }}
-        <h3 class="front-green">Ajouter une observation</h3>
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="adresse">Adresse</label>
-            {{ form_widget(form.adresse, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.adresse.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
+
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar" class="gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2><i class="sl sl-icon-plus"></i> Ajouter une observation</h2>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="#">Accueil</a></li>
+                            <li>Ajouter une observation</li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content
+    ================================================== -->
+
+
+    <!-- Container -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="notification notice large margin-bottom-55">
+                    <h4>Information 🙂</h4>
+                    <p>Les observations envoyées seront validées par un naturaliste avant d'être sur le site.</p>
+                </div>
+
+                <div id="add-listing" class="separated-form">
+
+                    <!-- Section -->
+                    <div class="add-listing-section">
+
+                        <!-- Headline -->
+                        <div class="add-listing-headline">
+                            <h3><i class="sl sl-icon-doc"></i> Informations basiques</h3>
+                        </div>
+
+                        {{ form_start(form) }}
+
+                            <!-- Title -->
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <h5>Adresse de l'observation <i class="tip" data-tip-content="L'adresse ou l'endroit où vous avez aperçu l'oiseau."></i></h5>
+                                    {{ form_widget(form.adresse, { 'attr': {'class': 'search-field'} }) }}
+                                </div>
+                            </div>
+
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <h5>Date de l'observation <i class="tip" data-tip-content="La date à laquelle vous avez aperçu l'oiseau."></i></h5>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="col-md-4">
+                                    <h5><i class="fa fa-calendar-o"></i> Jour</h5>
+                                    {{ form_widget(form.date.day, { 'attr': {'class': 'chosen-select-no-single'} }) }}
+                                </div>
+
+                                <!-- Website -->
+                                <div class="col-md-4">
+                                    <h5><i class="fa fa-calendar-o"></i> Mois</h5>
+                                    {{ form_widget(form.date.month, { 'attr': {'class': 'chosen-select-no-single'} }) }}
+                                </div>
+
+                                <!-- Email Address -->
+                                <div class="col-md-4">
+                                    <h5><i class="fa fa-calendar-o"></i> Année</h5>
+                                    {{ form_widget(form.date.year, { 'attr': {'class': 'chosen-select-no-single'} }) }}
+                                </div>
+                            </div>
+
+                            <!-- Row -->
+                            <div class="row with-forms">
+
+                                <!-- Espèce -->
+                                <div class="col-md-6">
+                                    <h5>Espèce de l'oiseau <i class="tip" data-tip-content="L'espèce de l'oiseau, merci d'être précis."></i></h5>
+                                    {{ form_widget(form.bird, { 'attr': {'class': 'search-field'} }) }}
+                                </div>
+
+                                <!-- Type -->
+                                <div class="col-md-6">
+                                    <h5>Nombre d'individus observés <i class="tip" data-tip-content="Nombre d'individus observés lors de l'observation."></i></h5>
+                                    {{ form_widget(form.individuals, { 'attr': {'class': 'search-field'} }) }}
+                                </div>
+
+                            </div>
+                            <!-- Row / End -->
+
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="add-listing-section margin-top-45">
+
+                            <!-- Headline -->
+                            <div class="add-listing-headline">
+                                <h3><i class="sl sl-icon-picture"></i> Image</h3>
+                            </div>
+
+                            <!-- Dropzone -->
+                            <div class="submit-section">
+                                {{ form_row(form.image, { 'attr': {'class': 'dropzone'} }) }}
+                            </div>
+
+                        </div>
+                        <!-- Section / End -->
+
+
+                        <!-- Section -->
+                        <div class="add-listing-section margin-top-45">
+
+                            <!-- Headline -->
+                            <div class="add-listing-headline">
+                                <h3><i class="sl sl-icon-docs"></i> Commentaire</h3>
+                            </div>
+
+                            <!-- Commentaire -->
+                            <div class="form">
+                                <h5>Commentaire</h5>
+                                {{ form_widget(form.commentaire, { 'attr': {'class': 'WYSIWYG'} }) }}
+                            </div>
+
+                        </div>
+                        <!-- Section / End -->
+
+                        <button type="submit" class="button preview" id="observation_save" style="margin: 25px 0 25px 0;">Ajouter l'observation <i class="fa fa-arrow-circle-right"></i></button>
+
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+
         </div>
 
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="date">Date</label>
-            {{ form_widget(form.date, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.date.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
-        </div>
-
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="espece">Espèce</label>
-            {{ form_widget(form.bird, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.bird.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
-        </div>
-
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="individuals">Nombre d'individus observés</label>
-            {{ form_widget(form.individuals, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.individuals.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
-        </div>
-
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            {{ form_row(form.image) }}
-            {% for errorItem in form.image.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
-        </div>
-
-        <div class="form-group" style="display: flex;flex-wrap: wrap;">
-            <label for="commentaire">Commentaire</label>
-            {{ form_widget(form.commentaire, { 'attr': {'class': 'form-control'} }) }}
-            {% for errorItem in form.commentaire.vars.errors %}
-                <span class="help-inline">{{ errorItem.message }}</span>
-            {% endfor %}
-        </div>
-
-        <hr>
-
-        <div class="form-actions">
-            <a class="btn btn-default" href="/observation">Retour à la carte</a>
-            <button type="submit" id="observation_save" class="btn btn-primary">Ajouter l'observation</button>
-        </div>
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    </div>
+    <!-- Content / End -->
+    <!-- Container / End -->
 {% endblock %}
 
 {% block javascripts %}
@@ -71,29 +215,30 @@
             integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
             crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key={{ google_maps_api_key }}"></script>
-    <script src="{{ asset('js/vendor/pugxautocompleter/autocompleter-jqueryui.js') }}"></script>
+    <script src="{{ asset('scripts/vendor/pugxautocompleter/autocompleter-jqueryui.js') }}"></script>
+    <script src="{{ asset('scripts/dropzone.js') }}"></script>
 
     <script>
-        function initialize() {
-            var input = document.getElementById('observation_adresse');
-            new google.maps.places.Autocomplete(input);
-        }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
-
-        function getPosition() {
-            // Simple wrapper
-            return new Promise((res, rej) => {
-                navigator.geolocation.getCurrentPosition(res, rej);
-            });
-        }
-
-        async function setPosition() {
-            var position = await getPosition();
-            document.getElementById('observation_adresse').value = [position.coords.latitude, position.coords.longitude]    ;
-        }
-
         $(document).ready(function() {
+            function initialize() {
+                var input = document.getElementById('observation_adresse');
+                new google.maps.places.Autocomplete(input);
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+            function getPosition() {
+                // Simple wrapper
+                return new Promise((res, rej) => {
+                    navigator.geolocation.getCurrentPosition(res, rej);
+            });
+            }
+
+            async function setPosition() {
+                var position = await getPosition();
+                document.getElementById('observation_adresse').value = [position.coords.latitude, position.coords.longitude];
+            }
+
             $('#observation_bird').autocompleter({
                 url_list: '{{ path('bird.search') }}',
                 url_get: '{{ path('bird.search.id') }}'

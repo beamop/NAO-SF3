@@ -14,6 +14,9 @@ class MailerType extends AbstractType
     {
         $builder
             ->add('nom', Type\TextType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Nom complet'
+                ),
                 'constraints' => array(
                     new Constraints\NotBlank(array(
                         'message' => 'Merci d\'entrer un nom'
@@ -21,6 +24,9 @@ class MailerType extends AbstractType
                 )
             ))
             ->add('sujet', Type\TextType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Sujet'
+                ),
                 'constraints' => array(
                     new Constraints\NotBlank(array(
                         'message' => 'Merci d\'entrer un sujet'
@@ -28,6 +34,9 @@ class MailerType extends AbstractType
                 )
             ))
             ->add('email', Type\EmailType::class, array(
+                'attr' => array(
+                    'placeholder' => 'E-mail'
+                ),
                 'constraints' => array(
                     new Constraints\NotBlank(array(
                         'message' => 'Merci d\'ajouter une adresse email'
@@ -38,6 +47,9 @@ class MailerType extends AbstractType
                 )
             ))
             ->add('message', Type\TextareaType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Message'
+                ),
                 'constraints' => array(
                     new Constraints\NotBlank(array(
                         'message' => 'Merci d\'ajouter un message'

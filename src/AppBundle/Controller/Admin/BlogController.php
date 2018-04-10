@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class BlogController
  *
- * @Route("/admin/blog")
+ * @Route("/tableau-de-bord/blog")
  *
  * @package AppBundle\Controller\Admin
  */
@@ -53,6 +53,8 @@ class BlogController extends Controller
                 );
 
                 $post->setImage($nom_image);
+            } else {
+                $post->setImage('nao_blog_default.jpeg');
             }
 
             if ($post->getStatus()===$post::PUBLISHED || $post->getStatus()===$post::FEATURED) {

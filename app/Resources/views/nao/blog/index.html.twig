@@ -1,29 +1,105 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h3 class="front-green">Liste des articles</h3>
-    {% for article in articles %}
-        <ul class="list-group">
-            <li class="list-group-item">
-                Date : {{ article.publishedAt|date('d/m/Y') }}
-            </li>
-            <li class="list-group-item">
-                Titre : {{ article.title }}
-            </li>
-            <li class="list-group-item">
-                {{ article.content }}
-            </li>
-            {% if article.image %}
-                <li class="list-group-item">
-                    <img src="{{ asset('uploads/blog/images/' ~ article.image) | imagine_filter('thumb_md') }}">
-                </li>
-            {% endif %}
-            {% if is_granted('ROLE_ADMIN') %}
-                <li class="list-group-item">
-                    <a href="{{ path('nao_blog_post_supprimer', {'id': article.id}) }}" class="btn btn-danger">Supprimer le post</a>
-                </li>
-            {% endif %}
-        </ul>
-        <hr>
-    {% endfor %}
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar" class="gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>Blog</h2><span>Derniers articles</span>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="#">Accueil</a></li>
+                            <li>Blog</li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content
+    ================================================== -->
+    <div class="container">
+
+        <!-- Blog Posts -->
+        <div class="blog-page">
+            <div class="row">
+                <div class="col-lg-9 col-md-8 padding-right-30">
+
+                    {% for article in articles %}
+                        <!-- Blog Post -->
+                        <div class="blog-post">
+
+                            {% if article.image %}
+                                <!-- Img -->
+                                <a href="{{ path('nao_blog_details', {'id': article.id}) }}" class="post-img">
+                                    <img src="{{ asset('uploads/blog/' ~ article.image) | imagine_filter('thumb_bl') }}" alt="{{ article.title }}">
+                                </a>
+                            {% endif %}
+
+                            <!-- Content -->
+                            <div class="post-content">
+                                <h3><a href="pages-blog-post.html">{{ article.title }} </a></h3>
+
+                                <ul class="post-meta">
+                                    <li>{{ article.publishedAt|date('d/m/Y') }}</li>
+                                </ul>
+
+                                <p>{{ article.content|slice('0', '50') }}</p>
+
+                                <a href="{{ path('nao_blog_details', {'id': article.id}) }}" class="read-more">Voir plus <i class="fa fa-angle-right"></i></a>
+                            </div>
+
+                        </div>
+                        <!-- Blog Post / End -->
+                    {% endfor %}
+
+                </div>
+                <!-- Blog Posts / End -->
+
+
+                <!-- Widgets -->
+                <div class="col-lg-3 col-md-4">
+                    <div class="sidebar right">
+
+                        <!-- Widget -->
+                        <div class="widget margin-top-40">
+                            <h3>Des questions ?</h3>
+                            <div class="info-box margin-bottom-10">
+                                <p>Vous pouvez toujours nous contacter depuis notre formulaire de contact !</p>
+                                <a href="{{ path('nao_contact') }}" class="button fullwidth margin-top-20"><i class="fa fa-envelope-o"></i> Nous contacter</a>
+                            </div>
+                        </div>
+                        <!-- Widget / End -->
+
+                        <!-- Widget -->
+                        <div class="widget margin-top-40">
+                            <h3 class="margin-bottom-25">Nos réseaux</h3>
+                            <ul class="social-icons rounded">
+                                <li><a class="facebook" href="https://www.facebook.com/nao.asso"><i class="icon-facebook"></i></a></li>
+                                <li><a class="twitter" href="https://twitter.com/nao_asso"><i class="icon-twitter"></i></a></li>
+                            </ul>
+
+                        </div>
+                        <!-- Widget / End-->
+
+                        <div class="clearfix"></div>
+                        <div class="margin-bottom-40"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar / End -->
+
+
+        </div>
+    </div>
 {% endblock %}
+
+

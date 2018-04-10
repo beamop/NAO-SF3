@@ -22,10 +22,23 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adresse')
+            ->add('adresse', Type\TextType::class, array(
+                'attr' => array(
+                    'placeholder' => '47 Place du Marché Saint-Honoré'
+                )
+            ))
             ->add('date', Type\DateType::class)
-            ->add('bird', AutocompleteType::class, ['class' => 'AppBundle:Bird'])
-            ->add('individuals', Type\IntegerType::class)
+            ->add('bird', AutocompleteType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Aigle impérial'
+                ),
+                'class' => 'AppBundle:Bird'
+            ))
+            ->add('individuals', Type\IntegerType::class, array(
+                'attr' => array(
+                    'placeholder' => '1'
+                )
+            ))
             ->add('image', FileType::class, array(
                 'required' => false
             ))

@@ -9,8 +9,8 @@ parameters:
     locale: en
     mailer_from: noreply@nao.com
     mailer_to: noreply@nao.com
-    images_directory: '%kernel.project_dir%/web/uploads/images'
-    upload_blog_directory: '%kernel.project_dir%/web/uploads/blog/images'
+    images_directory: '%kernel.project_dir%/web/uploads/observation'
+    upload_blog_directory: '%kernel.project_dir%/web/uploads/blog'
 
 framework:
     #esi: ~
@@ -98,7 +98,7 @@ liip_imagine:
         # the name of the "filter set"
         thumb_xs:
             # adjust the image quality to 75%
-            quality: 80
+            quality: 100
             # list of transformations to apply (the "filters")
             filters:
                 # create a thumbnail: set size to 120x90 and use the "outbound" mode
@@ -110,15 +110,19 @@ liip_imagine:
         thumb_sm:
             filters:
                 thumbnail: { size: [150, 95], mode: inset }
-            quality: 80
+            quality: 100
         thumb_md:
             filters:
                 thumbnail: { size: [330, 190], mode: inset }
-            quality: 80
+            quality: 100
         thumb_lg:
             filters:
                 thumbnail: { size: [660, 380], mode: inset }
-            quality: 80
+            quality: 100
+        thumb_bl:
+            filters:
+                thumbnail: { size: [900, 500], mode: inset }
+            quality: 100
 
 # app/config/config.yml
 

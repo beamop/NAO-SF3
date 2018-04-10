@@ -4,6 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Observation;
 use AppBundle\Form\MailerType;
+use AppBundle\Service\Mailer;
+use AppBundle\Entity\Bird;
+use AppBundle\Entity\Post;
 use AppBundle\Form\ObservationType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,17 +14,84 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use AppBundle\Entity\Bird;
-use AppBundle\Service\Mailer;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use FOS\UserBundle\Event\FormEvent;
 
 class NaoController extends Controller
 {
+    private $tokenManager;
+
+    public function __construct(CsrfTokenManagerInterface $tokenManager = null)
+    {
+        $this->tokenManager = $tokenManager;
+    }
+
     /**
      * @Route("/", name="nao_accueil")
      */
     public function indexAction(Request $request)
     {
-        return $this->render('nao/index.html.twig');
+        /**
+         * Connexion depuis l'index
+         *
+         * @var $session Session
+         */
+        $session = $request->getSession();
+
+        $authErrorKey = Security::AUTHENTICATION_ERROR;
+        $lastUsernameKey = Security::LAST_USERNAME;
+
+        // get the error if any (works with forward and redirect -- see below)
+        if ($request->attributes->has($authErrorKey)) {
+            $error = $request->attributes->get($authErrorKey);
+        } elseif (null !== $session && $session->has($authErrorKey)) {
+            $error = $session->get($authErrorKey);
+            $session->remove($authErrorKey);
+        } else {
+            $error = null;
+        }
+
+        if (!$error instanceof AuthenticationException) {
+            $error = null; // The value does not come from the security component.
+        }
+
+        // last username entered by the user
+        $lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
+
+        $csrfToken = $this->tokenManager
+            ? $this->tokenManager->getToken('authenticate')->getValue()
+            : null;
+
+
+
+        $observation = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findallValidatedBirds();
+
+        $articles = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->findBy(
+                array('status' => array(Post::PUBLISHED, Post::FEATURED)),
+                array('status' => 'DESC', 'publishedAt' => 'DESC'),
+                10,
+                0
+            );
+
+        return $this->render('nao/index.html.twig', array(
+            'observations' => $observation,
+            'articles' => $articles,
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'csrf_token' => $csrfToken,
+        ));
+    }
+
+    public function getTokenAction()
+    {
+        return new Response($this->get('security.csrf.token_manager')->getToken('authenticate')->getValue());
     }
 
     /**
@@ -53,7 +123,7 @@ class NaoController extends Controller
 
                 $observation->setImage($nom_image);
             } else {
-                $observation->setImage('default.png');
+                $observation->setImage('nao_observation_default.jpeg');
             }
 
             $utilisateur = $this->get('security.token_storage')->getToken()->getUser();
@@ -153,16 +223,13 @@ class NaoController extends Controller
         return $this->redirectToRoute('nao_liste_observation');
     }
 
-
     /**
      * @Route("/observation", name="nao_observation_carte")
      */
     public function carteObservationAction()
     {
-        return $this->render('nao/observation/carte.html.twig');
+        return $this->redirectToRoute('nao_liste_observation');
     }
-
-
 
     /**
      * @Route("/observation/search/bird", name="nao_observation_json_bird", methods="POST")
@@ -196,8 +263,6 @@ class NaoController extends Controller
             );
             $nb++;
         }
-
-        $result['info'] = $nb . ' observations trouvées.';
 
         return new JsonResponse($result);
     }

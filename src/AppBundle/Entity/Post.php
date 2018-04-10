@@ -14,10 +14,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Post
 {
-
-    /**
-     *
-     */
     const DRAFT = 1;
     const PUBLISHED = 2;
     const FEATURED = 3;
