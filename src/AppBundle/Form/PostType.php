@@ -6,10 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type;
 use AppBundle\Entity\Post;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class PostType extends AbstractType
 {
@@ -18,12 +16,12 @@ class PostType extends AbstractType
     {
 
         $builder
-            ->add('title', TextType::class)
+            ->add('title', Type\TextType::class)
             ->add('content', CKEditorType::class, array('config_name' => 'basic_config'))
-            ->add('image', FileType::class, array(
+            ->add('image', Type\FileType::class, array(
                 'required' => false
             ))
-            ->add('status', ChoiceType::class, array(
+            ->add('status', Type\ChoiceType::class, array(
                 'choices'  => array(
                     Post::statusToText(Post::DRAFT) => Post::DRAFT,
                     Post::statusToText(Post::PUBLISHED) => Post::PUBLISHED,

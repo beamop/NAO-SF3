@@ -16,7 +16,7 @@ class NaoUserController extends Controller
      */
     public function redirectToProfileAction()
     {
-        return new Response($this->redirectToRoute('nao_profile'));
+        return $this->redirectToRoute('nao_profile');
     }
 
     /**
@@ -26,9 +26,7 @@ class NaoUserController extends Controller
      */
     public function profileAction()
     {
-        $userManager = $this->get('fos_user.user_manager');
-        $user = $userManager
-            ->findUsers();
+        $user = $this->getUser();
 
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)

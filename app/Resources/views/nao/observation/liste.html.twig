@@ -140,8 +140,8 @@
                                         <div class="listing-item-inner">
                                             <h3>{{ observation.bird.nomCourant }} <i class="verified-icon"></i></h3>
                                             <span>{{ observation.adresse }}</span>
-                                            <span>le <span style="color: red;">{{ observation.date|date('d/m/Y') }}</span></span>
-                                            <span>par <span style="color: red;">{{ observation.user.username }}</span></span>
+                                            <span>le <span style="color: brown;">{{ observation.date|date('d/m/Y') }}</span></span>
+                                            <span>par <span style="color: brown;">{{ observation.user.username }}</span></span>
                                             <br>
                                             <span>Individu(s) observé(s) : {{ observation.individuals }}</span>
                                             <br>
@@ -454,7 +454,7 @@
                     position: location,
                     title: item.birdName,
                     infoWindow: {
-                        content: item.birdName + '<br>Espèce observée par ' + '<span style="color: red;">'+item.userName+'</span>' + ' le ' + item.dateObservation
+                        content: item.birdName + '<br>Espèce observée par ' + '<span style="color: brown;">'+item.userName+'</span>' + ' le ' + item.dateObservation
                     }
                 });
             }
