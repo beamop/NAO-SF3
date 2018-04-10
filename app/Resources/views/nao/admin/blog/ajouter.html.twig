@@ -3,7 +3,7 @@
 
 {% block content %}
     {{ form_start(form) }}
-    <h3 class="front-green">Ajouter un article</h3>
+    <h3 class="front-green">{{ bouton }} un article</h3>
     <div class="form-group" style="display: flex;flex-wrap: wrap;">
         <label for="title">Titre</label>
         {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
@@ -38,7 +38,7 @@
     <hr>
 
     <div class="form-actions">
-        <button type="submit" id="post_save" class="btn btn-primary">Ajouter l'article</button>
+        <button type="submit" id="post_save" class="btn btn-primary">{{ bouton }} l'article</button>
     </div>
     {{ form_widget(form) }}
     {{ form_end(form) }}

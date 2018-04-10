@@ -124,10 +124,25 @@ liip_imagine:
                 thumbnail: { size: [900, 500], mode: inset }
             quality: 100
 
-# app/config/config.yml
 
 # Stof\DoctrineExtensionsBundle configuration
 stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
+
+ivory_ck_editor:
+    configs:
+        full_config:
+            jquery: true
+            height: '900px'
+            language: fr
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
+            extraPlugins: 'lineutils,widget,dialog,codesnippet,widgetselection'
+        basic_config:
+            jquery: true
+            heihgt: '250px'
+            width: '100%'
+            language: fr
+            toolbar: basic
