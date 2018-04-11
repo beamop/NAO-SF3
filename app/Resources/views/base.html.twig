@@ -58,8 +58,14 @@
                                 </ul>
                             </li>
 
+                            {% if app.user %}
+                                <li>
+                                    <a href="{{ path('nao_blog') }}">Blog</a>
+                                </li>
+                            {% endif %}
+
                             <li>
-                                <a href="{{ path('nao_blog') }}">Blog</a>
+                                <a href="{{ path('nao_profile') }}">Profil</a>
                             </li>
 
                             <li>

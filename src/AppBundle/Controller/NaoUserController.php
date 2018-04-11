@@ -20,7 +20,7 @@ class NaoUserController extends Controller
     }
 
     /**
-     * @Route("/tableau-de-bord/profile", name="nao_profile")
+     * @Route("/tableau-de-bord/profil", name="nao_profile")
      *
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
