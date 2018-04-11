@@ -1,31 +1,88 @@
-{% if error %}
-    <div class="alert alert-danger" role="alert">
-        {{ error.messageKey|trans(error.messageData, 'security') }}
-    </div>
-{% endif %}
+{% block content %}
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar" class="gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
 
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    {% if csrf_token %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    {% endif %}
+                    <h2><i class="sl sl-icon-login"></i> Connexion</h2>
 
-    <h3 class="font-green">Se connecter</h3>
-    <div class="form-group" style="display: flex;flex-wrap: wrap;">
-        <label for="username">Nom d'utilisateur ou e-mail</label>
-        <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
-    </div>
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="#">Accueil</a></li>
+                            <li>Connexion</li>
+                        </ul>
+                    </nav>
 
-    <div class="form-group" style="display: flex;flex-wrap: wrap;">
-        <label for="password">Mot de passe</label>
-        <input type="password" class="form-control" id="password" name="_password" required="required" autocomplete="current-password" />
-    </div>
-
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me" value="on" />
-        <label class="form-check-label" for="remember_me">Connexion automatique</label>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <hr>
 
-    <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="Se connecter" />
-</form>
+    <!-- Content
+    ================================================== -->
+
+    <!-- Container -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                {% if error %}
+                    <div class="notification error closeable">
+                        <p><span>Erreur!</span> {{ error.messageKey|trans(error.messageData, 'security') }}.</p>
+                        <a class="close" href="#"></a>
+                    </div>
+                {% endif %}
+
+                <div class="notification notice large margin-bottom-55">
+                    <h4>Information 🙂</h4>
+                    <p>N'hésitez pas à contacter notre équipe si vous êtes naturaliste.</p>
+                </div>
+
+                <div id="add-listing" class="separated-form">
+                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                        {% if csrf_token %}
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        {% endif %}
+
+                        <!-- Section -->
+                        <div class="add-listing-section">
+
+                            <!-- Headline -->
+                            <div class="add-listing-headline">
+                                <h3><i class="sl sl-icon-doc"></i> Informations de connexion</h3>
+                            </div>
+
+                            <!-- Nom d'utilisateur ou e-mail -->
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <h5>Nom d'utilisateur ou e-mail</h5>
+                                    <input type="text" class="search-field" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+                                </div>
+                            </div>
+
+                            <!-- Mot de passe -->
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <h5>Mot de passe</h5>
+                                    <input type="password" class="search-field" id="password" name="_password" required="required" autocomplete="current-password" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="Se connecter" style="margin: 25px 0 25px 0;"/>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Content / End -->
+    <!-- Container / End -->
+{% endblock %}

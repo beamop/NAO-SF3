@@ -158,29 +158,42 @@
                 <div class="col-md-5 col-sm-6">
                     <img class="footer-logo" src="{{ asset('images/logo.png') }}" alt="">
                     <br><br>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dictum turpis non purus efficitur, non ultrices libero sollicitudin. Nullam molestie imperdiet neque quis feugiat. Donec in tortor in est cursus sodales. Aliquam erat volutpat. Morbi vel ullamcorper diam, sit amet lacinia leo. Vivamus in neque nec diam auctor placerat vel ac libero. Cras vitae felis nec massa vestibulum tincidunt quis eget quam. </p>
+                    <p>
+                        Nos amis les oiseaux est une association loi 1901 regroupant de nombreux passionnés d’ornithologie.
+                        Elle a été créée en 2001 par Michel Dujardin et Marie DUPONT tous deux naturalistes passionnés.
+                    </p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 ">
                     <h4>Liens utiles</h4>
                     <ul class="footer-links">
-                        {% if is_granted(['ROLE_PARTICULIER']) %}
+                        {% if app.user %}
                             <li>
-                                <a href="#">Connexion</a>
+                                <a href="{{ path('nao_blog') }}">Blog</a>
                             </li>
                             <li>
-                                <a href="#">Inscription</a>
+                                <a href="{{ path('nao_liste_observation') }}">Liste des observations</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('nao_contact') }}">Contact</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="#sign-in-dialog">Connexion</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('nao_blog') }}">Blog</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('nao_liste_observation') }}">Liste des observations</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('nao_contact') }}">Contact</a>
                             </li>
                         {% endif %}
-                        <li>
-                            <a href="#">Blog</a>
-                        </li>
-                        <li>
-                            <a href="#">Liste des observations</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
                     </ul>
 
                     <div class="clearfix"></div>
