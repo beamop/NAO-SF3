@@ -288,5 +288,13 @@ class NaoController extends Controller
         ));
     }
 
+    /**
+     * @Route("/a-propos", name="nao_apropos")
+     */
+    public function aproposAction()
+    {
+        return $this->render('nao/a-propos/a-propos.html.twig');
+    }
+
 }
 
