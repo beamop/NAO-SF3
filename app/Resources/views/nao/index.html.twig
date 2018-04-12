@@ -114,7 +114,7 @@
                     {% for observation in observations|slice('0', '10') %}
                         <!-- Listing Item -->
                         <div class="carousel-item">
-                            <a href="listings-single-page.html" class="listing-item-container">
+                            <a href="{{ path('nao_liste_observation') }}" class="listing-item-container">
                                 <div class="listing-item">
                                     <img src="{{ asset('uploads/observation/' ~ observation.image) | imagine_filter('thumb_lg') }}" alt="{{ observation.bird.nomCourant }}">
 
@@ -156,7 +156,7 @@
                 {% for article in articles|slice('0', '3') %}
                     <!-- Blog Post Item -->
                     <div class="col-md-4">
-                        <a href="pages-blog-post.html" class="blog-compact-item-container">
+                        <a href="{{ path('nao_blog_details', {'id':article.id}) }}" class="blog-compact-item-container">
                             <div class="blog-compact-item">
                                 <img src="{{ asset('uploads/blog/' ~ article.image) | imagine_filter('thumb_lg') }}" alt="{{ article.title }}">
                                 <span class="blog-item-tag">Blog</span>

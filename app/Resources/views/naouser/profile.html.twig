@@ -12,7 +12,11 @@
                         <div class="user-profile-avatar"><img src="{{ asset('images/avatar.png') }}" alt="{{ app.user }}"></div>
                         <div class="user-profile-name">
                             <h2>{{ app.user }}</h2><br>
-                            <span>Utilisateur de NAO (Nos Amis les Oiseaux)</span>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <span>Administrateur de NAO (Nos Amis les Oiseaux) - <a href="{{ path('nao_admin') }}">Interface de gestion</a></span>
+                            {% else %}
+                                <span>Utilisateur de NAO (Nos Amis les Oiseaux)</span>
+                            {% endif %}
                         </div>
                     </div>
 

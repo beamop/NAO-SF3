@@ -1,0 +1,98 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block content %}
+    <!-- Content
+            ================================================== -->
+    <div class="dashboard-content">
+
+        <!-- Titlebar -->
+        <div id="titlebar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Salut, {{ app.user }}!</h2>
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="#">Accueil</a></li>
+                            <li>Gestion</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        {% if observationsOnHold|length > 0 %}
+            <!-- Notice -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="notification success closeable margin-bottom-30">
+                        {% if observationsOnHold|length > 1 %}
+                            <p>{{ observationsOnHold|length }} observations sont en attente de <strong>validation</strong>!</p>
+                        {% else %}
+                            <p>{{ observationsOnHold|length }} observation est en attente de <strong>validation</strong>!</p>
+                        {% endif %}
+                        <a class="close" href="#"></a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Content -->
+        <div class="row">
+
+            <!-- Item -->
+            <div class="col-lg-6 col-md-12">
+                <div class="dashboard-stat color-1">
+                    <div class="dashboard-stat-content"><h4>{{ observations|length }}</h4> <span>Observations</span></div>
+                    <div class="dashboard-stat-icon"><i class="im im-icon-Map2"></i></div>
+                </div>
+            </div>
+
+
+            <!-- Item -->
+            <div class="col-lg-6 col-md-12">
+                <div class="dashboard-stat color-3">
+                    <div class="dashboard-stat-content"><h4>{{ posts|length }}</h4> <span>Articles</span></div>
+                    <div class="dashboard-stat-icon"><i class="fa fa-list-ul"></i></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <!-- Recent Activity -->
+            <div class="col-lg-6 col-md-12">
+                <div class="dashboard-list-box with-icons margin-top-20">
+                    <h4>Dernières observations validées</h4>
+                    <ul>
+                        {% for observation in observations|reverse %}
+                            <li>
+                                <i class="list-box-icon fa fa-eye"></i> L'observation de <strong>{{ observation.user }}</strong> a été validée!
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Invoices -->
+            <div class="col-lg-6 col-md-12">
+                <div class="dashboard-list-box invoices with-icons margin-top-20">
+                    <h4>Derniers articles</h4>
+                    <ul>
+
+                        {% for post in posts|reverse %}
+                            <li><i class="list-box-icon sl sl-icon-doc"></i>
+                                <strong>{{ post.title }}</strong>, posté le {{ post.publishedAt|date('d/m/Y') }}
+                                <div class="buttons-to-right">
+                                    <a href="{{ path('nao_blog_details', {'id':post.id}) }}" class="button gray">Voir l'article</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

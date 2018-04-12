@@ -54,4 +54,17 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Get only validated observations
+     *
+     * @return array
+     */
+    public function findAllNoValidatedBirds()
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.validation = 0')
+            ->getQuery()
+            ->getResult();
+    }
 }

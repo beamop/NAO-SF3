@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Observation;
 use AppBundle\Form\MailerType;
 use AppBundle\Service\Mailer;
-use AppBundle\Entity\Bird;
 use AppBundle\Entity\Post;
 use AppBundle\Form\ObservationType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +17,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use FOS\UserBundle\Event\FormEvent;
 
 class NaoController extends Controller
 {
@@ -171,21 +169,26 @@ class NaoController extends Controller
     }
 
     /**
-     * @Route("/observation/validation", name="nao_validation_observation")
+     * @Route("/gestion/en-attente", name="nao_validation_observation")
      */
-    public function ValidationObservationAction()
+    public function validationObservationAction()
     {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)
             ->findAll();
 
-        return $this->render('nao/observation/validation.html.twig', array(
+        return $this->render('naouser/admin/validation.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
             'observations' => $observations
         ));
     }
 
     /**
-     * @Route("/observation/validation/valider/{id}", name="nao_validation_observation_valider", requirements={"id": "\d+"})
+     * @Route("/gestion/en-attente/valider/{id}", name="nao_validation_observation_valider", requirements={"id": "\d+"})
      * Method({"GET", "POST"})
      */
     public function validerAction(Request $request, $id)
@@ -204,7 +207,7 @@ class NaoController extends Controller
     }
 
     /**
-     * @Route("/observation/validation/supprimer/{id}", name="nao_validation_observation_supprimer", requirements={"id": "\d+"})
+     * @Route("/gestion/en-attente/supprimer/{id}", name="nao_validation_observation_supprimer", requirements={"id": "\d+"})
      * Method({"GET", "POST"})
      */
     public function supprimerAction(Request $request, $id)
@@ -220,7 +223,7 @@ class NaoController extends Controller
         $response = new Response();
         $response->send();
 
-        return $this->redirectToRoute('nao_liste_observation');
+        return $this->redirectToRoute('nao_validation_observation');
     }
 
     /**

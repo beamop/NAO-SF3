@@ -35,4 +35,4 @@ security:
         - { path: ^/observation/ajouter, role: [ROLE_PARTICULIER, ROLE_NATURALISTE, ROLE_ADMIN] }
         - { path: ^/observation/validation, role: [ROLE_NATURALISTE] }
         - { path: ^/tableau-de-bord/profile, role: [ROLE_PARTICULIER, ROLE_NATURALISTE, ROLE_ADMIN] }
-        - { path: ^/tableau-de-bord/administration, role: ROLE_ADMIN }
+        - { path: ^/tableau-de-bord/gestion, role: [ROLE_NATURALISTE, ROLE_ADMIN] }
