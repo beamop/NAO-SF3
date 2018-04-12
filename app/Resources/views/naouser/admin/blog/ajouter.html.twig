@@ -1,0 +1,86 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block content %}
+    <!-- Content
+	================================================== -->
+    <div class="dashboard-content">
+
+        <!-- Titlebar -->
+        <div id="titlebar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Ajouter un article</h2>
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="{{ path('nao_admin') }}">Gestion</a></li>
+                            <li><a href="{{ path('nao_blog') }}">Blog</a></li>
+                            <li>Ajouter</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div id="add-listing">
+
+                    {{ form_start(form) }}
+                        <!-- Section -->
+                        <div class="add-listing-section">
+
+                            <!-- Headline -->
+                            <div class="add-listing-headline">
+                                <h3><i class="sl sl-icon-doc"></i> Ajouter un article</h3>
+                            </div>
+
+                            <!-- Titre -->
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <h5>Titre de l'article <i class="tip" data-tip-content="Le titre de l'article qui sera affiché dans le blog."></i></h5>
+                                    {{ form_widget(form.title) }}
+                                </div>
+
+                                <!-- Contenu -->
+                                <div class="col-md-12">
+                                    <h5>Contenu de l'article <i class="tip" data-tip-content="Le contenu de l'article qui sera affiché dans le blog."></i></h5>
+                                    {{ form_widget(form.content, { 'attr': {'class': 'WYSIWYG'} }) }}
+                                </div>
+
+                                <!-- Statut -->
+                                <div class="col-md-12">
+                                    <h5>Statut de l'article <i class="tip" data-tip-content="Le statut de l'article, en statut brouillon l'article ne sera pas affiché en public, en statut publié l'article sera publié en public dans le blog et le statut mis en avant affichera l'article toujours en avant des autres."></i></h5>
+                                    {{ form_widget(form.status, { 'attr': {'class': 'chosen-select-no-single'} }) }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="add-listing-section margin-top-45">
+
+                            <!-- Headline -->
+                            <div class="add-listing-headline">
+                                <h3><i class="sl sl-icon-picture"></i> Image</h3>
+                            </div>
+
+                            <!-- Dropzone -->
+                            <div class="submit-section">
+                                {{ form_row(form.image, { 'attr': {'class': 'dropzone'} }) }}
+                            </div>
+
+                        </div>
+                        <!-- Section / End -->
+
+                        <button type="submit" id="post_save" class="button preview">Ajouter l'article <i class="fa fa-arrow-circle-right"></i></button>
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -7,13 +7,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Observation;
 use AppBundle\Form\PostType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class BlogController
  *
- * @Route("/tableau-de-bord/blog")
+ * @Route("/gestion/blog")
  *
  * @package AppBundle\Controller\Admin
  */
@@ -31,6 +32,10 @@ class BlogController extends Controller
      */
     public function ajouterAction(Request $request)
     {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
         $em = $this->getDoctrine()->getManager();
 
         $post = new Post();
@@ -64,10 +69,11 @@ class BlogController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('nao_accueil');
+            return $this->redirectToRoute('nao_blog');
         }
 
-        return $this->render('nao/admin/blog/ajouter.html.twig', array(
+        return $this->render('naouser/admin/blog/ajouter.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
             'form' => $form->createView(),
             'bouton' => 'Ajouter'
         ));
@@ -133,6 +139,10 @@ class BlogController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
         $articles = $this->getDoctrine()
             ->getRepository(Post::class)
             ->findBy(
@@ -142,7 +152,8 @@ class BlogController extends Controller
                 0
             );
 
-        return $this->render('nao/admin/blog/index.html.twig', array(
+        return $this->render('naouser/admin/blog/liste.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
             'articles' => $articles
         ));
     }
