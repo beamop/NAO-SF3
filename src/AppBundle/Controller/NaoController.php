@@ -227,6 +227,25 @@ class NaoController extends Controller
     }
 
     /**
+     * @Route("/gestion/liste", name="nao_liste_gestion")
+     */
+    public function listeGestionAction()
+    {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
+        $observations = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllValidatedBirds();
+
+        return $this->render('naouser/admin/liste.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
+            'observations' => $observations
+        ));
+    }
+
+    /**
      * @Route("/observation", name="nao_observation_carte")
      */
     public function carteObservationAction()

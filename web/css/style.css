@@ -5328,7 +5328,6 @@ section.fullwidth .blog-post { margin: 5px 0 0 0; }
 
 .post-img img {
     border-radius: 3px 3px 0 0;
-    filter: blur(10px);
 }
 
 .post-img:after {
@@ -12838,6 +12837,14 @@ h4 span.headline-detail { font-size: 15px; margin-top: 5px;}
     display: inline-block;
     top: 1px;
     position: relative;
+}
+
+.blur-avatar {
+    filter: blur(2px);
+}
+
+.blur-post {
+    filter: blur(10px);
 }
 
 .icons .fa.fa-fw { margin-right: 3px; font-size: 14px; }

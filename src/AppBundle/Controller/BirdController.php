@@ -14,7 +14,6 @@ class BirdController extends Controller
 
     /**
      * @Route("/importTaxref", name="importTaxref")
-     */
     public function importTaxrefAction(Request $request, ImportTaxRef $taxRef)
     {
 
@@ -22,6 +21,7 @@ class BirdController extends Controller
 
         return new Response($datas);
     }
+    */
 
     /**
      * @Route("/bird/search", name="bird.search", methods="POST")
