@@ -146,3 +146,24 @@ ivory_ck_editor:
             width: '100%'
             language: fr
             toolbar: basic
+
+
+welp_mailchimp:
+    api_key: '%mailchimp_api_key%'
+    #list_provider: 'welp_mailchimp.list_provider'
+    lists:
+        b9420e: #identifiant de la liste
+            subscriber_provider: 'nao_mailchimp_fos_subscriber_provider' # provider fourni en cas de synchronisation totale
+            webhook_secret: 'TheSecretPass' # webhook secret qui permet de sécuriser la liaison entre MailChimp et votre application
+            webhook_url: 'http://www.nao-association.com/mailchimp/webhook/endpoint' # L'url webhook enregistré dans la liste MailChimp
+            merge_fields:
+                -
+                    tag: FNAME
+                    name: First Name
+                    type: text
+                    public: true
+                -
+                    tag: LNAME
+                    name: Last Name
+                    type: text
+                    public: true

@@ -19,3 +19,4 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
     GoogleMapsApiKey: GoogleMapsApiKey
+    mailchimp_api_key: ~
