@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="buttons-to-right">
-                                    <a href="{{ path('nao_validation_observation') }}" class="button gray reject"><i class="sl sl-icon-close"></i> Supprimer</a>
+                                    <a href="{{ path('nao_validation_observation_supprimer', {'id':observation.id}) }}" class="button gray reject"><i class="sl sl-icon-close"></i> Supprimer</a>
                                 </div>
                             </li>
                         {% endfor %}

@@ -223,7 +223,7 @@ class NaoController extends Controller
         $response = new Response();
         $response->send();
 
-        return $this->redirectToRoute('nao_validation_observation');
+        return $this->redirectToRoute('nao_admin');
     }
 
     /**
