@@ -10,7 +10,7 @@
                 <!-- Titlebar -->
                 <div id="titlebar" class="listing-titlebar">
                     <div class="listing-titlebar-title">
-                        <h2>{{ observation.bird.nomCourant }} <span class="listing-tag">Observation</span></h2>
+                        <h3>{{ observation.bird.nomCourant }} <span class="listing-tag">Observation</span></h3>
                         <span>
                             <a href="#listing-location" class="listing-address">
                                 <i class="fa fa-map-marker"></i>
@@ -30,9 +30,9 @@
                 </div>
 
                 <!-- Informations de l'oiseau -->
-                <div id="bird-info" class="listing-section">
+                <div id="bird-info" class="listing-section margin-bottom-10">
 
-                    <div id="info-text"></div>
+                    <div id="info-text">Récuperation des informations...</div>
 
                 </div>
 
@@ -49,7 +49,7 @@
                     <!-- Informations de l'observation -->
                     <h3 class="listing-desc-headline">Informations de l'observation</h3>
                     <ul class="listing-features checkboxes margin-top-0">
-                        {% if observation.individuals|length > 1 %}
+                        {% if observation.individuals > 1 %}
                             <li>Plusieurs individus observés</li>
                         {% endif %}
                         <li>Observation valide</li>
@@ -63,7 +63,7 @@
                 </div>
 
                 <!-- Location -->
-                <div id="listing-location" class="listing-section">
+                <div id="listing-location" class="listing-section margin-bottom-50">
                     <h3 class="listing-desc-headline margin-top-60 margin-bottom-30">Localisation de l'oiseau</h3>
 
                     <div id="singleListingMap-container">
@@ -101,14 +101,13 @@
 
                 <!-- Share / Like -->
                 <div class="listing-share margin-top-40 margin-bottom-40 no-border">
-                    <span>159 people bookmarked this place</span>
 
                     <!-- Share Buttons -->
                     <ul class="share-buttons margin-top-40 margin-bottom-0">
-                        <li><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-facebook"></i> Partager</a></li>
-                        <li><a class="twitter-share" href="https://twitter.com/home?status=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-twitter"></i> Partager</a></li>
-                        <li><a class="gplus-share" href="https://plus.google.com/share?url=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-google-plus"></i> Partager</a></li>
-                        <li><a class="pinterest-share" href="https://pinterest.com/pin/create/button/?url={{ app.request.uri }}&media={{ asset('uploads/blog/' ~ observation.image) | imagine_filter('thumb_lg') }}"><i class="fa fa-pinterest-p"></i> Partager</a></li>
+                        <li><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-facebook"></i> Partager sur Facebook</a></li>
+                        <li><a class="twitter-share" href="https://twitter.com/home?status=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-twitter"></i> Partager sur Twitter</a></li>
+                        <li><a class="gplus-share" href="https://plus.google.com/share?url=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-google-plus"></i> Partager sur Google+</a></li>
+                        <li><a class="pinterest-share" href="https://pinterest.com/pin/create/button/?url={{ app.request.uri }}&media={{ asset('uploads/blog/' ~ observation.image) | imagine_filter('thumb_lg') }}"><i class="fa fa-pinterest-p"></i> Partager sur Pinterest</a></li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -123,7 +122,6 @@
 {% block javascripts %}
     <script>
         $(document).ready(function(){
-
             $.ajax({
                 type: "GET",
                 url: "https://fr.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=1&page={{ observation.bird.nomCourant }}&callback=?",
