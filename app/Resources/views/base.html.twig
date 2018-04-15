@@ -50,12 +50,12 @@
                         <ul id="responsive">
 
                             <li>
-                                <a class="current" href="{{ path('nao_observation_carte') }}">Observer</a>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('nao_liste_observation') }}">Liste des observations</a>
-                                    </li>
-                                </ul>
+                                <a class="current" href="{{ path('nao_accueil') }}">Accueil</a>
+                            </li>
+
+
+                            <li>
+                                <a href="{{ path('nao_liste_observation') }}">Observer</a>
                             </li>
 
                             {% if app.user %}
