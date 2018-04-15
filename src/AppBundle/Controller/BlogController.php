@@ -37,7 +37,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/details/{id}", name="nao_blog_details")
+     * @Route("/detail/{id}", name="nao_blog_details")
      */
     public function blogDetailsAction(Request $request, $id)
     {

@@ -11,7 +11,6 @@
         <!-- Google Maps -->
         <div id="singleListingMap-container">
             <div id="map"></div>
-            <a href="#" id="streetView">Street View</a>
         </div>
         <!-- Google Maps / End -->
 
@@ -37,97 +36,97 @@
 
     {{ form_start(form) }}
 
-    <!-- Container / Start -->
-    <div class="container">
+        <!-- Container / Start -->
+        <div class="container">
 
-        {% for flash_message in app.session.flashBag.get('success') %}
-            <div class="notification success closeable">
-                <p><span>Super!</span> {{ flash_message }}</p>
-                <a class="close" href="#"></a>
-            </div>
-
-            <br>
-        {% endfor %}
-
-        {% for flash_message in app.session.flashBag.get('error') %}
-            <div class="notification error closeable">
-                <p><span>Erreur!</span> {{ flash_message }}</p>
-                <a class="close" href="#"></a>
-            </div>
-
-            <br>
-        {% endfor %}
-
-        <div class="row">
-
-            <!-- Contact Details -->
-            <div class="col-md-4">
-
-                <h4 class="headline margin-bottom-30">NAO (Nos Amis les Oiseaux)</h4>
-
-                <!-- Contact Details -->
-                <div class="sidebar-textbox">
-                    <p>Nos amis les oiseaux est une association loi 1901 regroupant de nombreux passionnés d’ornithologie. Elle a été créée en 2001 par Michel Dujardin et Marie DUPONT tous deux naturalistes passionnés. </p>
-
-                    <ul class="contact-details">
-                        <li>
-                            <i class="im im-icon-Phone-2"></i> <strong>Tél:</strong><span> +33(0) 144 452 132</span>
-                        </li>
-                        <li>
-                            <i class="im im-icon-Globe"></i> <strong>Web:</strong><span><a href="#"> www.nao.fr</a></span>
-                        </li>
-                        <li>
-                            <i class="im im-icon-Envelope"></i> <strong>E-mail:</strong><span><a href="#"> hello@nao.fr</a></span>
-                        </li>
-                    </ul>
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <div class="notification success closeable">
+                    <p><span>Super!</span> {{ flash_message }}</p>
+                    <a class="close" href="#"></a>
                 </div>
 
-            </div>
+                <br>
+            {% endfor %}
 
-            <!-- Contact Form -->
-            <div class="col-md-8">
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <div class="notification error closeable">
+                    <p><span>Erreur!</span> {{ flash_message }}</p>
+                    <a class="close" href="#"></a>
+                </div>
 
-                <section id="contact">
-                    <h4 class="headline margin-bottom-35">Formulaire de contact</h4>
+                <br>
+            {% endfor %}
 
-                    <div id="contact-message"></div>
+            <div class="row">
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div>
-                                {{ form_widget(form.sujet) }}
+                <!-- Contact Details -->
+                <div class="col-md-4">
+
+                    <h4 class="headline margin-bottom-30">NAO (Nos Amis les Oiseaux)</h4>
+
+                    <!-- Contact Details -->
+                    <div class="sidebar-textbox">
+                        <p>Nos amis les oiseaux est une association loi 1901 regroupant de nombreux passionnés d’ornithologie. Elle a été créée en 2001 par Michel Dujardin et Marie DUPONT tous deux naturalistes passionnés. </p>
+
+                        <ul class="contact-details">
+                            <li>
+                                <i class="im im-icon-Phone-2"></i> <strong>Tél:</strong><span> +33(0) 144 452 132</span>
+                            </li>
+                            <li>
+                                <i class="im im-icon-Globe"></i> <strong>Web:</strong><span><a href="#"> www.nao.fr</a></span>
+                            </li>
+                            <li>
+                                <i class="im im-icon-Envelope"></i> <strong>E-mail:</strong><span><a href="#"> hello@nao.fr</a></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Contact Form -->
+                <div class="col-md-8">
+
+                    <section id="contact">
+                        <h4 class="headline margin-bottom-35">Formulaire de contact</h4>
+
+                        <div id="contact-message"></div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    {{ form_widget(form.sujet) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div>
+                                    {{ form_widget(form.nom) }}
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div>
-                                {{ form_widget(form.nom) }}
-                            </div>
+                        <div>
+                            {{ form_widget(form.email) }}
                         </div>
-                    </div>
 
-                    <div>
-                        {{ form_widget(form.email) }}
-                    </div>
+                        <div>
+                            {{ form_widget(form.message) }}
+                        </div>
 
-                    <div>
-                        {{ form_widget(form.message) }}
-                    </div>
+                        <input type="submit" class="submit button" id="observation_save" value="Envoyer le message" />
 
-                    <input type="submit" class="submit button" id="observation_save" value="Envoyer le message" />
+                    </section>
+                </div>
+                <!-- Contact Form / End -->
 
-                </section>
             </div>
-            <!-- Contact Form / End -->
 
         </div>
+        <!-- Container / End -->
 
-    </div>
-    <!-- Container / End -->
-
-    <div style="display:none">
-        {{ form_rest(form) }}
-    </div>
+        <div style="display:none">
+            {{ form_rest(form) }}
+        </div>
 
     {{ form_end(form) }}
 
