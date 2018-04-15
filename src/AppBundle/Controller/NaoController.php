@@ -93,6 +93,28 @@ class NaoController extends Controller
     }
 
     /**
+     * @Route("/observation", name="nao_observation_carte")
+     */
+    public function carteObservationAction()
+    {
+        return $this->redirectToRoute('nao_liste_observation');
+    }
+
+    /**
+     * @Route("/observation/detail/{id}", name="nao_details_observation")
+     */
+    public function detailsObservationAction($id)
+    {
+        $observation = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->find($id);
+
+        return $this->render('nao/observation/details.html.twig', array(
+            'observation' => $observation
+        ));
+    }
+
+    /**
      * @Route("/observation/ajouter", name="nao_ajouter_observation")
      */
     public function ajouterObservationAction(Request $request)
@@ -166,6 +188,42 @@ class NaoController extends Controller
         return $this->render('nao/observation/liste.html.twig', array(
             'observations' => $observations
         ));
+    }
+
+    /**
+     * @Route("/observation/search/bird", name="nao_observation_json_bird", methods="POST")
+     */
+    public function observationSearchBirdAction(Request $request)
+    {
+        $birdId = (int) $request->request->get('bird');
+        $result = array();
+        $nb = 0;
+
+        if (!empty($birdId)) {
+
+            $observations = $this->getDoctrine()
+                ->getRepository(Observation::class)
+                ->byBirdId($birdId);
+
+        } else {
+            $observations = $this->getDoctrine()
+                ->getRepository(Observation::class)
+                ->findAllValidatedBirds();
+        }
+
+        foreach ($observations as $obs){
+            $result[] = array(
+                'id'    => $obs->getId(),
+                'userName' => $obs->getUser()->getUsername(),
+                'birdName'  => $obs->getBird()->getNomCourant(),
+                'dateObservation' => $obs->getDate()->format('d/m/Y'),
+                'latitude' => $obs->getLatitude(),
+                'longitude' => $obs->getLongitude(),
+            );
+            $nb++;
+        }
+
+        return new JsonResponse($result);
     }
 
     /**
@@ -243,50 +301,6 @@ class NaoController extends Controller
             'observationsOnHold' => $observationsOnHold,
             'observations' => $observations
         ));
-    }
-
-    /**
-     * @Route("/observation", name="nao_observation_carte")
-     */
-    public function carteObservationAction()
-    {
-        return $this->redirectToRoute('nao_liste_observation');
-    }
-
-    /**
-     * @Route("/observation/search/bird", name="nao_observation_json_bird", methods="POST")
-     */
-    public function observationSearchBirdAction(Request $request)
-    {
-        $birdId = (int) $request->request->get('bird');
-        $result = array();
-        $nb = 0;
-
-        if (!empty($birdId)) {
-
-            $observations = $this->getDoctrine()
-                ->getRepository(Observation::class)
-                ->byBirdId($birdId);
-
-        } else {
-            $observations = $this->getDoctrine()
-                ->getRepository(Observation::class)
-                ->findAllValidatedBirds();
-        }
-
-        foreach ($observations as $obs){
-            $result[] = array(
-                'id'    => $obs->getId(),
-                'userName' => $obs->getUser()->getUsername(),
-                'birdName'  => $obs->getBird()->getNomCourant(),
-                'dateObservation' => $obs->getDate()->format('d/m/Y'),
-                'latitude' => $obs->getLatitude(),
-                'longitude' => $obs->getLongitude(),
-            );
-            $nb++;
-        }
-
-        return new JsonResponse($result);
     }
 
     /**

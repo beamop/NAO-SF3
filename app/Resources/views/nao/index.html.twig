@@ -114,7 +114,7 @@
                     {% for observation in observations|slice('0', '10') %}
                         <!-- Listing Item -->
                         <div class="carousel-item">
-                            <a href="{{ path('nao_liste_observation') }}" class="listing-item-container">
+                            <a href="{{ path('nao_details_observation', {'id':observation.id}) }}" class="listing-item-container">
                                 <div class="listing-item">
                                     <img src="{{ asset('uploads/observation/' ~ observation.image) | imagine_filter('thumb_lg') }}" alt="{{ observation.bird.nomCourant }}">
 
