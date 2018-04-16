@@ -1,336 +1,342 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <!-- Content
-    ================================================== -->
-    <div class="container">
-        <div class="row sticky-wrapper">
-            <div class="col-lg-8 col-md-8 padding-right-30">
+    {% if observation %}
+        <!-- Content
+        ================================================== -->
+        <div class="container">
+            <div class="row sticky-wrapper">
+                <div class="col-lg-8 col-md-8 padding-right-30">
 
-                <!-- Titlebar -->
-                <div id="titlebar" class="listing-titlebar">
-                    <div class="listing-titlebar-title">
-                        <h3>{{ observation.bird.nomCourant }} <span class="listing-tag">Observation</span></h3>
-                        <span>
-                            <a href="#listing-location" class="listing-address">
-                                <i class="fa fa-map-marker"></i>
-                                {{ observation.adresse }}
-                            </a>
-					    </span>
+                    <!-- Titlebar -->
+                    <div id="titlebar" class="listing-titlebar">
+                        <div class="listing-titlebar-title">
+                            <h3>{{ observation.bird.nomCourant }} <span class="listing-tag">Observation</span></h3>
+                            <span>
+                                <a href="#listing-location" class="listing-address">
+                                    <i class="fa fa-map-marker"></i>
+                                    {{ observation.adresse }}
+                                </a>
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Listing Nav -->
-                <div class="listing-nav-container">
-                    <ul class="listing-nav">
-                        <li><a href="#bird-info" class="active">Informations de l'oiseau</a></li>
-                        <li><a href="#listing-overview">Message de l'observateur</a></li>
-                        <li><a href="#listing-location">Localisation de l'oiseau</a></li>
-                    </ul>
-                </div>
-
-                <!-- Informations de l'oiseau -->
-                <div id="bird-info" class="listing-section margin-bottom-10">
-
-                    <div id="info-text">Récuperation des informations...</div>
-
-                </div>
-
-                <!-- Message de l'observateur -->
-                <div id="listing-overview" class="listing-section">
-
-                    <h3 class="listing-desc-headline margin-top-15 margin-bottom-30">Message de l'observateur</h3>
-                    <!-- Description -->
-
-                    <p>
-                        {{ observation.commentaire }}
-                    </p>
-
-                    <!-- Informations de l'observation -->
-                    <h3 class="listing-desc-headline">Informations de l'observation</h3>
-                    <ul class="listing-features checkboxes margin-top-0">
-                        {% if observation.individuals > 1 %}
-                            <li>Plusieurs individus observés</li>
-                        {% endif %}
-                        <li>Observation valide</li>
-                        {% if observation.image %}
-                            <li>Photographie</li>
-                        {% endif %}
-                        {% if observation.date|date('m') == 'now'|date('m') %}
-                            <li>Observation récente</li>
-                        {% endif %}
-                    </ul>
-                </div>
-
-                <!-- Location -->
-                <div id="listing-location" class="listing-section margin-bottom-50">
-                    <h3 class="listing-desc-headline margin-top-60 margin-bottom-30">Localisation de l'oiseau</h3>
-
-                    <div id="singleListingMap-container">
-                        <div id="singleListingMap" data-latitude="40.70437865245596" data-longitude="-73.98674011230469" data-map-icon="im im-icon-Hamburger"></div>
+                    <!-- Listing Nav -->
+                    <div class="listing-nav-container">
+                        <ul class="listing-nav">
+                            <li><a href="#bird-info" class="active">Informations de l'oiseau</a></li>
+                            <li><a href="#listing-overview">Message de l'observateur</a></li>
+                            <li><a href="#listing-location">Localisation de l'oiseau</a></li>
+                        </ul>
                     </div>
+
+                    <!-- Informations de l'oiseau -->
+                    <div id="bird-info" class="listing-section margin-bottom-10">
+
+                        <div id="info-text">Récuperation des informations...</div>
+
+                    </div>
+
+                    <!-- Message de l'observateur -->
+                    <div id="listing-overview" class="listing-section">
+
+                        <h3 class="listing-desc-headline margin-top-15 margin-bottom-30">Message de l'observateur</h3>
+                        <!-- Description -->
+
+                        <p>
+                            {{ observation.commentaire }}
+                        </p>
+
+                        <!-- Informations de l'observation -->
+                        <h3 class="listing-desc-headline">Informations de l'observation</h3>
+                        <ul class="listing-features checkboxes margin-top-0">
+                            {% if observation.individuals > 1 %}
+                                <li>Plusieurs individus observés</li>
+                            {% endif %}
+                            <li>Observation valide</li>
+                            {% if observation.image %}
+                                <li>Photographie</li>
+                            {% endif %}
+                            {% if observation.date|date('m') == 'now'|date('m') %}
+                                <li>Observation récente</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <!-- Location -->
+                    <div id="listing-location" class="listing-section margin-bottom-50">
+                        <h3 class="listing-desc-headline margin-top-60 margin-bottom-30">Localisation de l'oiseau</h3>
+
+                        <div id="singleListingMap-container">
+                            <div id="singleListingMap" data-latitude="40.70437865245596" data-longitude="-73.98674011230469" data-map-icon="im im-icon-Hamburger"></div>
+                        </div>
+                    </div>
+
                 </div>
+
+
+                <!-- Sidebar
+                ================================================== -->
+                <div class="col-lg-4 col-md-4 margin-top-75 sticky">
+
+
+                    <!-- Verified Badge -->
+                    <div class="verified-badge with-tip" data-tip-content="L'observation a été validée par un membre de l'équipe de NAO.">
+                        <i class="sl sl-icon-check"></i> Observation valide
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="boxed-widget margin-top-35">
+                        <div class="hosted-by-title">
+                            <h4><span>Observation de</span> <a>{{ observation.user.username }}</a></h4>
+                            <a href="pages-user-profile.html" class="hosted-by-avatar"><img src="images/dashboard-avatar.jpg" alt=""></a>
+                        </div>
+                        <ul class="listing-details-sidebar">
+                            <li><i class="fa fa-envelope-o"></i> <a href="#">{{ observation.user.email }}</a></li>
+                        </ul>
+
+                        <a href="mailto:{{ observation.user.email }}" class="send-message-to-owner button popup-with-zoom-anim"><i class="sl sl-icon-envelope-open"></i>Contacter l'observateur</a>
+                    </div>
+                    <!-- Contact / End-->
+
+
+                    <!-- Share / Like -->
+                    <div class="listing-share margin-top-40 margin-bottom-40 no-border">
+
+                        <!-- Share Buttons -->
+                        <ul class="share-buttons margin-top-40 margin-bottom-0">
+                            <li><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-facebook"></i> Partager sur Facebook</a></li>
+                            <li><a class="twitter-share" href="https://twitter.com/home?status=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-twitter"></i> Partager sur Twitter</a></li>
+                            <li><a class="gplus-share" href="https://plus.google.com/share?url=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-google-plus"></i> Partager sur Google+</a></li>
+                            <li><a class="pinterest-share" href="https://pinterest.com/pin/create/button/?url={{ app.request.uri }}&media={{ asset('uploads/blog/' ~ observation.image) | imagine_filter('thumb_lg') }}"><i class="fa fa-pinterest-p"></i> Partager sur Pinterest</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+                <!-- Sidebar / End -->
 
             </div>
-
-
-            <!-- Sidebar
-            ================================================== -->
-            <div class="col-lg-4 col-md-4 margin-top-75 sticky">
-
-
-                <!-- Verified Badge -->
-                <div class="verified-badge with-tip" data-tip-content="L'observation a été validée par un membre de l'équipe de NAO.">
-                    <i class="sl sl-icon-check"></i> Observation valide
-                </div>
-
-                <!-- Contact -->
-                <div class="boxed-widget margin-top-35">
-                    <div class="hosted-by-title">
-                        <h4><span>Observation de</span> <a>{{ observation.user.username }}</a></h4>
-                        <a href="pages-user-profile.html" class="hosted-by-avatar"><img src="images/dashboard-avatar.jpg" alt=""></a>
-                    </div>
-                    <ul class="listing-details-sidebar">
-                        <li><i class="fa fa-envelope-o"></i> <a href="#">{{ observation.user.email }}</a></li>
-                    </ul>
-
-                    <a href="mailto:{{ observation.user.email }}" class="send-message-to-owner button popup-with-zoom-anim"><i class="sl sl-icon-envelope-open"></i>Contacter l'observateur</a>
-                </div>
-                <!-- Contact / End-->
-
-
-                <!-- Share / Like -->
-                <div class="listing-share margin-top-40 margin-bottom-40 no-border">
-
-                    <!-- Share Buttons -->
-                    <ul class="share-buttons margin-top-40 margin-bottom-0">
-                        <li><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-facebook"></i> Partager sur Facebook</a></li>
-                        <li><a class="twitter-share" href="https://twitter.com/home?status=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-twitter"></i> Partager sur Twitter</a></li>
-                        <li><a class="gplus-share" href="https://plus.google.com/share?url=Super+observation+de+l'association+NAO,+à+voir+{{ app.request.uri }}"><i class="fa fa-google-plus"></i> Partager sur Google+</a></li>
-                        <li><a class="pinterest-share" href="https://pinterest.com/pin/create/button/?url={{ app.request.uri }}&media={{ asset('uploads/blog/' ~ observation.image) | imagine_filter('thumb_lg') }}"><i class="fa fa-pinterest-p"></i> Partager sur Pinterest</a></li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-
-            </div>
-            <!-- Sidebar / End -->
-
         </div>
-    </div>
+    {% else %}
+        <script>window.location.href = '{{ path('nao_liste_observation') }}';</script>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        $(document).ready(function(){
-            $.ajax({
-                type: "GET",
-                url: "https://fr.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=1&page={{ observation.bird.nomCourant }}&callback=?",
-                contentType: "application/json; charset=utf-8",
-                async: true,
-                dataType: "json",
-                success: function (data, textStatus, jqXHR) {
+    {% if observation %}
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    type: "GET",
+                    url: "https://fr.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=1&page={{ observation.bird.nomCourant }}&callback=?",
+                    contentType: "application/json; charset=utf-8",
+                    async: true,
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
 
-                    var markup = data.parse.text["*"];
-                    var blurb = $('<div></div>').html(markup);
-                    $('#info-text').html($(blurb).find('p'));
+                        var markup = data.parse.text["*"];
+                        var blurb = $('<div></div>').html(markup);
+                        $('#info-text').html($(blurb).find('p'));
 
-                },
-                error: function (errorMessage) {
-                }
-            });
-        });
-
-        var map;
-        var pos = {lat: {{ observation.latitude }}, lng: {{ observation.longitude }}};
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('singleListingMap'), {
-                center: pos,
-                zoom: 8,
-                styles: [
-                    {
-                        "featureType": "water",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#e9e9e9"
-                            },
-                            {
-                                "lightness": 17
-                            }
-                        ]
                     },
-                    {
-                        "featureType": "landscape",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#f5f5f5"
-                            },
-                            {
-                                "lightness": 20
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "geometry.fill",
-                        "stylers": [
-                            {
-                                "color": "#ffffff"
-                            },
-                            {
-                                "lightness": 17
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                            {
-                                "color": "#ffffff"
-                            },
-                            {
-                                "lightness": 29
-                            },
-                            {
-                                "weight": 0.2
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.arterial",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#ffffff"
-                            },
-                            {
-                                "lightness": 18
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.local",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#ffffff"
-                            },
-                            {
-                                "lightness": 16
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "poi",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#f5f5f5"
-                            },
-                            {
-                                "lightness": 21
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "poi.park",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#dedede"
-                            },
-                            {
-                                "lightness": 21
-                            }
-                        ]
-                    },
-                    {
-                        "elementType": "labels.text.stroke",
-                        "stylers": [
-                            {
-                                "visibility": "on"
-                            },
-                            {
-                                "color": "#ffffff"
-                            },
-                            {
-                                "lightness": 16
-                            }
-                        ]
-                    },
-                    {
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                            {
-                                "saturation": 36
-                            },
-                            {
-                                "color": "#333333"
-                            },
-                            {
-                                "lightness": 40
-                            }
-                        ]
-                    },
-                    {
-                        "elementType": "labels.icon",
-                        "stylers": [
-                            {
-                                "visibility": "off"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "transit",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#f2f2f2"
-                            },
-                            {
-                                "lightness": 19
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "administrative",
-                        "elementType": "geometry.fill",
-                        "stylers": [
-                            {
-                                "color": "#fefefe"
-                            },
-                            {
-                                "lightness": 20
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "administrative",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                            {
-                                "color": "#fefefe"
-                            },
-                            {
-                                "lightness": 17
-                            },
-                            {
-                                "weight": 1.2
-                            }
-                        ]
+                    error: function (errorMessage) {
                     }
-                ]
+                });
             });
-            var marker = new google.maps.Marker({
-                position: pos,
-                map: map
-            });
-        }
 
-    </script>
+            var map;
+            var pos = {lat: {{ observation.latitude }}, lng: {{ observation.longitude }}};
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('singleListingMap'), {
+                    center: pos,
+                    zoom: 8,
+                    styles: [
+                        {
+                            "featureType": "water",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#e9e9e9"
+                                },
+                                {
+                                    "lightness": 17
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#f5f5f5"
+                                },
+                                {
+                                    "lightness": 20
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.fill",
+                            "stylers": [
+                                {
+                                    "color": "#ffffff"
+                                },
+                                {
+                                    "lightness": 17
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.stroke",
+                            "stylers": [
+                                {
+                                    "color": "#ffffff"
+                                },
+                                {
+                                    "lightness": 29
+                                },
+                                {
+                                    "weight": 0.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.arterial",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#ffffff"
+                                },
+                                {
+                                    "lightness": 18
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.local",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#ffffff"
+                                },
+                                {
+                                    "lightness": 16
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#f5f5f5"
+                                },
+                                {
+                                    "lightness": 21
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi.park",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#dedede"
+                                },
+                                {
+                                    "lightness": 21
+                                }
+                            ]
+                        },
+                        {
+                            "elementType": "labels.text.stroke",
+                            "stylers": [
+                                {
+                                    "visibility": "on"
+                                },
+                                {
+                                    "color": "#ffffff"
+                                },
+                                {
+                                    "lightness": 16
+                                }
+                            ]
+                        },
+                        {
+                            "elementType": "labels.text.fill",
+                            "stylers": [
+                                {
+                                    "saturation": 36
+                                },
+                                {
+                                    "color": "#333333"
+                                },
+                                {
+                                    "lightness": 40
+                                }
+                            ]
+                        },
+                        {
+                            "elementType": "labels.icon",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#f2f2f2"
+                                },
+                                {
+                                    "lightness": 19
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.fill",
+                            "stylers": [
+                                {
+                                    "color": "#fefefe"
+                                },
+                                {
+                                    "lightness": 20
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.stroke",
+                            "stylers": [
+                                {
+                                    "color": "#fefefe"
+                                },
+                                {
+                                    "lightness": 17
+                                },
+                                {
+                                    "weight": 1.2
+                                }
+                            ]
+                        }
+                    ]
+                });
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: map
+                });
+            }
 
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"
-            async defer></script>
+        </script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"
+                async defer></script>
+    {% endif %}
 {% endblock %}
