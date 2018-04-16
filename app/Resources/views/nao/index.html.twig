@@ -126,12 +126,14 @@
                     <img src="{{ asset('images/slider-bg-02.jpg') }}"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina data-kenburns="on" data-duration="12000" data-ease="Linear.easeNone" data-scalestart="100" data-scaleend="112" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0" data-offsetend="0 0">
 
                     <!-- Caption-->
-                    <div class="tp-caption centered custom-caption-2 tp-shape tp-shapewrapper tp-resizeme rs-parallaxlevel-0"
-                         id="slide-2-layer-2"
-                         data-x="['center','center','center','center']" data-hoffset="['0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['0']"
-                         data-width="['640','640', 640','420','320']"
-                         data-height="auto"
+                    <div class="tp-caption custom-caption-2 tp-shape tp-shapewrapper tp-resizeme rs-parallaxlevel-0"
+                         id="slide-1-layer-2"
+                         data-x="['right','right','right','right']"
+                         data-hoffset="['-80','40','40','40']"
+                         data-y="['bottom','bottom','bottom','bottom']"
+                         data-voffset="['0']"
+                         data-width="['550','640', 640','420','320']"
+                         data-height="['340']"
                          data-whitespace="nowrap"
                          data-transform_idle="o:1;"
                          data-transform_in="y:0;opacity:0;s:1000;e:Power2.easeOutExpo;s:400;e:Power2.easeOutExpo"
@@ -143,9 +145,9 @@
 
                         <!-- Caption Content -->
                         <div class="R_title margin-bottom-15"
-                             id="slide-2-layer-3"
-                             data-x="['center','center','center','center']"
-                             data-hoffset="['0','0','0','0']"
+                             id="slide-2-layer-1"
+                             data-x="['left','center','center','center']"
+                             data-hoffset="['0','0','40','0']"
                              data-y="['middle','middle','middle','middle']"
                              data-voffset="['-40','-40','-20','-80']"
                              data-fontsize="['42','36', '32','36','22']"
@@ -161,10 +163,10 @@
                              data-basealign="slide"
                              data-responsive_offset="off"
                              data-responsive="off"
-                             style="z-index: 6; color: #fff; letter-spacing: 0px; font-weight: 600; ">Streamline Your Business</div>
+                             style="z-index: 6; color: #fff; letter-spacing: 0px; font-weight: 600; ">NAO est l'application idéale</div>
 
-                        <div class="caption-text">Proactively envisioned multimedia based on expertise cross-media growth strategies. Pontificate installed base portals after maintainable products.</div>
-                        <a href="#" class="button medium">Read More</a>
+                        <div class="caption-text">Vous aimez observer les oiseaux, les protéger et contribuer à préserver leur habitat…</div>
+                        <a href="{{ path('nao_ajouter_observation') }}" class="button medium">Ajouter une observation</a>
                     </div>
 
                 </li>
@@ -260,6 +262,16 @@
             </div>
 
         </div>
+
+        <!-- Flip banner -->
+        <a href="#newsletter" class="flip-banner parallax margin-top-65" data-background="images/slider-bg-01.jpg" data-color="brown" data-color-opacity="0.65" data-img-width="2500" data-img-height="1666">
+            <div class="flip-banner-content">
+                <h2 class="flip-visible">La Newsletter</h2>
+                <h2 class="flip-hidden">Inscrivez-vous <i class="sl sl-icon-arrow-right"></i></h2>
+            </div>
+        </a>
+        <!-- Flip banner / End -->
+
     </section>
     <!-- Recent Blog Posts / End -->
 {% endblock %}

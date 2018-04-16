@@ -456,7 +456,7 @@
                     animation: google.maps.Animation.DROP,
                     icon: image,
                     infoWindow: {
-                        content: item.birdName + '<br>Espèce observée par ' + '<span style="color: brown;">'+item.userName+'</span>' + ' le ' + item.dateObservation
+                        content: item.birdName + '<br>Espèce observée par ' + '<span style="color: brown;">'+item.userName+'</span>' + ' le ' + item.dateObservation + '<br><a href=\'detail/'+item.id+'\'>Plus d\'informations sur l\'observation...</a>'
                     }
                 });
             }
