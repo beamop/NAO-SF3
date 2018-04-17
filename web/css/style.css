@@ -12024,6 +12024,10 @@ img.mfp-img {
     border-radius: 4px;
 }
 
+.img-inline-index {
+    max-width: 150px;
+}
+
 /* The shadow behind the image */
 .mfp-figure:after {
     content: '';
