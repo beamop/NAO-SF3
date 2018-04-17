@@ -11,6 +11,7 @@
     ================================================== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/colors/brown.css') }}" id="colors">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
     {% block stylesheets %}{% endblock %}
 
 </head>
@@ -165,8 +166,7 @@
                     <img class="footer-logo" src="{{ asset('images/logo.png') }}" alt="">
                     <br><br>
                     <p>
-                        Nos amis les oiseaux est une association loi 1901 regroupant de nombreux passionnés d’ornithologie.
-                        Elle a été créée en 2001 par Michel Dujardin et Marie DUPONT tous deux naturalistes passionnés.
+                        Notre association Nos Amis les Oiseaux a pour but de permettre à des passionnés d’ornithologie de partager leurs observations, d’échanger au sein d’une communauté et de participer à un projet d’études d’envergure nationale.
                     </p>
                 </div>
 
@@ -178,7 +178,7 @@
                                 <a href="{{ path('nao_blog') }}">Blog</a>
                             </li>
                             <li>
-                                <a href="{{ path('nao_liste_observation') }}">Liste des observations</a>
+                                <a href="{{ path('nao_liste_observation') }}">Observations</a>
                             </li>
                             <li>
                                 <a href="{{ path('nao_contact') }}">Contact</a>
@@ -194,7 +194,7 @@
                                 <a href="{{ path('nao_blog') }}">Blog</a>
                             </li>
                             <li>
-                                <a href="{{ path('nao_liste_observation') }}">Liste des observations</a>
+                                <a href="{{ path('nao_liste_observation') }}">Observations</a>
                             </li>
                             <li>
                                 <a href="{{ path('nao_contact') }}">Contact</a>
@@ -208,7 +208,7 @@
                 <div class="col-md-3  col-sm-12">
                     <h4>NAO (Nos Amis les Oiseaux)</h4>
                     <div class="text-widget">
-                        E-mail: <span><a href="#">hello@nao.fr</a></span>
+                        <span><a href="#">contact@nao-association.com</a></span>
                     </div>
 
                     <ul class="social-icons margin-top-20">
@@ -223,7 +223,7 @@
             <!-- Copyright -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="copyrights">© 2017 NAO (Nos Amis les Oiseaux). Tous droits réservés.</div>
+                    <div class="copyrights">© {{ "now"|date('Y') }} NAO (Nos Amis les Oiseaux). Tous droits réservés.</div>
                 </div>
             </div>
 
@@ -240,7 +240,29 @@
 </div>
 <!-- Wrapper / End -->
 
-
+<!-- Cookie Law -->
+<script>
+    window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#f7f7f7"
+                },
+                "button": {
+                    "background": "transparent",
+                    "text": "#784e3d",
+                    "border": "#784e3d"
+                }
+            },
+            "content": {
+                "message": "Ce site utilise des cookies pour vous offrir le meilleur service. En poursuivant votre navigation, vous acceptez l’utilisation des cookies.",
+                "dismiss": "J'accepte",
+                "link": "En savoir plus",
+                "href": "https://www.cnil.fr/fr/cookies-traceurs-que-dit-la-loi"
+            }
+        })});
+</script>
+<!-- End Cookie Law script -->
 
 <!-- Scripts
 ================================================== -->
@@ -255,6 +277,7 @@
 <script type="text/javascript" src="{{ asset('scripts/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('scripts/tooltips.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('scripts/custom.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
 
 <!-- Customs
 ================================================== -->
