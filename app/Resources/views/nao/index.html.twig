@@ -251,7 +251,7 @@
                         <div class="carousel-item">
                             <a href="{{ path('nao_details_observation', {'id':observation.id}) }}" class="listing-item-container">
                                 <div class="listing-item">
-                                    <img src="{{ asset('uploads/observation/' ~ observation.image) | imagine_filter('thumb_lg') }}" alt="{{ observation.bird.nomCourant }}">
+                                    <img src="{{ asset('uploads/observation/' ~ observation.image | default('nao_observation_default.jpeg')) | imagine_filter('thumb_lg') }}" alt="{{ observation.bird.nomCourant }}">
 
                                     <div class="listing-item-content">
                                         <span class="tag">Observation</span>
@@ -291,7 +291,8 @@
                     <div class="col-md-4">
                         <a href="{{ path('nao_blog_details', {'id':article.id}) }}" class="blog-compact-item-container">
                             <div class="blog-compact-item">
-                                <img src="{{ asset('uploads/blog/' ~ article.image) | imagine_filter('thumb_lg') }}" alt="{{ article.title }}">
+                                <img src="{{ asset('uploads/blog/' ~ article.image | default('nao_blog_default.jpeg')) | imagine_filter('thumb_lg') }}" alt="{{ article.title }}">
+
                                 <span class="blog-item-tag">Blog</span>
                                 <div class="blog-compact-item-content">
                                     <ul class="blog-post-tags">
@@ -315,7 +316,7 @@
         </div>
 
         <!-- Flip banner -->
-        <a href="#newsletter" class="flip-banner parallax margin-top-65" data-background="images/slider-bg-01.jpg" data-color="brown" data-color-opacity="0.65" data-img-width="2500" data-img-height="1666">
+        <a href="#newsletter" class="flip-banner parallax margin-top-65" data-background="{{ asset('images/slider-bg-01.jpg') }}" data-color="brown" data-color-opacity="0.65" data-img-width="2500" data-img-height="1666">
             <div class="flip-banner-content">
                 <h2 class="flip-visible">La Newsletter</h2>
                 <h2 class="flip-hidden">Inscrivez-vous <i class="sl sl-icon-arrow-right"></i>
@@ -344,8 +345,8 @@
     <script src="{{ asset('scripts/vendor/gmaps/gmaps.min.js') }}"></script>
 
     <!-- REVOLUTION SLIDER SCRIPT -->
-    <script type="text/javascript" src="scripts/themepunch.tools.min.js"></script>
-    <script type="text/javascript" src="scripts/themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="{{ asset('scripts/themepunch.tools.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('scripts/themepunch.revolution.min.js') }}"></script>
 
     <script type="text/javascript">
         var tpj=jQuery;
