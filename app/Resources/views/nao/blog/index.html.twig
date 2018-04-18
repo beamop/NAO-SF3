@@ -52,7 +52,7 @@
                                     <li>{{ article.publishedAt|date('d/m/Y') }}</li>
                                 </ul>
 
-                                <p>{{ article.content|slice('0', '50') }}</p>
+                                <p>{{ article.content|slice('0', '50')|raw }}</p>
 
                                 <a href="{{ path('nao_blog_details', {'id': article.id}) }}" class="read-more">Voir plus <i class="fa fa-angle-right"></i></a>
                             </div>
