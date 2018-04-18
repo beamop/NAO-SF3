@@ -49,7 +49,7 @@
                                     <li>{{ article.publishedAt|date('d/m/Y') }}</li>
                                 </ul>
 
-                                <p>{{ article.content }}</p>
+                                <p>{{ article.content | raw }}</p>
 
                                 <!-- Share Buttons -->
                                 <ul class="share-buttons margin-top-40 margin-bottom-0">

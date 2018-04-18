@@ -299,7 +299,7 @@
                                         <li>{{ article.publishedAt|date('d/m/Y') }}</li>
                                     </ul>
                                     <h3>{{ article.title }}</h3>
-                                    <p>{{ article.content }}</p>
+                                    <p>{{ article.content | raw }}</p>
                                 </div>
                             </div>
                         </a>
