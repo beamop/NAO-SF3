@@ -17,6 +17,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Welp\MailchimpBundle\Event\SubscriberEvent;
+use Welp\MailchimpBundle\Subscriber\Subscriber;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class NaoController extends Controller
 {
@@ -330,6 +334,58 @@ class NaoController extends Controller
     public function aproposAction()
     {
         return $this->render('nao/a-propos/a-propos.html.twig');
+    }
+
+
+    /**
+     * @Route("/newsletter/subscribe", name="nao_newsletter_subscribe", requirements={"email"}, methods="POST")
+     */
+    public function subscribeNewsletterAction(Request $request, ValidatorInterface $validator)
+    {
+
+        $email = $request->request->get('email');
+        $submittedToken = $request->request->get('token');
+
+        $return = "NOK";
+
+        /*
+        // cas user connecté
+
+        $user = $this->getUser();
+
+        $subscriber = new Subscriber($user->getEmail(), [
+            'FNAME' => $user->getUsername(),
+        ], [
+            'language' => 'fr'
+        ]);
+        */
+
+
+        $emailConstraint = new Assert\Email();
+
+        // validate
+        $errorList = $validator->validate(
+            $email,
+            $emailConstraint
+        );
+
+        if (count($errorList) > 0) {
+            return new JsonResponse($return);
+        }
+
+        if (!$this->isCsrfTokenValid('newsletter', $submittedToken)) {
+            return new JsonResponse($return);
+        }
+
+        $subscriber = new Subscriber($email);
+
+        $this->container->get('event_dispatcher')->dispatch(
+            SubscriberEvent::EVENT_SUBSCRIBE,
+            new SubscriberEvent('ee60b9420e', $subscriber)
+        );
+
+
+        return new JsonResponse('OK');
     }
 
 }
