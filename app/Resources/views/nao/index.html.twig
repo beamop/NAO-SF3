@@ -318,7 +318,14 @@
         <a href="#newsletter" class="flip-banner parallax margin-top-65" data-background="images/slider-bg-01.jpg" data-color="brown" data-color-opacity="0.65" data-img-width="2500" data-img-height="1666">
             <div class="flip-banner-content">
                 <h2 class="flip-visible">La Newsletter</h2>
-                <h2 class="flip-hidden">Inscrivez-vous <i class="sl sl-icon-arrow-right"></i></h2>
+                <h2 class="flip-hidden">Inscrivez-vous <i class="sl sl-icon-arrow-right"></i>
+                    <form id="formNewsletter">
+                        <input type="hidden" name="token" value="{{ csrf_token('newsletter') }}" />
+                        <input name="email" type="email" placeholder="adresse@email.com" />
+                        <input type="submit" class="btn btn-primary" id="newsSubmit" name="newsSubmit" value="Valider">
+                    </form>
+                    <p id="resNewsletter"></p>
+                </h2>
             </div>
         </a>
         <!-- Flip banner / End -->
@@ -442,6 +449,28 @@
                     }
                 });
             }
+
+        });	/*ready*/
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#formNewsletter').on("submit", function(event){
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    url: "{{ path('nao_newsletter_subscribe') }}",
+                    success: function(json){
+                        if(json === 'OK') {
+                            $('#resNewsletter').text("Adresse email ajoutée !");
+                        } else {
+                            $('#resNewsletter').text("Une erreur s'est produite, veuillez vérifier votre adresse email !");
+                        }
+                    }
+                });
+            });
         });	/*ready*/
     </script>
 
