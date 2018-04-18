@@ -80,9 +80,9 @@ class BlogController extends Controller
     }
 
     /**
-     * Modifier article
+     * Editer article
      *
-     * @Route("/modifier/{id}", name="admin_post_modifier", requirements={"id": "\d+"})
+     * @Route("/edit/{id}", name="admin_post_editer", requirements={"id": "\d+"})
      * @Method({"GET","POST"})
      *
      * @param Request $request
@@ -90,6 +90,10 @@ class BlogController extends Controller
      */
     public function modifierAction(Request $request, $id)
     {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
         $em = $this->getDoctrine()->getManager();
 
         $post = $em
@@ -126,9 +130,9 @@ class BlogController extends Controller
             return $this->redirectToRoute('admin_blog');
         }
 
-        return $this->render('nao/admin/blog/ajouter.html.twig', array(
-            'form' => $form->createView(),
-            'bouton' => 'Modifier'
+        return $this->render('naouser/admin/blog/modifier.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
+            'form' => $form->createView()
         ));
     }
 

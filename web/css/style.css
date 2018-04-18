@@ -8865,7 +8865,9 @@ span.like-icon {
 /* Titlebar
 ------------------------------------- */
 #titlebar {
-    background-color: #f8f8f8;
+    background-image: url("../images/bg-apropos.jpg");
+    -webkit-background-size: cover;
+    background-size: cover;
     position: relative;
     padding: 70px 0;
     margin-bottom: 65px;
@@ -12020,6 +12022,10 @@ img.mfp-img {
     box-sizing: border-box;
     margin: 40px auto;
     border-radius: 4px;
+}
+
+.img-inline-index {
+    max-width: 150px;
 }
 
 /* The shadow behind the image */

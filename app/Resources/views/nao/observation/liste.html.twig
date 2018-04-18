@@ -135,19 +135,14 @@
 
                                     <!-- Content -->
                                     <div class="listing-item-content">
-                                        <div class="listing-badge now-open">Validé</div>
 
                                         <div class="listing-item-inner">
-                                            <h3>{{ observation.bird.nomCourant }} <i class="verified-icon"></i></h3>
+                                            <h3>{{ observation.bird.nomCourant }}</h3>
                                             <span>{{ observation.adresse }}</span>
                                             <span>le <span style="color: brown;">{{ observation.date|date('d/m/Y') }}</span></span>
                                             <span>par <span style="color: brown;">{{ observation.user.username }}</span></span>
                                             <br>
                                             <span>Individu(s) observé(s) : {{ observation.individuals }}</span>
-                                            <br>
-                                            <span>Message de l'observateur <i class="fa fa-angle-down"></i></span>
-                                            <br>
-                                            <span>{{ observation.commentaire|slice('0', '50') }}</span>
                                         </div>
                                     </div>
                                 </a>
@@ -450,15 +445,17 @@
              * @param location
              */
             function placeMarker(location, item){
+                var image = '{{ asset('images/icon-map.png') }}';
                 map.addMarker({
                     position: location,
                     title: item.birdName,
+                    animation: google.maps.Animation.DROP,
+                    icon: image,
                     infoWindow: {
-                        content: item.birdName + '<br>Espèce observée par ' + '<span style="color: brown;">'+item.userName+'</span>' + ' le ' + item.dateObservation
+                        content: item.birdName + '<br>Espèce observée par ' + '<span style="color: brown;">'+item.userName+'</span>' + ' le ' + item.dateObservation + '<br><a href=\'detail/'+item.id+'\'>Plus d\'informations sur l\'observation...</a>'
                     }
                 });
             }
-
 
             /**
              * Draw disc with location as center
