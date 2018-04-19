@@ -329,9 +329,17 @@ class NaoController extends Controller
     }
 
     /**
+     * @Route("/mentions-legales", name="nao_mentions_legales")
+     */
+    public function mentionsLegalesAction()
+    {
+        return $this->render('nao/mentions-legales/mentions-legales.html.twig');
+    }
+
+    /**
      * @Route("/a-propos", name="nao_apropos")
      */
-    public function aproposAction()
+    public function aProposAction()
     {
         return $this->render('nao/a-propos/a-propos.html.twig');
     }
