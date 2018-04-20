@@ -8864,6 +8864,12 @@ span.like-icon {
 /* ---------------------------------- */
 /* Titlebar
 ------------------------------------- */
+#titlebar {
+    position: relative;
+    padding: 70px 0;
+    margin-bottom: 65px;
+}
+
 #titlebar-ap {
     background-image: url("../images/bg-apropos.jpg");
     -webkit-background-size: cover;
