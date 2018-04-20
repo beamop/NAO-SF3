@@ -3,6 +3,9 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
     <!-- Gmaps -->
     <style>
         .ui-autocomplete {
@@ -316,17 +319,19 @@
         </div>
 
         <!-- Flip banner -->
-        <a href="#newsletter" class="flip-banner parallax margin-top-65" data-background="{{ asset('images/slider-bg-01.jpg') }}" data-color="brown" data-color-opacity="0.65" data-img-width="2500" data-img-height="1666">
+        <a class="flip-banner parallax margin-top-65" data-background="{{ asset('images/slider-bg-01.jpg') }}" data-color="brown" data-color-opacity="0.65" data-img-width="2500" data-img-height="1666">
             <div class="flip-banner-content">
                 <h2 class="flip-visible">La Newsletter</h2>
-                <h2 class="flip-hidden">Inscrivez-vous <i class="sl sl-icon-arrow-right"></i>
+                <div class="flip-hidden">
                     <form id="formNewsletter">
                         <input type="hidden" name="token" value="{{ csrf_token('newsletter') }}" />
-                        <input name="email" type="email" placeholder="adresse@email.com" />
-                        <input type="submit" class="btn btn-primary" id="newsSubmit" name="newsSubmit" value="Valider">
+                        <label for="email" style="font-size: 25px;color: #fff;margin-top: 30px;">Adresse e-mail <i class="im im-icon-Cloud-Email"></i>
+                            <input type="email" class="form-control" name="email" placeholder="email@exemple.com" style="width: 20%;display: block;margin: 0 auto;margin-top: 25px;margin-bottom: 25px;" />
+                        </label>
+                        <input type="submit" class="btn btn-primary" name="newsSubmit" id="newsSubmit" value="Valider">
                     </form>
                     <p id="resNewsletter"></p>
-                </h2>
+                </div>
             </div>
         </a>
         <!-- Flip banner / End -->
@@ -454,6 +459,9 @@
         });	/*ready*/
     </script>
 
+    <!-- SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('#formNewsletter').on("submit", function(event){
@@ -465,9 +473,9 @@
                     url: "{{ path('nao_newsletter_subscribe') }}",
                     success: function(json){
                         if(json === 'OK') {
-                            $('#resNewsletter').text("Adresse email ajoutée !");
+                            swal("Super!", "Votre adresse e-mail a été ajoutée!", "success");
                         } else {
-                            $('#resNewsletter').text("Une erreur s'est produite, veuillez vérifier votre adresse email !");
+                            swal("Erreur!", "Une erreur s'est produite, veuillez vérifier votre adresse e-mail!", "error");
                         }
                     }
                 });
