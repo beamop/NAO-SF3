@@ -3736,7 +3736,7 @@ input#booking-date, input#booking-time { z-index: 110; }
 #titlebar.listing-titlebar {
     background: #fff;
     background-color: #fff;
-    margin: 2px 0 0 0;
+    margin: -10% 0 -5px 15px;
 }
 
 /* add review btn */
