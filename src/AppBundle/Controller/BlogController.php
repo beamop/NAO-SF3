@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Comment;
+use AppBundle\Form\CommentType;
 
 /**
  * Class BlogController
@@ -37,13 +39,24 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/detail/{id}", name="nao_blog_details")
+     * @Route("/detail/{slug}", name="nao_blog_details")
+     * @param Request $request
+     * @param $slug
+     * @return Response
      */
-    public function blogDetailsAction(Request $request, $id)
+    public function blogDetailsAction(Request $request, $slug)
     {
         $article = $this->getDoctrine()
             ->getRepository(Post::class)
-            ->find($id);
+            ->findOneBy(
+                array('slug' => $slug)
+            );
+
+        if (!$article) {
+            throw $this->createNotFoundException('L\'article n\'existe pas !');
+        }
+
+        $id = $article->getId();
 
         $prevArticle = $this->getDoctrine()
             ->getRepository(Post::class)
@@ -53,10 +66,36 @@ class BlogController extends Controller
             ->getRepository(Post::class)
             ->find($id+1);
 
+        // Commentaires
+        $em = $this->getDoctrine()->getManager();
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /*
+            $utilisateur = $this->get('security.token_storage')->getToken()->getUser();
+            $observation->setUser($utilisateur);
+
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE')) {
+                $observation->setValidation(Observation::VALIDATED);
+            } else {
+                $observation->setValidation(Observation::WAITING);
+            }
+
+            $em->persist($observation);
+            $em->flush();
+
+            return $this->redirectToRoute('nao_observation_carte');
+            */
+        }
+
         return $this->render('nao/blog/details.html.twig', array(
             'article' => $article,
             'prevArticle' => $prevArticle,
-            'nextArticle' => $nextArticle
+            'nextArticle' => $nextArticle,
+            'form' => $form->createView()
         ));
     }
 
