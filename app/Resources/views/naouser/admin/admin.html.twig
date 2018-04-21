@@ -85,7 +85,7 @@
                             <li><i class="list-box-icon sl sl-icon-doc"></i>
                                 <strong>{{ post.title }}</strong>, posté le {{ post.publishedAt|date('d/m/Y') }}
                                 <div class="buttons-to-right">
-                                    <a href="{{ path('nao_blog_details', {'id':post.id}) }}" class="button gray">Voir l'article</a>
+                                    <a href="{{ path('nao_blog_details', {'slug':post.slug}) }}" class="button gray">Voir l'article</a>
                                 </div>
                             </li>
                         {% endfor %}
