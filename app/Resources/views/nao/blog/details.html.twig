@@ -87,28 +87,32 @@
 
                         <!-- Reviews -->
                         <section class="comments">
-                            <h4 class="headline margin-bottom-35">Commentaires <span class="comments-amount">(5)</span></h4>
+                            <h4 class="headline margin-bottom-35">Commentaires <span class="comments-amount">({{ comments|length }})</span></h4>
 
+                            {% for type, messages in app.session.flashbag.all() %}
+                                {% for message in messages %}
+                                    <div class="notification {{ type }} closeable">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+
+                            {% if comments %}
                             <ul>
+                                {% for comment in comments %}
                                 <li>
-                                    <div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
+                                    <div class="avatar"><img src="{{ comment.email|gravatar(70,'mm') }}" alt="" /></div>
                                     <div class="comment-content"><div class="arrow-comment"></div>
-                                        <div class="comment-by">Kathy Brown<span class="date">22 August 2017</span>
+                                        <div class="comment-by">{{ comment.pseudo }}<span class="date">{{ comment.createdAt|date('d/m/Y') }}</span>
                                         </div>
-                                        <p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>
+                                        <p>{{ comment.content }}</p>
                                     </div>
                                 </li>
-
-                                <li>
-                                    <div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /> </div>
-                                    <div class="comment-content"><div class="arrow-comment"></div>
-                                        <div class="comment-by">John Doe<span class="date">18 August 2017</span>
-                                        </div>
-                                        <p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
-                                    </div>
-
-                                </li>
+                                {% endfor %}
                             </ul>
+                            {% else %}
+                                Aucun commentaire.
+                            {% endif %}
 
                         </section>
                         <div class="clearfix"></div>
@@ -127,24 +131,26 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Pseudo :</label>
-                                            {{ form_widget(form.pseudo, { 'attr': {'class': 'search-field'} }) }}
+                                            {{ form_widget(form.pseudo) }}
+                                            {{ form_errors(form.pseudo) }}
                                         </div>
 
                                         <div class="col-md-6">
                                             <label>Email :</label>
-                                            {{ form_widget(form.email, { 'attr': {'class': 'search-field'} }) }}
+                                            {{ form_widget(form.email) }}
+                                            {{ form_errors(form.email) }}
                                         </div>
                                     </div>
 
                                     <div>
                                         <label>Commentaire :</label>
-                                        {{ form_widget(form.content, { 'attr': {'class': 'search-field'} }) }}
-                                        <!--<textarea cols="40" rows="3"></textarea>-->
+                                        {{ form_widget(form.content) }}
+                                        {{ form_errors(form.content) }}
                                     </div>
 
                                 </fieldset>
 
-                                <button class="button">Envoyer</button>
+                                <input type="submit" class="button" value="Envoyer" />
                                 <div class="clearfix"></div>
                             {{ form_widget(form) }}
                             {{ form_end(form) }}

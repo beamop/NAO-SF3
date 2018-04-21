@@ -46,7 +46,9 @@ class BlogController extends Controller
      */
     public function blogDetailsAction(Request $request, $slug)
     {
-        $article = $this->getDoctrine()
+        $em = $this->getDoctrine()->getManager();
+
+        $article = $em
             ->getRepository(Post::class)
             ->findOneBy(
                 array('slug' => $slug)
@@ -58,43 +60,47 @@ class BlogController extends Controller
 
         $id = $article->getId();
 
-        $prevArticle = $this->getDoctrine()
+        $prevArticle = $em
             ->getRepository(Post::class)
             ->find($id-1);
 
-        $nextArticle = $this->getDoctrine()
+        $nextArticle = $em
             ->getRepository(Post::class)
             ->find($id+1);
 
-        // Commentaires
-        $em = $this->getDoctrine()->getManager();
+        // START Charge les commentaires validés
+        $comments = $em
+            ->getRepository(Comment::class)
+            ->findBy(
+                array('post' => $id, 'status' => Comment::PUBLISHED),
+                array('createdAt' => 'DESC')
+            );
+        // END Charge les commentaires validés
+
+
+        // START Ajout d'un commentaire
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setStatus(Comment::PENDING);
+            $comment->setPost($article);
 
-            /*
-            $utilisateur = $this->get('security.token_storage')->getToken()->getUser();
-            $observation->setUser($utilisateur);
+            $em->persist($comment);
+            dump($em->flush());
 
-            if ($this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE')) {
-                $observation->setValidation(Observation::VALIDATED);
-            } else {
-                $observation->setValidation(Observation::WAITING);
-            }
+            $this->addFlash("success", "Votre commentaire a été ajouté, il est en attente de validation.");
 
-            $em->persist($observation);
-            $em->flush();
-
-            return $this->redirectToRoute('nao_observation_carte');
-            */
+            return $this->redirectToRoute('nao_blog_details', array('slug' => $article->getSlug()) );
         }
+        // END Ajout d'un commentaire
 
         return $this->render('nao/blog/details.html.twig', array(
             'article' => $article,
             'prevArticle' => $prevArticle,
             'nextArticle' => $nextArticle,
+            'comments' => $comments,
             'form' => $form->createView()
         ));
     }
