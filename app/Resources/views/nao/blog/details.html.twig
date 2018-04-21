@@ -121,7 +121,6 @@
                             <h3 class="listing-desc-headline margin-bottom-35">Ajouter un commentaire</h3>
 
                             <!-- Review Comment -->
-                            <!--<form id="add-comment" class="add-comment">-->
                             {{ form_start(form) }}
                                 <fieldset>
 
@@ -139,7 +138,7 @@
 
                                     <div>
                                         <label>Commentaire :</label>
-                                        {{ form_widget(form.adresse, { 'attr': {'class': 'search-field'} }) }}
+                                        {{ form_widget(form.content, { 'attr': {'class': 'search-field'} }) }}
                                         <!--<textarea cols="40" rows="3"></textarea>-->
                                     </div>
 
@@ -149,7 +148,6 @@
                                 <div class="clearfix"></div>
                             {{ form_widget(form) }}
                             {{ form_end(form) }}
-                            <!--</form>-->
 
                         </div>
                         <!-- Add Review Box / End -->
