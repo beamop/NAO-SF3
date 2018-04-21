@@ -68,17 +68,17 @@
                         <!-- Post Navigation -->
                         <ul id="posts-nav" class="margin-top-0 margin-bottom-45">
                             {% if nextArticle %}
-                            <li class="next-post">
-                                <a href="{{ path('nao_blog_details', {'slug': nextArticle.slug}) }}"><span>Article suivant</span>
-                                    {{ nextArticle.title }}</a>
-                            </li>
+                                <li class="next-post">
+                                    <a href="{{ path('nao_blog_details', {'slug': nextArticle.slug}) }}"><span>Article suivant</span>
+                                        {{ nextArticle.title }}</a>
+                                </li>
                             {% endif %}
                             {% if prevArticle %}
-                            <li class="prev-post">
-                                <a href="{{ path('nao_blog_details', {'slug': prevArticle.slug}) }}"><span>Article précédent</span>
-                                    {{ prevArticle.title }}
-                                </a>
-                            </li>
+                                <li class="prev-post">
+                                    <a href="{{ path('nao_blog_details', {'slug': prevArticle.slug}) }}"><span>Article précédent</span>
+                                        {{ prevArticle.title }}
+                                    </a>
+                                </li>
                             {% endif %}
                         </ul>
 
@@ -136,7 +136,7 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label>Email :</label>
+                                            <label>E-mail :</label>
                                             {{ form_widget(form.email) }}
                                             {{ form_errors(form.email) }}
                                         </div>

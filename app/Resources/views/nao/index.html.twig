@@ -240,7 +240,7 @@
                 {% for article in articles|slice('0', '3') %}
                     <!-- Blog Post Item -->
                     <div class="col-md-4">
-                        <a href="{{ path('nao_blog_details', {'id':article.id}) }}" class="blog-compact-item-container">
+                        <a href="{{ path('nao_blog_details', {'slug':article.slug}) }}" class="blog-compact-item-container">
                             <div class="blog-compact-item">
                                 <img src="{{ asset('uploads/blog/' ~ article.image | default('nao_blog_default.jpeg')) | imagine_filter('thumb_lg') }}" alt="{{ article.title }}">
 
