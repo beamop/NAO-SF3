@@ -166,3 +166,13 @@ welp_mailchimp:
                     name: Last Name
                     type: text
                     public: true
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+        uglifycss:
+            bin: /usr/bin/uglifycss
+        uglifyjs2:
+            bin: /usr/bin/uglifyjs
