@@ -39,14 +39,14 @@
 
                             {% if article.image %}
                                 <!-- Img -->
-                                <a href="{{ path('nao_blog_details', {'id': article.id}) }}" class="post-img">
+                                <a href="{{ path('nao_blog_details', {'slug': article.slug}) }}" class="post-img">
                                     <img src="{{ asset('uploads/blog/' ~ article.image) | imagine_filter('thumb_bl') }}" alt="{{ article.title }}" class="blur-post">
                                 </a>
                             {% endif %}
 
                             <!-- Content -->
                             <div class="post-content">
-                                <h3><a href="pages-blog-post.html">{{ article.title }} </a></h3>
+                                <h3><a href="{{ path('nao_blog_details', {'slug': article.slug}) }}">{{ article.title }} </a></h3>
 
                                 <ul class="post-meta">
                                     <li>{{ article.publishedAt|date('d/m/Y') }}</li>
@@ -54,7 +54,7 @@
 
                                 <p>{{ article.content|slice('0', '50')|raw }}</p>
 
-                                <a href="{{ path('nao_blog_details', {'id': article.id}) }}" class="read-more">Voir plus <i class="fa fa-angle-right"></i></a>
+                                <a href="{{ path('nao_blog_details', {'slug': article.slug}) }}" class="read-more">Voir plus <i class="fa fa-angle-right"></i></a>
                             </div>
 
                         </div>
