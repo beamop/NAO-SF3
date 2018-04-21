@@ -16,7 +16,7 @@ class CommentType extends AbstractType
         $builder
             ->add('pseudo', Type\TextType::class)
             ->add('email', Type\EmailType::class)
-            ->add('comment', Type\TextareaType::class)
+            ->add('content', Type\TextareaType::class)
         ;
     }
 
