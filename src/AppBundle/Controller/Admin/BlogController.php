@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Comment;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,6 +21,51 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class BlogController extends Controller
 {
+
+    /**
+     * @Route("/comment", name="admin_comment")
+     */
+    public function listeCommentaireAction()
+    {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
+        $comments = $this->getDoctrine()->getManager()
+            ->getRepository(Comment::class)
+            ->findAll();
+
+        return $this->render('naouser/admin/blog/comment.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
+            'comments' => $comments
+        ));
+    }
+
+    /**
+     * Lister les articles
+     *
+     * @Route("/", name="admin_blog")
+     */
+    public function indexAction(Request $request)
+    {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
+        $articles = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->findBy(
+                array(),
+                array('createdAt' => 'DESC'),
+                10,
+                0
+            );
+
+        return $this->render('naouser/admin/blog/liste.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
+            'articles' => $articles
+        ));
+    }
 
     /**
      * Ajouter article
@@ -137,38 +183,12 @@ class BlogController extends Controller
     }
 
     /**
-     * Lister les articles
-     *
-     * @Route("/", name="admin_blog")
-     */
-    public function indexAction(Request $request)
-    {
-        $observationsOnHold = $this->getDoctrine()
-            ->getRepository(Observation::class)
-            ->findAllNoValidatedBirds();
-
-        $articles = $this->getDoctrine()
-            ->getRepository(Post::class)
-            ->findBy(
-                array(),
-                array('createdAt' => 'DESC'),
-                10,
-                0
-            );
-
-        return $this->render('naouser/admin/blog/liste.html.twig', array(
-            'observationsOnHold' => $observationsOnHold,
-            'articles' => $articles
-        ));
-    }
-
-    /**
      * Mettre à jour le statut de l'article
      *
-     * @Route("/status/{id}/{status}", name="admin_blog_status", requirements={"id": "\d+", "status": "\d+"})
+     * @Route("/a/status/{id}/{status}", name="admin_blog_status", requirements={"id": "\d+", "status": "\d+"})
      * Method({"GET"})
      */
-    public function statusAction(Request $request, $id, $status)
+    public function statusArticleAction(Request $request, $id, $status)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -189,6 +209,35 @@ class BlogController extends Controller
         $this->addFlash("success", "Le statut de l'article a bien été mis à jour.");
 
         return $this->redirectToRoute('admin_blog');
+    }
+
+    /**
+     * Mettre à jour le statut du commentaire
+     *
+     * @Route("/c/status/{id}/{status}", name="admin_comment_status", requirements={"id": "\d+", "status": "\d+"})
+     * Method({"GET"})
+     */
+    public function statusCommentAction(Request $request, $id, $status)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $comment = $em
+            ->getRepository(Comment::class)
+            ->find($id);
+
+        $oldStatus = $comment->getStatus();
+
+        $comment->setStatus($status);
+
+        if ( $oldStatus === null && ($comment->getStatus()===$comment::PUBLISHED || $comment->getStatus()===$comment::PENDING) ) {
+            $comment->setPublishedAt(new \DateTime());
+        }
+
+        $em->flush();
+
+        $this->addFlash("success", "Le statut du commentaire a bien été mis à jour.");
+
+        return $this->redirectToRoute('admin_comment');
     }
 
     /**

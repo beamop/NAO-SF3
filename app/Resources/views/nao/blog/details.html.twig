@@ -98,18 +98,18 @@
                             {% endfor %}
 
                             {% if comments %}
-                            <ul>
-                                {% for comment in comments %}
-                                <li>
-                                    <div class="avatar"><img src="{{ comment.email|gravatar(70,'mm') }}" alt="" /></div>
-                                    <div class="comment-content"><div class="arrow-comment"></div>
-                                        <div class="comment-by">{{ comment.pseudo }}<span class="date">{{ comment.createdAt|date('d/m/Y') }}</span>
-                                        </div>
-                                        <p>{{ comment.content }}</p>
-                                    </div>
-                                </li>
-                                {% endfor %}
-                            </ul>
+                                <ul>
+                                    {% for comment in comments %}
+                                        <li>
+                                            <div class="avatar"><img src="{{ comment.email|gravatar(70,'mm') }}" alt="" /></div>
+                                            <div class="comment-content"><div class="arrow-comment"></div>
+                                                <div class="comment-by">{{ comment.pseudo }}<span class="date">{{ comment.createdAt|date('d/m/Y') }}</span>
+                                                </div>
+                                                <p>{{ comment.content }}</p>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             {% else %}
                                 Aucun commentaire.
                             {% endif %}
