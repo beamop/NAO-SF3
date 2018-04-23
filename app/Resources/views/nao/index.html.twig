@@ -295,12 +295,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=geometry"></script>
     <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobox/src/infobox.js"></script>
     <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerclustererplus/src/markerclusterer.js"></script>
-
-    {% javascripts filter='uglifyjs2'
-        'scripts/themepunch.tools.min.js'
-        'scripts/themepunch.revolution.min.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script src="{{ asset('scripts/themepunch.tools.min.js') }}"></script>
+    <script src="{{ asset('scripts/themepunch.revolution.min.js') }}"></script>
 
     <!-- REVOLUTION SLIDER SCRIPT -->
     <script type="text/javascript">

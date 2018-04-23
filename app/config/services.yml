@@ -58,3 +58,16 @@ services:
         tags:
             - { name: twig.extension }
 
+    nao.notificator:
+        class: AppBundle\Service\Notificator
+        arguments:
+            $mailTo: '%admin_email%'
+            $mailFrom: '%mailer_from%'
+
+    nao.message_listener:
+        class: AppBundle\EventListener\PostCommentListener
+        arguments:
+            - "@nao.notificator"
+        tags:
+            - { name: kernel.event_listener, event: nao.post_comment, method: notify }
+

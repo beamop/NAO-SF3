@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Event\NaoEvents;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentType;
+use AppBundle\Event\PostCommentEvent;
 
 /**
  * Class BlogController
@@ -87,9 +89,15 @@ class BlogController extends Controller
             $comment->setPost($article);
 
             $em->persist($comment);
-            dump($em->flush());
+            $em->flush();
 
             $this->addFlash("success", "Votre commentaire a été ajouté, il est en attente de validation.");
+
+
+            $event = new PostCommentEvent($comment->getContent(), $comment->getPseudo());
+
+            // On déclenche l'évènement
+            $this->get('event_dispatcher')->dispatch(NaoEvents::POST_COMMENT, $event);
 
             return $this->redirectToRoute('nao_blog_details', array('slug' => $article->getSlug()) );
         }

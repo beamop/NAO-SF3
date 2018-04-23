@@ -9,6 +9,7 @@ parameters:
     locale: fr
     mailer_from: noreply@nao-association.com
     mailer_to: noreply@nao-association.com
+    admin_email: admin@nao-association.com
     images_directory: '%kernel.project_dir%/web/uploads/observation'
     upload_blog_directory: '%kernel.project_dir%/web/uploads/blog'
 
@@ -75,11 +76,12 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
+    spool: { type: memory }
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
-    spool: { type: memory }
+    port: '%mailer_port%'
 
 fos_user:
     db_driver: orm
@@ -175,6 +177,6 @@ assetic:
     filters:
         cssrewrite: ~
         uglifycss:
-            bin: /usr/bin/uglifycss
+            bin: /usr/local/bin/uglifycss
         uglifyjs2:
-            bin: /usr/bin/uglifyjs
+            bin: /usr/local/bin/uglifyjs
