@@ -9,8 +9,11 @@
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/colors/brown.css') }}" id="colors">
+    {% stylesheets filter='uglifycss, cssrewrite'
+        'css/style.css'
+        'css/colors/brown.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
     {% block stylesheets %}{% endblock %}
 
@@ -185,7 +188,7 @@
                             </li>
                         {% else %}
                             <li>
-                                <a href="#sign-in-dialog">Connexion</a>
+                                <a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim">Connexion</a>
                             </li>
                             <li>
                                 <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
@@ -241,6 +244,8 @@
 <!-- Wrapper / End -->
 
 <!-- Cookie Law -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+
 <script>
     window.addEventListener("load", function(){
         window.cookieconsent.initialise({
@@ -262,22 +267,23 @@
             }
         })});
 </script>
-<!-- End Cookie Law script -->
 
 <!-- Scripts
 ================================================== -->
-<script type="text/javascript" src="{{ asset('scripts/jquery-2.2.0.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/mmenu.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/chosen.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/slick.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/rangeslider.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/magnific-popup.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/waypoints.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/counterup.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/jquery-ui.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/tooltips.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('scripts/custom.js') }}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+{% javascripts filter='uglifyjs2'
+    'scripts/jquery-2.2.0.min.js'
+    'scripts/mmenu.min.js'
+    'scripts/chosen.min.js'
+    'scripts/slick.min.js'
+    'scripts/rangeslider.min.js'
+    'scripts/magnific-popup.min.js'
+    'scripts/waypoints.min.js'
+    'scripts/counterup.min.js'
+    'scripts/jquery-ui.min.js'
+    'scripts/tooltips.min.js'
+    'scripts/custom.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 
 <!-- Customs
 ================================================== -->

@@ -154,7 +154,7 @@ welp_mailchimp:
         548215b1ed: #identifiant de la liste
             subscriber_provider: 'nao_mailchimp_fos_subscriber_provider' # provider fourni en cas de synchronisation totale
             webhook_secret: 'TheSecretPass' # webhook secret qui permet de sécuriser la liaison entre MailChimp et votre application
-            webhook_url: 'http://www.nao-association.com/mailchimp/webhook/endpoint' # L'url webhook enregistré dans la liste MailChimp
+            webhook_url: 'https://www.nao-association.com/mailchimp/webhook/endpoint' # L'url webhook enregistré dans la liste MailChimp
             merge_fields:
                 -
                     tag: FNAME
@@ -166,3 +166,15 @@ welp_mailchimp:
                     name: Last Name
                     type: text
                     public: true
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    bundles:
+        - AppBundle
+    filters:
+        cssrewrite: ~
+        uglifycss:
+            bin: /usr/bin/uglifycss
+        uglifyjs2:
+            bin: /usr/bin/uglifyjs

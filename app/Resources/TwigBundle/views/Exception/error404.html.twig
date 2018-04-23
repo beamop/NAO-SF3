@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>Erreur 404, Page Introuvable</h2>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="{{ path('nao_accueil') }}">Accueil</a></li>
+                            <li>Erreur 404</li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content
+    ================================================== -->
+
+
+    <!-- Container -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <section id="not-found" class="center">
+                    <h2>404 <i class="fa fa-question-circle"></i></h2>
+                    <p>Nous sommes désolés, mais la page que vous recherchez n'existe pas.</p>
+
+                    <div class="row">
+                        <a href="{{ path('nao_accueil') }}" class="button">Retour à l'accueil</a>
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- Container / End -->
+{% endblock %}

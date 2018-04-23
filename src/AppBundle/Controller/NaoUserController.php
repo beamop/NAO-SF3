@@ -46,7 +46,12 @@ class NaoUserController extends Controller
 
         $posts = $this->getDoctrine()
             ->getRepository(Post::class)
-            ->findAll();
+            ->findBy(
+                array('status' => array(Post::PUBLISHED, Post::FEATURED)),
+                array('status' => 'DESC', 'publishedAt' => 'DESC'),
+                10,
+                0
+            );
 
         return $this->render('naouser/admin/admin.html.twig', array(
             'observationsOnHold' => $observationsOnHold,

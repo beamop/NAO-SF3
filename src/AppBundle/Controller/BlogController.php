@@ -77,7 +77,6 @@ class BlogController extends Controller
             );
         // END Charge les commentaires validés
 
-
         // START Ajout d'un commentaire
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);

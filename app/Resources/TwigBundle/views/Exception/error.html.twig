@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>Erreur {{ status_code }}</h2>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="{{ path('nao_accueil') }}">Accueil</a></li>
+                            <li>Erreur {{ status_code }}</li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content
+    ================================================== -->
+
+
+    <!-- Container -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <section id="not-found" class="center">
+                    <h2>{{ status_code }} <i class="fa fa-question-circle"></i></h2>
+                    <p>Nous sommes désolés, une erreur est survenue merci de réessayer plus tard.</p>
+
+                    <div class="row">
+                        <a href="{{ path('nao_accueil') }}" class="button">Retour à l'accueil</a>
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- Container / End -->
+{% endblock %}
