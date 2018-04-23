@@ -13,7 +13,7 @@
                         <div class="user-profile-name">
                             <h2>{{ app.user }}</h2><br>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <span>Administrateur de NAO (Nos Amis les Oiseaux) - <a href="{{ path('nao_admin') }}">Interface de gestion</a></span>
+                                <span>Administrateur de NAO (Nos Amis les Oiseaux) - <a href="{{ path('nao_admin') }}" style="color:#19b453; text-decoration: underline">Interface de gestion</a></span>
                             {% else %}
                                 <span>Utilisateur de NAO (Nos Amis les Oiseaux)</span>
                             {% endif %}
@@ -80,7 +80,7 @@
 
                                         <!-- Image -->
                                         <div class="listing-item-image">
-                                            <img src="{{ asset('uploads/observation/' ~ observation.image) | imagine_filter('thumb_md') }}" alt="{{ observation.bird.nomCourant }}">
+                                            <img src="{{ asset('uploads/observation/' ~ observation.image | default('nao_observation_default.jpeg')) | imagine_filter('thumb_md') }}" alt="{{ observation.bird.nomCourant }}">
                                             <span class="tag">Observation</span>
                                         </div>
 
