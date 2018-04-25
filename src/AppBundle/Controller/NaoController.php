@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Observation;
 use AppBundle\Form\MailerType;
 use AppBundle\Service\Mailer;
@@ -19,6 +20,8 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Welp\MailchimpBundle\Event\SubscriberEvent;
 use Welp\MailchimpBundle\Subscriber\Subscriber;
+use AppBundle\Event\NaoEvents;
+use AppBundle\Event\PostObservationEvent;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -161,6 +164,24 @@ class NaoController extends Controller
 
             $em->persist($observation);
             $em->flush();
+
+            if ($observation->getValidation() === Observation::WAITING) {
+                // On récupère les mails des naturalistes
+                $bccNaturalistes = null;
+                $naturalistes = $this->getDoctrine()
+                    ->getRepository('AppBundle:User')
+                    ->findNaturalistes();
+                foreach ($naturalistes as $naturaliste) {
+                    $bccNaturalistes[$naturaliste->getEmail()] = $naturaliste->getUsername();
+                }
+
+                // On crée l'événement
+                $event = new PostObservationEvent($observation, $bccNaturalistes);
+
+                // On déclenche l'évènement
+                $this->get('event_dispatcher')->dispatch(NaoEvents::POST_OBSERVATION, $event);
+            }
+
 
             return $this->redirectToRoute('nao_observation_carte');
         }

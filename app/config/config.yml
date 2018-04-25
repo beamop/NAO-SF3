@@ -170,6 +170,7 @@ welp_mailchimp:
                     public: true
 
 assetic:
+    node: /usr/local/bin/node
     debug:          '%kernel.debug%'
     use_controller: '%kernel.debug%'
     bundles:

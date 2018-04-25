@@ -5,7 +5,7 @@
         <hr style="margin-top:10px;margin-bottom:65px;border:none;border-bottom:1px solid red;"/>
         <h1 style="font-family: Tahoma, Geneva, sans-serif; font-weight: normal; color: #2A2A2A; text-align: center; margin-bottom: 65px;font-size: 20px; letter-spacing: 6px;font-weight: normal; border: 2px solid black; padding: 15px;">{{ datas.sujet }}</h1>
         <h3 style="font-family:Palatino Linotype, Book Antiqua, Palatino, serif;font-style:italic;font-weight:500;">De : <span style="border-bottom: 1px solid red;">{{ datas.nom }}</span>{% if datas.email %}({{ datas.email }}){% endif %},</h3>
-        <p style="font-family:Palatino Linotype, Book Antiqua, Palatino, serif;font-size: 15px; margin-left: auto; margin-right: auto; text-align: justify;color: #666;line-height:1.5;margin-bottom:75px;">{{ datas.contenu }}</p>
+        <p style="font-family:Palatino Linotype, Book Antiqua, Palatino, serif;font-size: 15px; margin-left: auto; margin-right: auto; text-align: justify;color: #666;line-height:1.5;margin-bottom:75px;">{{ datas.contenu|raw }}</p>
         <hr style="margin-top:10px;margin-top:75px;"/>
         <p style="text-align:center;margin-bottom:15px;">Nos Amis les Oiseaux</p>
         <p>&nbsp;</p>

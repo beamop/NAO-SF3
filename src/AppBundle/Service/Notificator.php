@@ -19,7 +19,7 @@ class Notificator
     }
 
     // Méthode pour notifier par e-mail un administrateur
-    public function notifyByEmail($datas)
+    public function notifyByEmail($datas, $setBcc = null)
     {
         $message = \Swift_Message::newInstance()
             ->setSubject("[NAO] ".$datas['sujet'])
@@ -30,6 +30,10 @@ class Notificator
             )))
             ->setContentType("text/html")
         ;
+
+        if ($setBcc) {
+            $message->setBcc($setBcc);
+        }
 
         $this->mailer->send($message);
     }
