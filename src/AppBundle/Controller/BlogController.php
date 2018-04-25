@@ -15,33 +15,37 @@ use AppBundle\Event\PostCommentEvent;
 /**
  * Class BlogController
  *
- * @Route("/news")
- *
  * @package AppBundle\Controller
  */
 class BlogController extends Controller
 {
     /**
-     * @Route("/", name="nao_blog")
+     * @Route("/news/{page}", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="nao_blog")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $page)
     {
+
+        $maxNewsParPage = $this->container->getParameter('max_news_par_page');
+
         $articles = $this->getDoctrine()
             ->getRepository(Post::class)
-            ->findBy(
-                array('status' => array(Post::PUBLISHED, Post::FEATURED)),
-                array('status' => 'DESC', 'publishedAt' => 'DESC'),
-                10,
-                0
-            );
+            ->getPosts($page, $maxNewsParPage);
+
+        $pagination = array(
+            'page' => $page,
+            'route' => 'nao_blog',
+            'pages_count' => ceil(count($articles) / $maxNewsParPage),
+            'route_params' => array()
+        );
 
         return $this->render('nao/blog/index.html.twig', array(
-            'articles' => $articles
+            'articles' => $articles,
+            'pagination' => $pagination
         ));
     }
 
     /**
-     * @Route("/detail/{slug}", name="nao_blog_details")
+     * @Route("/news/detail/{slug}", name="nao_blog_details")
      * @param Request $request
      * @param $slug
      * @return Response
@@ -113,7 +117,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/supprimer/{id}", name="nao_blog_post_supprimer")
+     * @Route("/news/supprimer/{id}", name="nao_blog_post_supprimer")
      * Method({"GET", "POST"})
      */
     public function supprimerAction(Request $request, $id)

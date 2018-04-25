@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * ObservationRepository
  *
@@ -47,12 +49,18 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return array
      */
-    public function findAllValidatedBirds()
+    public function findAllValidatedBirds($page=1, $maxperpage=10)
     {
-        return $this->createQueryBuilder('o')
+        $q = $this->createQueryBuilder('o')
             ->where('o.validation = 1')
+            ->orderBy('o.date', 'DESC');
+            /*
             ->getQuery()
             ->getResult();
+            */
+        $q->setFirstResult(($page-1) * $maxperpage)->setMaxResults($maxperpage);
+
+        return new Paginator($q);
     }
 
     /**

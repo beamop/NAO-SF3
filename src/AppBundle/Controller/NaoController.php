@@ -202,16 +202,28 @@ class NaoController extends Controller
     }
 
     /**
-     * @Route("/observation/liste", name="nao_liste_observation")
+     * @Route("/observation/liste/{page}", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="nao_liste_observation")
      */
-    public function listeObservationAction()
+    public function listeObservationAction($page)
     {
+        $maxObsParPage = $this->container->getParameter('max_obs_par_page');
+
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)
-            ->findAllValidatedBirds();
+            ->findAllValidatedBirds($page, $maxObsParPage);
+
+        //dump(count($observations));
+
+        $pagination = array(
+            'page' => $page,
+            'route' => 'nao_liste_observation',
+            'pages_count' => ceil(count($observations) / $maxObsParPage),
+            'route_params' => array()
+        );
 
         return $this->render('nao/observation/liste.html.twig', array(
-            'observations' => $observations
+            'observations' => $observations,
+            'pagination' => $pagination
         ));
     }
 

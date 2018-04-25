@@ -12,6 +12,8 @@ parameters:
     admin_email: admin@nao-association.com
     images_directory: '%kernel.project_dir%/web/uploads/observation'
     upload_blog_directory: '%kernel.project_dir%/web/uploads/blog'
+    max_obs_par_page: 3
+    max_news_par_page: 3
 
 framework:
     #esi: ~

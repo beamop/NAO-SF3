@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use AppBundle\Entity\Post;
+
 /**
  * PostRepository
  */
@@ -15,18 +18,17 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
      * @return array
      */
 
-    /*
-    public function lastPosts($name)
+    public function getPosts($page=1, $maxperpage=10)
     {
-        return $this->createQueryBuilder('p')
-            ->select('p')
-            //->where('b.nomCourant LIKE :name')->setParameter('name', '%'.$name.'%')
-            ->andWhere('b.nomCourant LIKE :name', 'b.id = b.ref')
-            ->setParameter('name', '%'.$name.'%')
+        $q = $this->createQueryBuilder('p')
+            ->andWhere('p.status IN (:status)')
+            ->setParameter('status', array(Post::PUBLISHED, Post::FEATURED))
+            ->orderBy('p.status', 'DESC')
             ->addOrderBy('p.publishedAt', 'DESC');
-            ->getQuery()
-            ->getResult();
+
+        $q->setFirstResult(($page-1) * $maxperpage)->setMaxResults($maxperpage);
+
+        return new Paginator($q);
     }
-    */
 
 }
