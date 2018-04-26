@@ -31,6 +31,24 @@
         <div class="row sticky-wrapper">
 
 
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <div class="notification success closeable">
+                    <p><span>Super!</span> {{ flash_message }}</p>
+                    <a class="close" href="#"></a>
+                </div>
+
+                <br>
+            {% endfor %}
+
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <div class="notification error closeable">
+                    <p><span>Erreur!</span> {{ flash_message }}</p>
+                    <a class="close" href="#"></a>
+                </div>
+
+                <br>
+            {% endfor %}
+
             <!-- Sidebar
             ================================================== -->
             <div class="col-lg-4 col-md-4 margin-top-0">

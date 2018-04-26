@@ -9,4 +9,20 @@
     <import
             resource="@FOSUserBundle/Resources/config/routing/registration.xml"
             prefix="/register" />
+    <import
+            resource="@FOSUserBundle/Resources/config/routing/change_password.xml"
+            prefix="/profil" />
+
+    <route id="fos_user_change_password" path="profil/changer-password" methods="GET POST">
+        <default key="_controller">fos_user.change_password.controller:changePasswordAction</default>
+    </route>
+
+    <route id="fos_user_profile_edit" path="profil/changer-email" methods="GET POST">
+        <default key="_controller">fos_user.profile.controller:editAction</default>
+    </route>
+
+    <route id="fos_user_profile_show" path="/profil" methods="GET">
+        <default key="_controller">fos_user.profile.controller:showAction</default>
+    </route>
+
 </routes>
