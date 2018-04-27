@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Observation;
 use AppBundle\Form\MailerType;
 use AppBundle\Service\Mailer;
@@ -264,7 +265,7 @@ class NaoController extends Controller
     }
 
     /**
-     * @Route("/gestion/en-attente", name="nao_validation_observation")
+     * @Route("/gestion/en-attente/observation", name="nao_validation_observation")
      */
     public function validationObservationAction()
     {
@@ -272,13 +273,37 @@ class NaoController extends Controller
             ->getRepository(Observation::class)
             ->findAllNoValidatedBirds();
 
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
+
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)
             ->findAll();
 
-        return $this->render('naouser/admin/validation.html.twig', array(
+        return $this->render('naouser/admin/validation-observation.html.twig', array(
             'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold,
             'observations' => $observations
+        ));
+    }
+
+    /**
+     * @Route("/gestion/en-attente/comment", name="nao_validation_comment")
+     */
+    public function validationCommentAction()
+    {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
+
+        return $this->render('naouser/admin/validation-comment.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold
         ));
     }
 
@@ -322,7 +347,7 @@ class NaoController extends Controller
     }
 
     /**
-     * @Route("/gestion/liste", name="nao_liste_gestion")
+     * @Route("/gestion/observation/liste", name="nao_liste_gestion")
      */
     public function listeGestionAction()
     {
@@ -330,12 +355,17 @@ class NaoController extends Controller
             ->getRepository(Observation::class)
             ->findAllNoValidatedBirds();
 
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
+
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)
             ->findAllValidatedBirds();
 
         return $this->render('naouser/admin/liste.html.twig', array(
             'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold,
             'observations' => $observations
         ));
     }

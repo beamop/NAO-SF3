@@ -64,7 +64,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Get only validated observations
+     * Get obs on hold
      *
      * @return array
      */

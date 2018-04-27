@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -40,6 +41,10 @@ class NaoUserController extends Controller
             ->getRepository(Observation::class)
             ->findAllNoValidatedBirds();
 
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
+
         $observations = $this->getDoctrine()
             ->getRepository(Observation::class)
             ->findAllValidatedBirds();
@@ -55,6 +60,7 @@ class NaoUserController extends Controller
 
         return $this->render('naouser/admin/admin.html.twig', array(
             'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold,
             'observations' => $observations,
             'posts' => $posts
         ));

@@ -31,12 +31,17 @@ class BlogController extends Controller
             ->getRepository(Observation::class)
             ->findAllNoValidatedBirds();
 
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
+
         $comments = $this->getDoctrine()->getManager()
             ->getRepository(Comment::class)
             ->findAll();
 
         return $this->render('naouser/admin/blog/comment.html.twig', array(
             'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold,
             'comments' => $comments
         ));
     }
@@ -52,6 +57,10 @@ class BlogController extends Controller
             ->getRepository(Observation::class)
             ->findAllNoValidatedBirds();
 
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
+
         $articles = $this->getDoctrine()
             ->getRepository(Post::class)
             ->findBy(
@@ -63,6 +72,7 @@ class BlogController extends Controller
 
         return $this->render('naouser/admin/blog/liste.html.twig', array(
             'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold,
             'articles' => $articles
         ));
     }
@@ -81,6 +91,10 @@ class BlogController extends Controller
         $observationsOnHold = $this->getDoctrine()
             ->getRepository(Observation::class)
             ->findAllNoValidatedBirds();
+
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
 
         $em = $this->getDoctrine()->getManager();
 
@@ -120,6 +134,7 @@ class BlogController extends Controller
 
         return $this->render('naouser/admin/blog/ajouter.html.twig', array(
             'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold,
             'form' => $form->createView(),
             'bouton' => 'Ajouter'
         ));
@@ -139,6 +154,10 @@ class BlogController extends Controller
         $observationsOnHold = $this->getDoctrine()
             ->getRepository(Observation::class)
             ->findAllNoValidatedBirds();
+
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
 
         $em = $this->getDoctrine()->getManager();
 
@@ -178,6 +197,7 @@ class BlogController extends Controller
 
         return $this->render('naouser/admin/blog/modifier.html.twig', array(
             'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold,
             'form' => $form->createView()
         ));
     }
