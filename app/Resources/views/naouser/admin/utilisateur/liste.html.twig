@@ -69,9 +69,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="buttons-to-right">
-                                    <a href="{{ path('nao_utilisateur_promote', {'id':utilisateur.id} ) }}" class="button gray approve"><i class="fa fa-check-square-o"></i> Passer naturaliste</a>
-                                </div>
+                                {% if "ROLE_NATURALISTE" in utilisateur.roles %}
+                                {% else %}
+                                    <div class="buttons-to-right">
+                                        <a href="{{ path('nao_utilisateur_promote', {'id':utilisateur.id} ) }}" class="button gray approve"><i class="fa fa-check-square-o"></i> Passer naturaliste</a>
+                                    </div>
+                                {% endif %}
                             </li>
                         {% endfor %}
 
