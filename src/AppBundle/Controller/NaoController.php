@@ -396,6 +396,24 @@ class NaoController extends Controller
     }
 
     /**
+     * @Route("/gestion/utilisateur/{id}/promote", name="nao_utilisateur_promote")
+     */
+    public function promoteUtilisateurAction($id)
+    {
+        $utilisateur = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($id);
+
+        $userManager = $this->get('fos_user.user_manager');
+        $utilisateur->addRole('ROLE_NATURALISTE');
+        $userManager->updateUser($utilisateur);
+
+        $this->addFlash("success", "L'utilisateur a bien été mis à jour.");
+
+        return $this->redirectToRoute('nao_utilisateur_gestion');
+    }
+
+    /**
      * @Route("/contact", name="nao_contact")
      */
     public function contactAction(Request $request, Mailer $mailer)

@@ -35,15 +35,6 @@
                     <br>
                 {% endfor %}
 
-                {% for flash_message in app.session.flashBag.get('error') %}
-                    <div class="notification error closeable">
-                        <p><span>Erreur!</span> {{ flash_message }}</p>
-                        <a class="close" href="#"></a>
-                    </div>
-
-                    <br>
-                {% endfor %}
-
                 <div class="dashboard-list-box margin-top-0">
 
                     <ul>
@@ -77,6 +68,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="buttons-to-right">
+                                    <a href="{{ path('nao_utilisateur_promote', {'id':utilisateur.id} ) }}" class="button gray approve"><i class="fa fa-check-square-o"></i> Passer naturaliste</a>
                                 </div>
                             </li>
                         {% endfor %}
