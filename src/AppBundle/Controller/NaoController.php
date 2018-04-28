@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\AppBundle;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Observation;
+use AppBundle\Entity\User;
 use AppBundle\Form\MailerType;
 use AppBundle\Service\Mailer;
 use AppBundle\Entity\Post;
@@ -367,6 +368,30 @@ class NaoController extends Controller
             'observationsOnHold' => $observationsOnHold,
             'commentsOnHold' => $commentsOnHold,
             'observations' => $observations
+        ));
+    }
+
+    /**
+     * @Route("/gestion/utilisateur", name="nao_utilisateur_gestion")
+     */
+    public function utilisateurGestionAction()
+    {
+        $observationsOnHold = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findAllNoValidatedBirds();
+
+        $commentsOnHold = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findAllNoValidatedComments();
+
+        $utilisateurs = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
+
+        return $this->render('naouser/admin/utilisateur/liste.html.twig', array(
+            'observationsOnHold' => $observationsOnHold,
+            'commentsOnHold' => $commentsOnHold,
+            'utilisateurs' => $utilisateurs
         ));
     }
 
