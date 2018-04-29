@@ -11,6 +11,8 @@
     ================================================== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/colors/brown.css') }}" id="colors">
+    <link rel="stylesheet" href="{{ asset('css/offline-language-french.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/offline-theme-default-indicator.css') }}">
     {% block stylesheets %}{% endblock %}
 
 </head>
@@ -180,6 +182,11 @@
 <script type="text/javascript" src="{{ asset('scripts/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('scripts/tooltips.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('scripts/custom.js') }}"></script>
+<script type="text/javascript" src="{{ asset('scripts/offline.js') }}"></script>
+
+<script>
+    var run=function(){"up"===Offline.state&&Offline.check()};setInterval(run,5e3);
+</script>
 
 <!-- Customs
 ================================================== -->

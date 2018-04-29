@@ -11,7 +11,9 @@
     ================================================== -->
     {% stylesheets filter='uglifycss, cssrewrite'
         'css/style.css'
-        'css/colors/brown.css' %}
+        'css/colors/brown.css'
+        'css/offline-language-french.css'
+        'css/offline-theme-default-indicator.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
@@ -246,6 +248,24 @@
 <!-- Cookie Law -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
 
+<!-- Scripts
+================================================== -->
+{% javascripts filter='uglifyjs2'
+    'scripts/jquery-2.2.0.min.js'
+    'scripts/mmenu.min.js'
+    'scripts/chosen.min.js'
+    'scripts/slick.min.js'
+    'scripts/rangeslider.min.js'
+    'scripts/magnific-popup.min.js'
+    'scripts/waypoints.min.js'
+    'scripts/counterup.min.js'
+    'scripts/jquery-ui.min.js'
+    'scripts/tooltips.min.js'
+    'scripts/custom.js'
+    'scripts/offline.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
 <script>
     window.addEventListener("load", function(){
         window.cookieconsent.initialise({
@@ -268,22 +288,9 @@
         })});
 </script>
 
-<!-- Scripts
-================================================== -->
-{% javascripts filter='uglifyjs2'
-    'scripts/jquery-2.2.0.min.js'
-    'scripts/mmenu.min.js'
-    'scripts/chosen.min.js'
-    'scripts/slick.min.js'
-    'scripts/rangeslider.min.js'
-    'scripts/magnific-popup.min.js'
-    'scripts/waypoints.min.js'
-    'scripts/counterup.min.js'
-    'scripts/jquery-ui.min.js'
-    'scripts/tooltips.min.js'
-    'scripts/custom.js' %}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+<script>
+    var run=function(){"up"===Offline.state&&Offline.check()};setInterval(run,5e3);
+</script>
 
 <!-- Customs
 ================================================== -->
