@@ -14,6 +14,8 @@
                             <h2>{{ app.user }}</h2><br>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <span>Administrateur de NAO (Nos Amis les Oiseaux) - <a href="{{ path('nao_admin') }}" style="color:#19b453; text-decoration: underline">Interface de gestion</a></span>
+                            {% elseif is_granted('ROLE_NATURALISTE') %}
+                                <span>Naturaliste de NAO (Nos Amis les Oiseaux) - <a href="{{ path('nao_admin') }}" style="color:#19b453; text-decoration: underline">Interface de gestion</a></span>
                             {% else %}
                                 <span>Utilisateur de NAO (Nos Amis les Oiseaux)</span>
                             {% endif %}
