@@ -273,3 +273,7 @@ a.button.border {
 .opening-hours.summary li.total-costs span { color: #784e3d; }
 .payment-tab-trigger > input:checked ~ label::before { border-color: #784e3d; }
 .payment-tab-trigger > input:checked ~ label::after { background-color: #784e3d; }
+
+input::placeholder {
+    color: #dadada;
+}
