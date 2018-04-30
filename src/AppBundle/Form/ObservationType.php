@@ -27,7 +27,12 @@ class ObservationType extends AbstractType
                     'placeholder' => '47 Place du Marché Saint-Honoré'
                 )
             ))
-            ->add('date', Type\DateType::class)
+            ->add('date', Type\DateType::class, array(
+                'years' => array(
+                    date("Y"),
+                    date("Y") - 1
+                ),
+            ))
             ->add('bird', AutocompleteType::class, array(
                 'attr' => array(
                     'placeholder' => 'Aigle impérial'

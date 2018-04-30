@@ -32,6 +32,12 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\Range(
+     *     min = "today - 1 year",
+     *     max = "today",
+     *     minMessage = "La date ne peut pas être plus ancienne de plus d'un an.",
+     *     maxMessage = "La date ne peut-être dans le futur.",
+     * )
      */
     private $date;
 
@@ -96,6 +102,11 @@ class Observation
      * @ORM\Column(name="validation", type="integer")
      */
     private $validation;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
 
 
     /**
