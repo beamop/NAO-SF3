@@ -1,9 +1,45 @@
-{% extends "@FOSUser/layout.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
-<p>
-{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
-</p>
-{% endblock %}
+{% block content %}
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar" class="gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2><i class="sl sl-icon-login"></i> Mot de passe oublié ?</h2>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="{{ path('nao_accueil') }}">Accueil</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content
+    ================================================== -->
+
+    <!-- Container -->
+    <div class="container">
+
+        <div class="row">
+
+                <div class="notification success">
+                    <p>{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Content / End -->
+    <!-- Container / End -->
+{% endblock content %}

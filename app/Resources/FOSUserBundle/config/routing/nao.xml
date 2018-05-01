@@ -13,6 +13,10 @@
             resource="@FOSUserBundle/Resources/config/routing/change_password.xml"
             prefix="/profil" />
 
+    <import
+            resource="@FOSUserBundle/Resources/config/routing/resetting.xml"
+            prefix="/resetting" />
+
     <route id="fos_user_change_password" path="profil/changer-password" methods="GET POST">
         <default key="_controller">fos_user.change_password.controller:changePasswordAction</default>
     </route>

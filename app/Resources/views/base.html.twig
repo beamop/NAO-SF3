@@ -138,8 +138,11 @@
                                             <input type="password" class="form-control" id="password" name="_password" required="required" autocomplete="current-password" />
                                         </label>
                                         <span class="lost_password">
-                                        <a href="{{ path('fos_user_registration_register') }}" >Vous n'avez pas de compte ?</a>
-                                    </span>
+                                        <a href="{{ path('fos_user_resetting_request') }}" >Mot de passe oublié ?</a>
+                                        </span><br>
+                                        <span class="lost_password">
+                                        <a href="{{ path('fos_user_registration_register') }}" >Vous n'avez pas de compte ? Inscrivez-vous !</a>
+                                        </span>
                                     </p>
 
                                     <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="Se connecter" />

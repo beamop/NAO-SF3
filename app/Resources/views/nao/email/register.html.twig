@@ -1,25 +1,15 @@
-{% trans_default_domain 'FOSUserBundle' %}
-{% block subject %}
-{%- autoescape false -%}
-{{ 'resetting.email.subject'|trans({'%username%': user.username}) }}
-{%- endautoescape -%}
-{% endblock %}
-
-{% block body_text %}
-{% autoescape false %}
-{{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
-{% endautoescape %}
-{% endblock %}
-
+{% block subject %}Confirmez votre inscription{% endblock %}
 {% block body_html %}
 <div style="max-width:550px; min-width:320px;  background-color: white; border: 1px solid #DDDDDD; margin-right: auto; margin-left: auto;">
     <div style="margin-left:30px;margin-right:30px;">
         <p>&nbsp;</p>
         <p><a href="{{ url('nao_accueil') }}" style="text-decoration:none;font-family:Verdana, Geneva, sans-serif;font-weight: bold; color: #3D3D3D;font-size: 15px;">Nos Amis les Oiseaux</a></p>
         <hr style="margin-top:10px;margin-bottom:65px;border:none;border-bottom:1px solid red;"/>
-        <h1 style="font-family: Tahoma, Geneva, sans-serif; font-weight: normal; color: #2A2A2A; text-align: center; margin-bottom: 65px;font-size: 20px; letter-spacing: 6px;font-weight: normal; border: 2px solid black; padding: 15px;">{{ 'resetting.email.subject'|trans({'%username%': user.username}) }}</h1>
+        <h1 style="font-family: Tahoma, Geneva, sans-serif; font-weight: normal; color: #2A2A2A; text-align: center; margin-bottom: 65px;font-size: 20px; letter-spacing: 6px;font-weight: normal; border: 2px solid black; padding: 15px;">Confirmez votre inscription</h1>
         <p style="font-family:Palatino Linotype, Book Antiqua, Palatino, serif;font-size: 15px; margin-left: auto; margin-right: auto; text-align: justify;color: #666;line-height:1.5;margin-bottom:75px;">Bonjour {{ user.username }} !</p>
-        <p style="font-family:Palatino Linotype, Book Antiqua, Palatino, serif;font-size: 15px; margin-left: auto; margin-right: auto; text-align: justify;color: #666;line-height:1.5;margin-bottom:75px;">Pour réinitialiser votre mot de passe, merci de <a href="{{ confirmationUrl }}">cliquer sur ce lien</a>.<br /><br />
+        <p style="font-family:Palatino Linotype, Book Antiqua, Palatino, serif;font-size: 15px; margin-left: auto; margin-right: auto; text-align: justify;color: #666;line-height:1.5;margin-bottom:75px;">Merci d'avoir pris le temps de vous inscrire sur NAO.<br />
+            Vous allez pouvoir désormais ajouter des observations et participer à cette aventure de recensement des espèces.<br /><br />
+            Pour valider votre compte utilisateur, merci de <a href="{{ confirmationUrl }}">cliquer sur ce lien</a>.<br /><br />
 
             Pour vous remercier de votre inscription, nous vous offrons <a href="">ce guide des oiseaux</a>.</p>
         <hr style="margin-top:10px;margin-top:75px;"/>
