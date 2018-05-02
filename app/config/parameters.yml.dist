@@ -20,3 +20,7 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
     GoogleMapsApiKey: GoogleMapsApiKey
     mailchimp_api_key: ~
+    google.client_id: google_client_id
+    google.client_secret: google_secret
+    facebook.client_id: facebook_client_id
+    facebook.client_secret: facebook_secret
