@@ -19,14 +19,14 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="facebook_id", type="string", nullable=true)
      */
-    protected $facebookID;
+    protected $facebookId;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="google_id", type="string", nullable=true)
      */
-    protected $googleID;
+    protected $googleId;
 
     public function __construct()
     {
@@ -35,50 +35,50 @@ class User extends BaseUser
     }
 
     /**
-     * Set facebookID
+     * Set facebookId
      *
-     * @param string $facebookID
+     * @param string $facebookId
      *
      * @return User
      */
-    public function setFacebookID($facebookID)
+    public function setFacebookId($facebookId)
     {
-        $this->facebookID = $facebookID;
+        $this->facebookId = $facebookId;
 
         return $this;
     }
 
     /**
-     * Get facebookID
+     * Get facebookId
      *
      * @return string
      */
-    public function getFacebookID()
+    public function getFacebookId()
     {
-        return $this->facebookID;
+        return $this->facebookId;
     }
 
     /**
-     * Set googleID
+     * Set googleId
      *
-     * @param string $googleID
+     * @param string $googleId
      *
      * @return User
      */
-    public function setGoogleID($googleID)
+    public function setGoogleId($googleId)
     {
-        $this->googleID = $googleID;
+        $this->googleId = $googleId;
 
         return $this;
     }
 
     /**
-     * Get googleID
+     * Get googleId
      *
      * @return string
      */
-    public function getGoogleID()
+    public function getGoogleId()
     {
-        return $this->googleID;
+        return $this->googleId;
     }
 }

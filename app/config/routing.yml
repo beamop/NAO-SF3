@@ -21,4 +21,7 @@ _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
 google_login:
-    path: /login/check-google
+    path: /connect/check-google
+
+facebook_login:
+    path: /connect/check-facebook

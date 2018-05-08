@@ -23,15 +23,18 @@ security:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
             oauth:
+                # Declare the OAuth Callback URLs for every resource owner
+                # They will be added in the routing.yml file too later
                 resource_owners:
-                    facebook:           "/login/check-facebook"
-                    google:             "/login/check-google"
+                    facebook:           "/connect/check-facebook"
+                    google:             "/connect/check-google"
                 login_path:        /login
                 use_forward:       false
                 failure_path:      /login
 
                 oauth_user_provider:
-                    service: my.oauth_aware.user_provider.service
+                    #service: my.oauth_aware.user_provider.service
+                    service: app.fos_user.oauth_provider
 
             logout:       true
             anonymous:    true

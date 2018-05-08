@@ -128,24 +128,30 @@
                                     <p class="form-row form-row-wide">
                                         <label for="username">Nom d'utilisateur ou e-mail
                                             <i class="im im-icon-Male"></i>
-                                            <input type="text" class="form-control" id="username" name="_username" required="required" autocomplete="username" />
+                                            <input type="text" class="form-control" name="_username" required="required" autocomplete="username" />
                                         </label>
                                     </p>
 
                                     <p class="form-row form-row-wide">
                                         <label for="password">Mot de passe
                                             <i class="im im-icon-Lock-2"></i>
-                                            <input type="password" class="form-control" id="password" name="_password" required="required" autocomplete="current-password" />
+                                            <input type="password" class="form-control" name="_password" required="required" autocomplete="current-password" />
                                         </label>
                                         <span class="lost_password">
                                         <a href="{{ path('fos_user_resetting_request') }}" >Mot de passe oublié ?</a>
                                         </span><br>
                                         <span class="lost_password">
                                         <a href="{{ path('fos_user_registration_register') }}" >Vous n'avez pas de compte ? Inscrivez-vous !</a>
-                                        </span>
+                                        </span><br><br>
+                                        <span class="lost_password">
+                                        <a href="{{ path('hwi_oauth_service_redirect', { 'service': 'facebook' }) }}" >S'identifier avec Facebook</a>
+                                        </span><br>
+                                        <span class="lost_password">
+                                        <a href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}" >S'identifier avec Google</a>
+                                        </span><br>
                                     </p>
 
-                                    <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="Se connecter" />
+                                    <input type="submit" class="btn btn-primary" name="_submit" value="Se connecter" />
                                 </form>
                             </div>
                         </div>
