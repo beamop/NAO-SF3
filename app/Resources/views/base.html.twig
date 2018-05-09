@@ -51,6 +51,11 @@
                         </button>
                     </div>
 
+                    <!-- Bouton Observer en mode mobile -->
+                    <div style="display: none; float: right;" class="visible-xs-inline-block">
+                        <a href="{{ path('nao_ajouter_observation') }}" style="font-size: 30px; position: absolute; right: 10px; margin-top: 8px;" title="Observer"><i class="sl sl-icon-plus"></i></a>
+                    </div>
+
                     <!-- Main Navigation -->
                     <nav id="navigation" class="style-1">
                         <ul id="responsive">
@@ -58,6 +63,13 @@
                             <li>
                                 <a class="current" href="{{ path('nao_accueil') }}">Accueil</a>
                             </li>
+
+                            {% if is_granted(['ROLE_PARTICULIER']) %}
+                                <li class="visible-xs-block"><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
+                            {% else %}
+                                <li class="visible-xs-block"><a href="#sign-in-dialog">Se connecter</a></li>
+                            {% endif %}
+                            <li class="visible-xs-block"><a href="{{ path('nao_ajouter_observation') }}">Observer</a></li>
 
 
                             <li>
@@ -92,7 +104,7 @@
 
 
                 <!-- Right Side Content / End -->
-                <div class="right-side">
+                <div class="right-side hidden-xs">
                     <div class="header-widget">
                         {% if is_granted(['ROLE_PARTICULIER']) %}
                             <a href="{{ path('fos_user_security_logout') }}" class="sign-in"><i class="sl sl-icon-login"></i> Se déconnecter</a>
@@ -142,14 +154,13 @@
                                         </span><br>
                                         <span class="lost_password">
                                         <a href="{{ path('fos_user_registration_register') }}" >Vous n'avez pas de compte ? Inscrivez-vous !</a>
-                                        </span><br><br>
-                                        <span class="lost_password">
-                                        <a href="{{ path('hwi_oauth_service_redirect', { 'service': 'facebook' }) }}" >S'identifier avec Facebook</a>
-                                        </span><br>
-                                        <span class="lost_password">
-                                        <a href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}" >S'identifier avec Google</a>
-                                        </span><br>
+                                        </span>
+
                                     </p>
+                                    <ul class="share-buttons margin-bottom-0">
+                                        <li><a class="fb-share" href="{{ path('hwi_oauth_service_redirect', { 'service': 'facebook' }) }}"><i class="fa fa-facebook"></i> S'identifier avec Facebook</a></li>
+                                        <li><a class="gplus-share" href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}"><i class="fa fa-google"></i> S'identifier avec Google</a></li>
+                                    </ul>
 
                                     <input type="submit" class="btn btn-primary" name="_submit" value="Se connecter" />
                                 </form>
