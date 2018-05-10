@@ -72,6 +72,10 @@
                                     <input type="password" class="search-field" id="password" name="_password" required="required" autocomplete="current-password" />
                                 </div>
                             </div>
+                            <ul class="share-buttons margin-bottom-0">
+                                <li><a class="fb-share" href="{{ path('hwi_oauth_service_redirect', { 'service': 'facebook' }) }}"><i class="fa fa-facebook"></i> S'identifier avec Facebook</a></li>
+                                <li><a class="gplus-share" href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}"><i class="fa fa-google"></i> S'identifier avec Google</a></li>
+                            </ul>
                         </div>
                         <!-- Section / End -->
 

@@ -1,17 +1,41 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Observation de {{ observation.user.username }} : {{ observation.bird.nomCourant }} - NAO{% endblock %}
+
 {% block content %}
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar" class="gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>Observations</h2><span>Détails d'une observation</span>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="{{ path('nao_accueil') }}">Accueil</a></li>
+                            <li><a href="{{ path('nao_liste_observation') }}">Observations</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% if observation %}
         <!-- Content
         ================================================== -->
         <div class="container">
             <div class="row sticky-wrapper">
-                <div class="col-lg-8 col-md-8 padding-right-30 margin-top-60">
+                <div class="col-lg-8 col-md-8 padding-right-30">
 
                     <!-- Titlebar -->
                     <div id="titlebar" class="listing-titlebar">
                         <div class="listing-titlebar-title">
-                            <h3>{{ observation.bird.nomCourant }} <span class="listing-tag">Observation</span></h3>
+                            <h3>{{ observation.bird.nomCourant }}<!--<span class="listing-tag">Observation</span>--></h3>
                             <span>
                                 <a href="#listing-location" class="listing-address">
                                     <i class="fa fa-map-marker"></i>
@@ -24,23 +48,23 @@
                     <!-- Listing Nav -->
                     <div class="listing-nav-container">
                         <ul class="listing-nav">
-                            <li><a href="#bird-info" class="active">Informations de l'oiseau</a></li>
-                            <li><a href="#listing-overview">Message de l'observateur</a></li>
+                            <!--<li><a href="#bird-info" class="active">Informations de l'oiseau</a></li>-->
+                            <li><a href="#listing-overview">Commentaire de l'observateur</a></li>
                             <li><a href="#listing-location">Localisation de l'oiseau</a></li>
                         </ul>
                     </div>
 
                     <!-- Informations de l'oiseau -->
+                    <!--
                     <div id="bird-info" class="listing-section margin-bottom-10">
-
                         <div id="info-text">Récuperation des informations...</div>
-
                     </div>
+                    -->
 
                     <!-- Message de l'observateur -->
                     <div id="listing-overview" class="listing-section">
 
-                        <h3 class="listing-desc-headline margin-top-15 margin-bottom-30">Message de l'observateur</h3>
+                        <h3 class="listing-desc-headline margin-top-15 margin-bottom-30">Commentaire de l'observateur</h3>
                         <!-- Description -->
 
                         <p>
@@ -53,7 +77,7 @@
                             {% if observation.individuals > 1 %}
                                 <li>Plusieurs individus observés</li>
                             {% endif %}
-                            <li>Observation valide</li>
+                            <li>Observation validée</li>
                             {% if observation.image %}
                                 <li>Photographie</li>
                             {% endif %}
@@ -77,25 +101,20 @@
 
                 <!-- Sidebar
                 ================================================== -->
-                <div class="col-lg-4 col-md-4 margin-top-75 sticky">
+                <div class="col-lg-4 col-md-4 sticky">
 
 
                     <!-- Verified Badge -->
                     <div class="verified-badge with-tip" data-tip-content="L'observation a été validée par un membre de l'équipe de NAO.">
-                        <i class="sl sl-icon-check"></i> Observation valide
+                        <i class="sl sl-icon-check"></i> Observation validée
                     </div>
 
                     <!-- Contact -->
                     <div class="boxed-widget margin-top-35">
                         <div class="hosted-by-title">
                             <h4><span>Observation de</span> <a>{{ observation.user.username }}</a></h4>
-                            <a href="pages-user-profile.html" class="hosted-by-avatar"><img src="images/dashboard-avatar.jpg" alt=""></a>
+                            <img src="{{ observation.user.email|gravatar(70,'mm') }}" alt="{{ observation.user.username }}">
                         </div>
-                        <ul class="listing-details-sidebar">
-                            <li><i class="fa fa-envelope-o"></i> <a href="#">{{ observation.user.email }}</a></li>
-                        </ul>
-
-                        <a href="mailto:{{ observation.user.email }}" class="send-message-to-owner button popup-with-zoom-anim"><i class="sl sl-icon-envelope-open"></i>Contacter l'observateur</a>
                     </div>
                     <!-- Contact / End-->
 
