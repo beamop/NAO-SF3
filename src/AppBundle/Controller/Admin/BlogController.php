@@ -11,11 +11,13 @@ use AppBundle\Entity\Post;
 use AppBundle\Entity\Observation;
 use AppBundle\Form\PostType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class BlogController
  *
  * @Route("/gestion/blog")
+ * @Security("has_role('ROLE_ADMIN')")
  *
  * @package AppBundle\Controller\Admin
  */

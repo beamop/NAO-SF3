@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AdminController extends Controller
 {
@@ -38,6 +39,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion/en-attente/comment", name="nao_validation_comment")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function validationCommentAction()
     {
@@ -120,6 +122,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion/utilisateur", name="nao_utilisateur_gestion")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function utilisateurGestionAction()
     {
@@ -144,6 +147,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion/utilisateur/{id}/promote", name="nao_utilisateur_promote")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function promoteUtilisateurAction($id)
     {
@@ -162,6 +166,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion/utilisateur/{id}/disable", name="nao_utilisateur_disable")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function disableUtilisateurAction($id)
     {
@@ -180,6 +185,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/gestion/utilisateur/{id}/enable", name="nao_utilisateur_enable")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function enableUtilisateurAction($id)
     {

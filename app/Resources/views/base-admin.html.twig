@@ -132,19 +132,24 @@
                     <li><a href="{{ path('nao_liste_gestion') }}"><i class="fa fa-list-ul"></i> Liste des observations</a></li>
                 </ul>
 
+                {% if "ROLE_ADMIN" in app.user.roles %}
                 <ul data-submenu-title="Blog">
                     <li><a href="{{ path('admin_post_ajouter') }}"><i class="fa fa-plus-circle"></i> Ajouter un article</a></li>
                     <li><a href="{{ path('admin_blog') }}"><i class="fa fa-list-ul"></i> Liste des articles</a></li>
                     <li><a href="{{ path('admin_comment') }}"><i class="fa fa-comment"></i> Liste des commentaires </a></li>
                 </ul>
 
+
                 <ul data-submenu-title="Utilisateurs">
                     <li><a href="{{ path('nao_utilisateur_gestion') }}"><i class="fa fa-user"></i> Gérer les utilisateurs</a></li>
                 </ul>
+                {% endif %}
 
                 <ul data-submenu-title="En attente">
                     <li><a href="{{ path('nao_validation_observation') }}"><i class="fa fa-clock-o"></i> Observations <span class="nav-tag messages">{{ observationsOnHold|length }}</span></a></li>
+                    {% if "ROLE_ADMIN" in app.user.roles %}
                     <li><a href="{{ path('nao_validation_comment') }}"><i class="fa fa-clock-o"></i> Commentaires <span class="nav-tag messages">{{ commentsOnHold|length }}</span></a></li>
+                    {% endif %}
                 </ul>
 
                 <ul data-submenu-title="Compte">
