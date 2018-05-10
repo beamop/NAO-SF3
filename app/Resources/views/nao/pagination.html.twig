@@ -8,9 +8,9 @@
                 <ul>
                     {% if pagination.page>1 %}
                         <li><a href="{{ path(pagination.route,
-                                pagination.route_params|merge({'page': 1})) }}"><i class="sl sl-icon-control-rewind"></i></a></li>
+                                pagination.route_params|merge({'page': 1})) }}"><i class="fa fa-angle-double-left"></i></a></li>
                         <li><a href="{{ path(pagination.route,
-                                pagination.route_params|merge({'page': pagination.page-1})) }}"><i class="sl sl-icon-arrow-left"></i></a></li>
+                                pagination.route_params|merge({'page': pagination.page-1})) }}"><i class="fa fa-angle-left"></i></a></li>
                     {% endif %}
                     {#display p numbers only from p-4 to p+4 but don't go <1 or >pages_count#}
                     {% for p in range(max(pagination.page-4, 1),
@@ -21,9 +21,9 @@
                     {% endfor %}
                     {% if pagination.page<pagination.pages_count %}
                         <li><a href="{{ path(pagination.route,
-                                pagination.route_params|merge({'page': pagination.page+1})) }}"><i class="sl sl-icon-arrow-right"></i></a></li>
+                                pagination.route_params|merge({'page': pagination.page+1})) }}"><i class="fa fa-angle-right"></i></a></li>
                         <li><a href="{{ path(pagination.route,
-                                pagination.route_params|merge({'page': pagination.pages_count})) }}"><i class="sl sl-icon-control-forward"></i></a></li>
+                                pagination.route_params|merge({'page': pagination.pages_count})) }}"><i class="fa fa-angle-double-right"></i></a></li>
                     {% endif %}
                 </ul>
             </nav>
