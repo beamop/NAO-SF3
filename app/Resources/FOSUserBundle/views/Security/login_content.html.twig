@@ -79,7 +79,11 @@
                         </div>
                         <!-- Section / End -->
 
-                        <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="Se connecter" style="margin: 25px 0 25px 0;"/>
+                        <ul class="share-buttons">
+                            <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="Se connecter" style="margin: 25px 15px 25px 0;"/>
+                            <li><a class="fb-share" href="{{ path('hwi_oauth_service_redirect', { 'service': 'facebook' }) }}"><i class="fa fa-facebook"></i> S'identifier avec Facebook</a></li>
+                            <li><a class="gplus-share" href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}"><i class="fa fa-google"></i> S'identifier avec Google</a></li>
+                        </ul>
                     </form>
                 </div>
             </div>
