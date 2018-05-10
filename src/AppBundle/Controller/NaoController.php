@@ -204,7 +204,7 @@ class NaoController extends Controller
     }
 
     /**
-     * @Route("/observation/liste/{page}", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="nao_liste_observation")
+     * @Route("/observations/{page}", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="nao_liste_observation")
      */
     public function listeObservationAction($page)
     {
