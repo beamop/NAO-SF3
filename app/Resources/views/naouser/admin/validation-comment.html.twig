@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="buttons-to-right">
                                     <a href="{{ path('admin_comment_status', {'id':comment.id, 'status':constant('AppBundle\\Entity\\Comment::REJECTED')}) }}" class="button gray reject"><i class="sl sl-icon-close"></i> Supprimer</a>
-                                    <a href="{{ path('admin_comment_status', {'id':comment.id, 'status':constant('AppBundle\\Entity\\Comment::PUBLISHED')}) }}" class="button gray approve"><i class="sl sl-icon-close"></i> Valider</a>
+                                    <a href="{{ path('admin_comment_status', {'id':comment.id, 'status':constant('AppBundle\\Entity\\Comment::PUBLISHED')}) }}" class="button gray approve"><i class="sl sl-icon-check"></i> Valider</a>
                                 </div>
                             </li>
                         {% endfor %}
