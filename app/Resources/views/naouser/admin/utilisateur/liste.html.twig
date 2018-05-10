@@ -40,11 +40,12 @@
                     <ul>
 
                         {% for utilisateur in utilisateurs %}
-                            <li class="approved-booking">
+                            {% dump(utilisateur) %}
+                            <li class="{% if not utilisateur.enabled %}canceled{% else %}approved{% endif %}-booking">
                                 <div class="list-box-listing bookings">
                                     <div class="list-box-listing-content">
                                         <div class="inner">
-                                            <h3>{{ utilisateur.username }}</h3>
+                                            <h3>{{ utilisateur.username }}{% if not utilisateur.enabled %} <span class="booking-status">Désactivé</span>{% endif %}</h3>
 
                                             <div class="inner-booking-list">
                                                 <h5>E-mail de l'utilisateur:</h5>
@@ -69,11 +70,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="buttons-to-right">
                                 {% if "ROLE_NATURALISTE" not in utilisateur.roles and "ROLE_ADMIN" not in utilisateur.roles %}
-                                    <div class="buttons-to-right">
                                         <a href="{{ path('nao_utilisateur_promote', {'id':utilisateur.id} ) }}" class="button gray approve"><i class="fa fa-check-square-o"></i> Passer naturaliste</a>
-                                    </div>
                                 {% endif %}
+                                {% if "ROLE_ADMIN" not in utilisateur.roles and utilisateur.enabled %}
+                                        <a href="{{ path('nao_utilisateur_disable', {'id':utilisateur.id} ) }}" class="button gray reject"><i class="sl sl-icon-close"></i> Désactiver l'utilisateur</a>
+                                {% endif %}
+                                {% if not utilisateur.enabled %}
+                                    <a href="{{ path('nao_utilisateur_enable', {'id':utilisateur.id} ) }}" class="button gray approve"><i class="fa fa-check-square-o"></i> Activer l'utilisateur</a>
+                                {% endif %}
+                                </div>
                             </li>
                         {% endfor %}
 
