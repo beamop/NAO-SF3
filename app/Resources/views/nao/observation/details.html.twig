@@ -57,7 +57,7 @@
                     <!-- Informations de l'oiseau -->
                     <div id="bird-info" class="listing-section margin-bottom-10">
                         <div id="info-text">Récuperation des informations...</div>
-                        <blockquote>source : <a href="https://fr.wikipedia.org/wiki/{{ observation.bird.nomCourant }}">Wikipedia</a></blockquote>
+                        <blockquote class="hidden" id="source">source : <a href="https://fr.wikipedia.org/wiki/{{ observation.bird.nomCourant|url_encode }}" target="_blank">Wikipedia</a></blockquote>
                     </div>
 
                     <!-- Message de l'observateur -->
@@ -144,22 +144,33 @@
 {% block javascripts %}
     {% if observation %}
         <script>
-            $(document).ready(function () {
+            function fetchData() {
                 $.ajax({
                     type: "GET",
-                    url: "https://fr.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=1&page={{ observation.bird.nomCourant }}&callback=?",
+                    url: "https://fr.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=1&page={{ observation.bird.nomCourant|url_encode }}&callback=?",
                     contentType: "application/json; charset=utf-8",
                     async: !0,
                     dataType: "json",
                     success: function (data, textStatus, jqXHR) {
                         var markup = data.parse.text["*"];
                         var blurb = $('<div></div>').html(markup);
-                        $('#info-text').html($(blurb).find('p'))
+                        $('#info-text').html($(blurb).find('p'));
+                        $('#source').removeClass('hidden')
                     },
-                    error: function (errorMessage) {
-                        console.log('hey')
-                    }
+                    error: function (errorMessage) {}
                 })
+            }
+
+            function errorFetchingData() {
+                var blurb = document.getElementById('info-text');
+                if (blurb.innerHTML === "Récuperation des informations...") {
+                    $('#info-text').html('Aucune information n\'a été trouvée.')
+                }
+            }
+
+            $(document).ready(function() {
+                fetchData();
+                setInterval(errorFetchingData, 5000);
             });
 
             var map;
