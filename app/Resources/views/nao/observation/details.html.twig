@@ -144,34 +144,7 @@
 {% block javascripts %}
     {% if observation %}
         <script>
-            function fetchData() {
-                $.ajax({
-                    type: "GET",
-                    url: "https://fr.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=1&page={{ observation.bird.nomCourant|url_encode }}&callback=?",
-                    contentType: "application/json; charset=utf-8",
-                    async: !0,
-                    dataType: "json",
-                    success: function (data, textStatus, jqXHR) {
-                        var markup = data.parse.text["*"];
-                        var blurb = $('<div></div>').html(markup);
-                        $('#info-text').html($(blurb).find('p'));
-                        $('#source').removeClass('hidden')
-                    },
-                    error: function (errorMessage) {}
-                })
-            }
-
-            function errorFetchingData() {
-                var blurb = document.getElementById('info-text');
-                if (blurb.innerHTML === "Récuperation des informations...") {
-                    $('#info-text').html('Aucune information n\'a été trouvée.')
-                }
-            }
-
-            $(document).ready(function() {
-                fetchData();
-                setInterval(errorFetchingData, 5000);
-            });
+            function fetchData(){$.ajax({type:"GET",url:"https://fr.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=1&page={{ observation.bird.nomCourant|url_encode }}&callback=?",contentType:"application/json; charset=utf-8",async:!0,dataType:"json",success:function(t,e,n){var o=t.parse.text["*"],a=$("<div></div>").html(o);$("#info-text").html($(a).find("p")),$("#source").removeClass("hidden")},error:function(t){}})}function errorFetchingData(){"Récuperation des informations..."===document.getElementById("info-text").innerHTML&&$("#info-text").html("Aucune information n'a été trouvée.")}$(document).ready(function(){fetchData(),setInterval(errorFetchingData,5e3)});
 
             var map;
             var pos = {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} };
