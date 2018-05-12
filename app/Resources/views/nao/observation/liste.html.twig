@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Les oiseaux de France{% endblock %}
+{% block description %}Notre carte permet de localiser les observations des oiseaux de France{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
 
@@ -56,13 +59,6 @@
 
                 <!-- Sorting - Filtering Section -->
                 <div class="row margin-bottom-25 margin-top-40">
-
-                    <div class="col-md-6">
-                        <!-- Layout Switcher -->
-                        <div class="layout-switcher">
-                            <a href="#" class="grid active"><i class="fa fa-th"></i></a>
-                        </div>
-                    </div>
 
                     <!-- Panel Dropdown-->
                     <div class="panel-dropdown float-right">

@@ -3,8 +3,11 @@
 
     <!-- Basic Page Needs
     ================================================== -->
-    <title>{% block title %}NAO (Nos Amis les Oiseaux){% endblock %}</title>
+    <title>{% block title %}Nos Amis les Oiseaux{% endblock %} - NAO</title>
     <meta charset="utf-8">
+    {% if block("description") is defined %}
+        <meta name="description" content="{{ block('description') }}">
+    {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- CSS
@@ -237,7 +240,7 @@
                     </div>
 
                     <ul class="social-icons margin-top-20">
-                        <li><a class="facebook" href="https://www.facebook.com/nao.asso"><i class="icon-facebook"></i></a></li>
+                        <li><a class="facebook" href="https://www.facebook.com/naoassociation"><i class="icon-facebook"></i></a></li>
                         <li><a class="twitter" href="https://twitter.com/nao_asso"><i class="icon-twitter"></i></a></li>
                     </ul>
 
