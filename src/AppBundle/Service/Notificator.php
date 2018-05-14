@@ -19,12 +19,18 @@ class Notificator
     }
 
     // Méthode pour notifier par e-mail un administrateur
-    public function notifyByEmail($datas, $setBcc = null)
+    public function notifyByEmail($datas, $setTo = null, $setBcc = null)
     {
+        if ($setTo) {
+            $mailTo = $setTo;
+        } else {
+            $mailTo = $this->mailTo;
+        }
+
         $message = \Swift_Message::newInstance()
             ->setSubject("[NAO] ".$datas['sujet'])
             ->setFrom($this->mailFrom)
-            ->setTo($this->mailTo)
+            ->setTo($mailTo)
             ->setBody($this->twig->render('nao/email/notification.html.twig', array(
                 'datas' => $datas
             )))

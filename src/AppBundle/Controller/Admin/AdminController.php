@@ -73,6 +73,13 @@ class AdminController extends Controller
 
        $entityManager->flush($observation);
 
+       $datas['sujet'] = "Observation validée";
+       $nom = $observation->getUser()->getUsername();
+       $datas['contenu'] = "Bonjour " . $nom . ",<br><br>Votre observation :<br>" . $observation->getCommentaire() . "<br>a été validée !";
+
+       $notificator = $this->container->get('nao.notificator');
+       $notificator->notifyByEmail($datas);
+
        return $this->redirectToRoute('nao_validation_observation');
     }
 
@@ -90,10 +97,17 @@ class AdminController extends Controller
         $entityManager->remove($observation);
         $entityManager->flush();
 
+        $datas['sujet'] = "Observation rejetée";
+        $nom = $observation->getUser()->getUsername();
+        $datas['contenu'] = "Bonjour " . $nom . ",<br><br>Nous sommes navrés mais votre observation :<br>" . $observation->getCommentaire() . "<br>a été rejetée.";
+
+        $notificator = $this->container->get('nao.notificator');
+        $notificator->notifyByEmail($datas);
+
         $response = new Response();
         $response->send();
 
-        return $this->redirectToRoute('nao_admin');
+        return $this->redirectToRoute('nao_validation_observation');
     }
 
     /**
