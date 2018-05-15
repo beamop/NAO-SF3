@@ -92,7 +92,7 @@ class Post
      */
     public function __construct()
     {
-        $this->createdAt      = new \DateTime();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -225,6 +225,8 @@ class Post
         if($image !== null) {
             $this->image = $image;
             return $this;
+        } else {
+            $this->image = $image;
         }
 
     }
