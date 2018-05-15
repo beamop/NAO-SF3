@@ -159,6 +159,26 @@ ivory_ck_editor:
             width: '100%'
             language: fr
             toolbar: basic
+        test_config:
+            jquery: true
+            heihgt: '250px'
+            width: '100%'
+            language: fr
+            toolbar: [
+                     		{ name: 'document', items: [ 'Source', '-', 'Templates' ] },
+                     		{ name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+                     		{ name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-' ] },
+                     		'/',
+                     		{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
+                     		{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                     		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+                     		{ name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
+                     		'/',
+                     		{ name: 'styles', items: [ 'Styles', 'Format', 'FontSize' ] },
+                     		{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+                     		{ name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+                     		{ name: 'about', items: [ 'About' ] }
+                     	]
 
 welp_mailchimp:
     api_key: '%mailchimp_api_key%'

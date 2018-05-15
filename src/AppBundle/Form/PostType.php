@@ -16,7 +16,7 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title', Type\TextType::class)
-            ->add('content', CKEditorType::class, array('config_name' => 'basic_config'))
+            ->add('content', CKEditorType::class, array('config_name' => 'test_config'))
             ->add('image', Type\FileType::class, array(
                 'data_class' => null,
                 'required' => false
