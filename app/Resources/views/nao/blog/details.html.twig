@@ -42,6 +42,9 @@
                         <!-- Blog Post -->
                         <div class="blog-post single-post">
 
+                            <!-- Img -->
+                            <img class="post-img" src="{{ asset('uploads/blog/' ~ article.image | default('nao_blog_default.jpeg')) | imagine_filter('thumb_lg') }}" alt="">
+
                             <!-- Content -->
                             <div class="post-content">
 
