@@ -25,10 +25,19 @@
 
             <!-- Listings -->
             <div class="col-lg-12 col-md-12">
+
+                {% for flash_message in app.session.flashBag.get('success') %}
+                    <div class="notification success closeable">
+                        <p><span>Super!</span> {{ flash_message }}</p>
+                        <a class="close" href="#"></a>
+                    </div>
+
+                    <br>
+                {% endfor %}
+
                 <div class="dashboard-list-box margin-top-0">
 
                     <ul>
-
                         {% for observation in observations %}
                             <li class="approved-booking">
                                 <div class="list-box-listing bookings">
@@ -63,11 +72,10 @@
                                     </div>
                                 </div>
                                 <div class="buttons-to-right">
-                                    <a href="{{ path('nao_validation_observation_supprimer', {'id':observation.id}) }}" class="button gray reject"><i class="sl sl-icon-close"></i> Supprimer</a>
+                                    <a href="{{ path('nao_observation_supprimer', {'id':observation.id}) }}" class="button gray reject"><i class="sl sl-icon-close"></i> Supprimer</a>
                                 </div>
                             </li>
                         {% endfor %}
-
                     </ul>
                 </div>
             </div>

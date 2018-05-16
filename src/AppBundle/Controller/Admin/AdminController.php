@@ -16,7 +16,7 @@ class AdminController extends Controller
     /**
      * @Route("/gestion/en-attente/observation", name="nao_validation_observation")
      */
-    public function validationObservationAction()
+    public function validationObservationEnAttenteAction()
     {
         $observationsOnHold = $this->getDoctrine()
             ->getRepository(Observation::class)
@@ -41,7 +41,7 @@ class AdminController extends Controller
      * @Route("/gestion/en-attente/comment", name="nao_validation_comment")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function validationCommentAction()
+    public function validationCommentEnAttenteAction()
     {
         $observationsOnHold = $this->getDoctrine()
             ->getRepository(Observation::class)
@@ -61,7 +61,7 @@ class AdminController extends Controller
      * @Route("/gestion/en-attente/valider/{id}", name="nao_validation_observation_valider", requirements={"id": "\d+"})
      * Method({"GET", "POST"})
      */
-    public function validerAction(Request $request, $id)
+    public function validerObservationEnAttenteAction(Request $request, $id)
     {
         $observation = $this->getDoctrine()
             ->getRepository(Observation::class)
@@ -87,7 +87,7 @@ class AdminController extends Controller
      * @Route("/gestion/en-attente/supprimer/{id}", name="nao_validation_observation_supprimer", requirements={"id": "\d+"})
      * Method({"GET", "POST"})
      */
-    public function supprimerAction(Request $request, $id)
+    public function supprimerObservationEnAttenteAction(Request $request, $id)
     {
         $observation = $this->getDoctrine()
             ->getRepository(Observation::class)
@@ -108,6 +108,25 @@ class AdminController extends Controller
         $response->send();
 
         return $this->redirectToRoute('nao_validation_observation');
+    }
+
+    /**
+     * @Route("/gestion/observation/supprimer/{id}", name="nao_observation_supprimer", requirements={"id": "\d+"})
+     * Method({"GET", "POST"})
+     */
+    public function supprimerObservationAction($id)
+    {
+        $observation = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($observation);
+        $entityManager->flush();
+
+        $this->addFlash("success", "L'observation a bien été supprimée.");
+
+        return $this->redirectToRoute('nao_liste_gestion');
     }
 
     /**
