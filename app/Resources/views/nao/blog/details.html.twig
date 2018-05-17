@@ -58,10 +58,10 @@
 
                                 <!-- Share Buttons -->
                                 <ul class="share-buttons margin-top-40 margin-bottom-0">
-                                    <li><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=Super+article+de+l'association+NAO,+à+lire+{{ app.request.uri }}"><i class="fa fa-facebook"></i> Partager sur Facebook</a></li>
-                                    <li><a class="twitter-share" href="https://twitter.com/home?status=Super+article+de+l'association+NAO,+à+lire+{{ app.request.uri }}"><i class="fa fa-twitter"></i> Partager sur Twitter</a></li>
-                                    <li><a class="gplus-share" href="https://plus.google.com/share?url=Super+article+de+l'association+NAO,+à+lire+{{ app.request.uri }}"><i class="fa fa-google-plus"></i> Partager sur Google+</a></li>
-                                    <li><a class="pinterest-share" href="https://pinterest.com/pin/create/button/?url={{ app.request.uri }}&media={{ asset('uploads/blog/' ~ article.image) | imagine_filter('thumb_lg') }}"><i class="fa fa-pinterest-p"></i> Partager sur Pinterest</a></li>
+                                    <li><a class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri|url_encode }}"><i class="fa fa-facebook"></i> Partager sur Facebook</a></li>
+                                    <li><a class="twitter-share" href="https://twitter.com/home?status={{ app.request.uri|url_encode }}"><i class="fa fa-twitter"></i> Partager sur Twitter</a></li>
+                                    <li><a class="gplus-share" href="https://plus.google.com/share?url={{ app.request.uri|url_encode }}"><i class="fa fa-google-plus"></i> Partager sur Google+</a></li>
+                                    <li><a class="pinterest-share" href="https://pinterest.com/pin/create/button/?url={{ app.request.uri|url_encode }}&media={{ asset('uploads/blog/' ~ article.image) | imagine_filter('thumb_lg')|url_encode }}"><i class="fa fa-pinterest-p"></i> Partager sur Pinterest</a></li>
                                 </ul>
                                 <div class="clearfix"></div>
 
