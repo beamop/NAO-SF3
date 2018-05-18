@@ -369,33 +369,8 @@
         {% endjavascripts %}
 
         <script>
-            var openPhotoSwipe = function() {
-                var pswpElement = document.querySelectorAll('.pswp')[0];
-
-                // build items array
-                var items = [
-                    {
-                        src: '{{ asset('uploads/observation/' ~ observation.image) | imagine_filter('thumb_bl') }}',
-                        w: 900,
-                        h: 500
-                    }
-                ];
-
-                // define options (if needed)
-                var options = {
-                    // optionName: 'option value'
-                    // for example:
-                    index: 0 // start at first slide
-                };
-
-                // Initializes and opens PhotoSwipe
-                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-                gallery.init();
-            }
-
-            $("#photoswipe").click(function () {
-                openPhotoSwipe();
-            })
+            var openPhotoSwipe=function(){var pswpElement=document.querySelectorAll('.pswp')[0];var items=[{src:'{{ asset('uploads/observation/' ~ observation.image) | imagine_filter('thumb_bl') }}',w:900,h:500}];var options={index:0};var gallery=new PhotoSwipe(pswpElement,PhotoSwipeUI_Default,items,options);gallery.init();}
+            $("#photoswipe").click(function(){openPhotoSwipe();})
         </script>
     {% endif %}
 {% endblock %}
