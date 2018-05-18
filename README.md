@@ -7,4 +7,4 @@ Les participants prendront part à un programme de recherche visant à étudier 
 
 Les utilisateurs principaux de l’application sont les particuliers et les naturalistes (professionnels) qui valident notamment les saisies sur l’application. Ces derniers ont exprimé leur intérêt pour pouvoir effectuer de la saisie sur le terrain et ouvrir les observations aux particuliers, grâce aux smartphones. Néanmoins, tout le monde n’étant pas équipé de smartphones, cela ne peut pas être l’unique méthode de saisie : une interface web sera aussi nécessaire. 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/14b87a5b2a7a4cacb175ac4994384b73)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=beamop/NAO-SF3&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9eb6f1a98d374bbd8ebc5b28a7b67372)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=beamop/NAO-SF3&amp;utm_campaign=Badge_Grade)
