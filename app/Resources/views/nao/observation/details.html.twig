@@ -31,6 +31,10 @@
         <div class="container">
             <div class="row sticky-wrapper">
                 <div class="col-lg-8 col-md-8 padding-right-30">
+                    <!-- Image -->
+                    <div class="listing-item-image">
+                        <img src="{{ asset('uploads/observation/' ~ observation.image) | imagine_filter('thumb_bl') }}" alt="{{ observation.bird.nomCourant }}">
+                    </div>
 
                     <!-- Titlebar -->
                     <div id="titlebar" class="listing-titlebar">
