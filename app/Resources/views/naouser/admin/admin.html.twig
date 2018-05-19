@@ -36,6 +36,16 @@
                 </div>
             </div>
         {% endif %}
+        {% if commentsOnHold|length > 0 %}
+            <div class="notification success closeable margin-bottom-30">
+                {% if commentsOnHold|length > 1 %}
+                    <p>{{ commentsOnHold|length }} commentaires sont en attente de <strong>validation</strong>!</p>
+                {% else %}
+                    <p>{{ commentsOnHold|length }} commentaire est en attente de <strong>validation</strong>!</p>
+                {% endif %}
+                <a class="close" href="#"></a>
+            </div>
+        {% endif %}
 
         <!-- Content -->
         <div class="row">
