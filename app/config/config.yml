@@ -49,7 +49,12 @@ twig:
         mailer_user: '%mailer_user%'
         mailer_password: '%mailer_password%'
         upload_blog_directory: '%upload_blog_directory%'
-
+        
+services:
+    twig.extension.debug:
+        class: Twig_Extensions_Extension_Debug
+        tags:
+            - { name: twig.extension }
 
 # Doctrine Configuration
 doctrine:
@@ -201,7 +206,7 @@ welp_mailchimp:
                     public: true
 
 assetic:
-    node: /usr/local/bin/node
+    node: /usr/bin/node
     debug:          '%kernel.debug%'
     use_controller: '%kernel.debug%'
     bundles:
@@ -209,9 +214,9 @@ assetic:
     filters:
         cssrewrite: ~
         uglifycss:
-            bin: /usr/local/bin/uglifycss
+            bin: /usr/bin/uglifycss
         uglifyjs2:
-            bin: /usr/local/bin/uglifyjs
+            bin: /usr/bin/uglifyjs
 
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set
