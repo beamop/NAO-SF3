@@ -75,6 +75,9 @@ class AdminController extends Controller
 
        $datas['sujet'] = "Observation validée";
        $nom = $observation->getUser()->getUsername();
+       $email = $observation->getUser()->getEmail();
+       $datas['nom'] = $nom;
+       $datas['email'] = $email;
        $datas['contenu'] = "Bonjour " . $nom . ",<br><br>Votre observation :<br>" . $observation->getCommentaire() . "<br>a été validée !";
 
        $notificator = $this->container->get('nao.notificator');
@@ -99,6 +102,9 @@ class AdminController extends Controller
 
         $datas['sujet'] = "Observation rejetée";
         $nom = $observation->getUser()->getUsername();
+        $email = $observation->getUser()->getEmail();
+        $datas['nom'] = $nom;
+        $datas['email'] = $email;
         $datas['contenu'] = "Bonjour " . $nom . ",<br><br>Nous sommes navrés mais votre observation :<br>" . $observation->getCommentaire() . "<br>a été rejetée.";
 
         $notificator = $this->container->get('nao.notificator');
