@@ -49,12 +49,6 @@ twig:
         mailer_user: '%mailer_user%'
         mailer_password: '%mailer_password%'
         upload_blog_directory: '%upload_blog_directory%'
-        
-services:
-    twig.extension.debug:
-        class: Twig_Extensions_Extension_Debug
-        tags:
-            - { name: twig.extension }
 
 # Doctrine Configuration
 doctrine:

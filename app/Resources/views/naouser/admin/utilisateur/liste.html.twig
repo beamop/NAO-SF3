@@ -40,7 +40,6 @@
                     <ul>
 
                         {% for utilisateur in utilisateurs %}
-                            {% dump(utilisateur) %}
                             <li class="{% if not utilisateur.enabled %}canceled{% else %}approved{% endif %}-booking">
                                 <div class="list-box-listing bookings">
                                     <div class="list-box-listing-content">
