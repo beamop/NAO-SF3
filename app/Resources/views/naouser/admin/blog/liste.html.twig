@@ -54,7 +54,7 @@
                                     <div class="list-box-listing-img"><img src="{{ asset('uploads/blog/images/' ~ article.image) | imagine_filter('thumb_md') }}" alt="{{ article.title }}"></div>
                                     <div class="list-box-listing-content">
                                         <div class="inner">
-                                            <h3>{{ article.title }} {% if (article.status == 2) or (article.status == 3) %}<span class="booking-status">Visible en public</span>{% else %}<span class="booking-status" style="background-color: red;">Non visible en public</span>{% endif %}</h3>
+                                            <h3>{{ article.title }} {% if (article.status == 2) or (article.status == 3) %}<span class="booking-status">Public</span>{% else %}<span class="booking-status" style="background-color: red;">Privé</span>{% endif %}</h3>
 
                                             <div class="inner-booking-list">
                                                 <h5>Date de l'article:</h5>
