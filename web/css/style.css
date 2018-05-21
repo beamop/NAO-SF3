@@ -6808,11 +6808,11 @@ mark { border-radius: 4px; }
 .notification.notice,
 .notification.notice a,
 .notification.notice strong {
-    color: #3184ae
+    color: #204416
 }
 
 .notification.notice {
-    background-color: #E9F7FE;
+    background-color: #e6fcc6;
 }
 
 .notification.notice.large{
