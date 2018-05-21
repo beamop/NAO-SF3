@@ -24,3 +24,6 @@ parameters:
     google.client_secret: google_secret
     facebook.client_id: facebook_client_id
     facebook.client_secret: facebook_secret
+    node_path: /usr/bin/node
+    uglifycss_path: /usr/bin/uglifycss
+    uglifyjs2_path: /usr/bin/uglifyjs

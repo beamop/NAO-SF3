@@ -9,7 +9,7 @@
                 <div class="col-md-12">
 
                     <div class="user-profile-titlebar">
-                        <div class="user-profile-avatar"><img src="{{ asset('images/avatar.png') }}" alt="{{ app.user }}"></div>
+                        <div class="user-profile-avatar"><img src="{{ app.user.email|gravatar(70,'mm') }}" alt="{{ app.user }}"></div>
                         <div class="user-profile-name">
                             <h2>{{ app.user }}</h2><br>
                             {% if is_granted('ROLE_ADMIN') %}

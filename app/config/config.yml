@@ -200,7 +200,7 @@ welp_mailchimp:
                     public: true
 
 assetic:
-    node: /usr/bin/node
+    node: '%node_path%'
     debug:          '%kernel.debug%'
     use_controller: '%kernel.debug%'
     bundles:
@@ -208,9 +208,9 @@ assetic:
     filters:
         cssrewrite: ~
         uglifycss:
-            bin: /usr/bin/uglifycss
+            bin: '%uglifycss_path%'
         uglifyjs2:
-            bin: /usr/bin/uglifyjs
+            bin: '%uglifyjs2_path%'
 
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set

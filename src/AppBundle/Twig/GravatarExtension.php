@@ -5,14 +5,15 @@ namespace AppBundle\Twig;
 
 class GravatarExtension extends \Twig_Extension
 {
-    private $secure_request = false;
+    private $secure_request = true;
+
     public function getFilters()
     {
         return array(
             new \Twig_SimpleFilter('gravatar', array($this, 'gravatarFilter')),
-            new \Twig_SimpleFilter('sgravatar', array($this, 'secureGravatarFilter')),
         );
     }
+
     public function gravatarFilter($email, $size = null, $default = null)
     {
         $defaults = array(
@@ -38,10 +39,7 @@ class GravatarExtension extends \Twig_Extension
         }
         return $url;
     }
-    public function secureGravatarFilter($email, $size = null, $default = null)
-    {
-        $this->secure_request = true;
-    }
+
     public function getName()
     {
         return 'gravatar_extension';
